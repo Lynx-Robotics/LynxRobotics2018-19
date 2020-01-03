@@ -113,10 +113,10 @@ public class PIDDriving extends LinearOpMode {
             telemetry.update();
 
             // set power levels.
-            TL.setPower(-gamepad1.left_stick_y);
-            BL.setPower(-gamepad1.left_stick_y);
-            TR.setPower(gamepad1.right_stick_y);
-            BR.setPower(gamepad1.right_stick_y);
+            TL.setPower(gamepad1.left_stick_y - correction);
+            BL.setPower(gamepad1.left_stick_y - correction);
+            TR.setPower(gamepad1.right_stick_y + correction);
+            BR.setPower(gamepad1.right_stick_y + correction);
 //            TL.setPower(power - correction);
 //            BL.setPower(power - correction);
 //            TR.setPower(power + correction);
