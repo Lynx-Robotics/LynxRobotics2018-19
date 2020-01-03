@@ -113,6 +113,10 @@ public class PIDDriving extends LinearOpMode {
             telemetry.update();
 
             // set power levels.
+            TL.setPower(-gamepad1.left_stick_y);
+            BL.setPower(-gamepad1.left_stick_y);
+            TR.setPower(gamepad1.right_stick_y);
+            BR.setPower(gamepad1.right_stick_y);
 //            TL.setPower(power - correction);
 //            BL.setPower(power - correction);
 //            TR.setPower(power + correction);
@@ -280,16 +284,16 @@ public class PIDDriving extends LinearOpMode {
         pidStrafe.enable();
 
         if (gamepad1.dpad_left){
-            TL.setPower(strafeSpeed - correction);
-            BL.setPower(-strafeSpeed + correction);
-            BR.setPower(-strafeSpeed + correction);
-            TR.setPower(strafeSpeed - correction);
+            TL.setPower(strafeSpeed);
+            BL.setPower(-strafeSpeed);
+            BR.setPower(-strafeSpeed);
+            TR.setPower(strafeSpeed);
         }
         else if (gamepad1.dpad_right) {
-            TL.setPower(-strafeSpeed + correction);
-            BL.setPower(strafeSpeed - correction);
-            BR.setPower(strafeSpeed - correction);
-            TR.setPower(-strafeSpeed + correction);
+            TL.setPower(-strafeSpeed);
+            BL.setPower(strafeSpeed);
+            BR.setPower(strafeSpeed);
+            TR.setPower(-strafeSpeed);
         }
 
     }
