@@ -22,7 +22,6 @@ as opposed to the human player side.
  */
 
 @Autonomous(name = "auto1", group = "autonomous")
-@Disabled
 public class auto1 extends LinearOpMode {
 
     public DcMotor TL;
@@ -75,10 +74,10 @@ public class auto1 extends LinearOpMode {
         _-------------------------------------------------------------------
          */
 
-        strafeRight();
+        strafeLeft();
 
         runtime.reset();
-        while (opModeIsActive() && (runtime.seconds() < 1)) {
+        while (opModeIsActive() && (runtime.seconds() < 1.3)) {
             telemetry.addData("Relocating Package", true);
             telemetry.update();
         }
