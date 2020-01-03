@@ -7,16 +7,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
-
-import java.util.List;
 
 @Autonomous(name = "SkyStone-Auto1")
 public class auto3 extends LinearOpMode {
@@ -25,8 +19,6 @@ public class auto3 extends LinearOpMode {
     Orientation lastAngles = new Orientation();
     BNO055IMU imu;
     DcMotor TL, TR, BL, BR;
-
-
 
 
     @Override
@@ -78,49 +70,51 @@ public class auto3 extends LinearOpMode {
         pidDrive.setInputRange(-90, 90);
         pidDrive.enable();
 
-        while(opModeIsActive()){
-            correction = pidDrive.performPID(getAngle());
 
-            telemetry.addData("1 imu heading", lastAngles.firstAngle);
-            telemetry.addData("2 global heading", globalAngle);
-            telemetry.addData("3 correction", correction);
-            telemetry.addData("4 turn rotation", rotation);
+        correction = pidDrive.performPID(getAngle());
+
+        telemetry.addData("1 imu heading", lastAngles.firstAngle);
+        telemetry.addData("2 global heading", globalAngle);
+        telemetry.addData("3 correction", correction);
+        telemetry.addData("4 turn rotation", rotation);
+        telemetry.update();
+
+        // set power levels.
+
+        rotate(-90, power);
+        while ((runtime.seconds() < 4)) {
+            telemetry.addData("Phase 1", "...");
             telemetry.update();
-
-            // set power levels.
-
-            rotate(90, power);
-            while((runtime.seconds()<5)) {
-                telemetry.addData("Phase 1", "...");
-                telemetry.update();
-            }
-
-            TL.setPower(0);
-            TR.setPower(0);
-            BL.setPower(0);
-            BR.setPower(0);
-
-            resetAngle();
-            TL.setPower(power - correction);
-            BL.setPower(power - correction);
-            TR.setPower(power + correction);
-            BR.setPower(power + correction);
-            runtime.reset();
-
-            while (opModeIsActive() && (runtime.seconds()<3)) {
-                telemetry.addData("Phase 2", "...");
-                telemetry.update();
-            }
         }
+
+        TL.setPower(0);
+        TR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+
+        sleep(2000);
+
+        resetAngle();
+        TL.setPower(-(power - correction));
+        BL.setPower(-(power - correction));
+        TR.setPower(-(power + correction));
+        BR.setPower(-(power + correction));
+        runtime.reset();
+
+        while (opModeIsActive() && (runtime.seconds() < 1.4)) {
+            telemetry.addData("Phase 2", "...");
+            telemetry.update();
+        }
+        
 
         // turn the motors off.
         TL.setPower(0);
         TR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
-        }
+    }
 
-        private void resetAngle() {
+    private void resetAngle() {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         globalAngle = 0;
