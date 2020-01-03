@@ -88,15 +88,6 @@ public class auto3 extends LinearOpMode {
             telemetry.update();
 
             // set power levels.
-            TL.setPower(power - correction);
-            BL.setPower(power - correction);
-            TR.setPower(power + correction);
-            BR.setPower(power + correction);
-
-            while((runtime.seconds()<1)) {
-                telemetry.addData("Phase 1", "...");
-                telemetry.update();
-            }
 
             rotate(90, power);
             while((runtime.seconds()<5)) {
@@ -117,34 +108,8 @@ public class auto3 extends LinearOpMode {
             runtime.reset();
 
             while (opModeIsActive() && (runtime.seconds()<3)) {
-                
-            }
-
-
-            boolean aButton = gamepad1.a;
-            boolean bButton = gamepad1.b;
-//            touched = touch.isPressed();
-
-            if (/*touched ||*/ aButton || bButton) {
-                // backup.
-                TL.setPower(-power);
-                BL.setPower(-power);
-                TR.setPower(-power);
-                BR.setPower(-power);
-
-                sleep(500);
-
-                // stop.
-                TL.setPower(0);
-                TR.setPower(0);
-                BL.setPower(0);
-                BR.setPower(0);
-
-                // turn 90 degrees right.
-                if (/*touched ||*/ aButton) rotate(-90, power);
-
-                // turn 90 degrees left.
-                if (bButton) rotate(90, power);
+                telemetry.addData("Phase 2", "...");
+                telemetry.update();
             }
         }
 
