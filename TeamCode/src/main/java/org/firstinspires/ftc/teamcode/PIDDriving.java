@@ -121,7 +121,18 @@ public class PIDDriving extends LinearOpMode {
 //            BL.setPower(power - correction);
 //            TR.setPower(power + correction);
 //            BR.setPower(power + correction);
-            strafe(getAngle(), .3);
+            if (gamepad1.dpad_left){
+                TL.setPower(strafeSpeed);
+                BL.setPower(-strafeSpeed);
+                BR.setPower(-strafeSpeed);
+                TR.setPower(strafeSpeed);
+            }
+            else if (gamepad1.dpad_right) {
+                TL.setPower(-strafeSpeed);
+                BL.setPower(strafeSpeed);
+                BR.setPower(strafeSpeed);
+                TR.setPower(-strafeSpeed);
+            }
 
             // We record the sensor values because we will test them in more than
             // one place with time passing between those places. See the lesson on
@@ -283,18 +294,6 @@ public class PIDDriving extends LinearOpMode {
         pidStrafe.setTolerance(1);
         pidStrafe.enable();
 
-        if (gamepad1.dpad_left){
-            TL.setPower(strafeSpeed);
-            BL.setPower(-strafeSpeed);
-            BR.setPower(-strafeSpeed);
-            TR.setPower(strafeSpeed);
-        }
-        else if (gamepad1.dpad_right) {
-            TL.setPower(-strafeSpeed);
-            BL.setPower(strafeSpeed);
-            BR.setPower(strafeSpeed);
-            TR.setPower(-strafeSpeed);
-        }
 
     }
 }
