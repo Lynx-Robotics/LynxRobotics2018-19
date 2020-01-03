@@ -5,11 +5,14 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.DistanceSensor;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous(name = "SkyStone-Auto1")
@@ -19,11 +22,18 @@ public class auto3 extends LinearOpMode {
     Orientation lastAngles = new Orientation();
     BNO055IMU imu;
     DcMotor TL, TR, BL, BR;
+    Servo hookLeft, hookRight;
+
+    DistanceSensor distanceSensor;
 
 
     @Override
     public void runOpMode() throws InterruptedException {
         ElapsedTime runtime = new ElapsedTime();
+        distanceSensor = hardwareMap.get(DistanceSensor.class, "dist");
+
+        hookLeft = hardwareMap.get(Servo.class, "hook");
+        hookRight = hardwareMap.get(Servo.class, "hooke");
 
         BL = hardwareMap.get(DcMotor.class, "BL");
         BR = hardwareMap.get(DcMotor.class, "BR");
@@ -105,13 +115,49 @@ public class auto3 extends LinearOpMode {
             telemetry.addData("Phase 2", "...");
             telemetry.update();
         }
-        
+
+        rotate(90, power);
+        while ((runtime.seconds() < 4)) {
+            telemetry.addData("Phase 1", "...");
+            telemetry.update();
+        }
+
+        resetAngle();
+        TL.setPower(-(power - correction));
+        BL.setPower(-(power - correction));
+        TR.setPower(-(power + correction));
+        BR.setPower(-(power + correction));
+
+        while (opModeIsActive() && (!tripWireActive(8))) {
+            telemetry.addData("Phase 3", "...");
+            telemetry.update();
+        }
+
+        dropDL();
+
+        while(opModeIsActive() && runtime.seconds()<4) {
+            telemetry.addData("Phase 4", "...");
+            telemetry.update();
+        }
 
         // turn the motors off.
         TL.setPower(0);
         TR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
+    }
+
+    private void dropDL() {
+        hookLeft.setPosition(0.1);
+        hookRight.setPosition(0.1);
+    }
+
+    public boolean tripWireActive(double triggerDist) {
+        if (distanceSensor.getDistance(DistanceUnit.CM) < triggerDist) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     private void resetAngle() {
