@@ -46,6 +46,7 @@ public class auto2 extends LinearOpMode {
         chart.BR.setPower(-constants.STRAFEPOWER);
     }
 
+
     /*
     ------------------------------------------------------------------------------------
     METHODS USED FOR NAVIGATION

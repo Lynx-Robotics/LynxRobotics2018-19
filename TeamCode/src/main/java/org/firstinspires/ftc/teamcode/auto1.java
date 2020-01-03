@@ -83,7 +83,7 @@ public class auto1 extends LinearOpMode {
             telemetry.update();
         }
 
-        /*rest();
+        rest();
 
         sleep(3000);
         driveForward();
@@ -102,8 +102,6 @@ public class auto1 extends LinearOpMode {
             telemetry.addData("Relocating Package", true);
             telemetry.update();
         }
-*/
-
     }
 
     /*
