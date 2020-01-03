@@ -5,6 +5,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.TouchSensor;
@@ -14,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name = "PIDDriving", group = "imu")
+@TeleOp(name = "PIDDriving", group = "imu")
 //@Disabled
 public class PIDDriving extends LinearOpMode {
     DcMotor TL, TR, BL, BR;
@@ -23,7 +24,9 @@ public class PIDDriving extends LinearOpMode {
     Orientation lastAngles = new Orientation();
     double globalAngle, power = .30, correction, rotation;
     boolean aButton, bButton, touched;
-    PIDController pidRotate, pidDrive;
+    PIDController pidRotate, pidDrive, pidStrafe;
+
+    final double strafeSpeed = 1.0;
 
     // called when init button is  pressed.
     @Override
@@ -61,11 +64,13 @@ public class PIDDriving extends LinearOpMode {
         // Set PID proportional value to start reducing power at about 50 degrees of rotation.
         // P by itself may stall before turn completed so we add a bit of I (integral) which
         // causes the PID controller to gently increase power if the turn is not completed.
-        pidRotate = new PIDController(.004, .00004, 0);
+        pidRotate = new PIDController(.0035, .00004, 0);
 
         // Set PID proportional value to produce non-zero correction value when robot veers off
         // straight line. P value controls how sensitive the correction is.
         pidDrive = new PIDController(.05, 0, 0);
+
+        pidStrafe = new PIDController(.05, 0, 0);
 
         telemetry.addData("Mode", "calibrating...");
         telemetry.update();
@@ -82,7 +87,7 @@ public class PIDDriving extends LinearOpMode {
 
         // wait for start button.
 
-        waitForStart();
+        waitForStart();//---------------------------------------------------------------------
 
         telemetry.addData("Mode", "running");
         telemetry.update();
@@ -259,5 +264,32 @@ public class PIDDriving extends LinearOpMode {
 
         // reset angle tracking on new heading.
         resetAngle();
+    }
+
+    private void strafe(int degrees, double power) {
+        resetAngle();
+
+        if (Math.abs(degrees) > 359) degrees = (int) Math.copySign(359, degrees);
+
+        pidStrafe.reset();
+        pidStrafe.setSetpoint(degrees);
+        pidStrafe.setInputRange(0, degrees);
+        pidStrafe.setOutputRange(0, power);
+        pidStrafe.setTolerance(1);
+        pidStrafe.enable();
+
+        if (gamepad1.dpad_left){
+            TL.setPower(strafeSpeed);
+            BL.setPower(-strafeSpeed);
+            BR.setPower(-strafeSpeed);
+            TR.setPower(strafeSpeed);
+        }
+        else if (gamepad1.dpad_right) {
+            TL.setPower(-strafeSpeed);
+            BL.setPower(strafeSpeed);
+            BR.setPower(strafeSpeed);
+            TR.setPower(-strafeSpeed);
+        }
+
     }
 }
