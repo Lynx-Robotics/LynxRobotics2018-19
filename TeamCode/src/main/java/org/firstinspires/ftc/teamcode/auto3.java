@@ -94,7 +94,7 @@ public class auto3 extends LinearOpMode {
 
         // set power levels.
 
-        rotate(-90, power);
+        rotate(90, power);
         while ((runtime.seconds() < 4)) {
             telemetry.addData("Phase 1", "...");
             telemetry.update();
@@ -114,44 +114,104 @@ public class auto3 extends LinearOpMode {
         BR.setPower(-(power + correction));
         runtime.reset();
 
+        telemetry.addData("Tripwire Stat: ", tripWireActive(8));
+        telemetry.update();
+
         while (opModeIsActive() && (runtime.seconds() < 1.4)) {
             telemetry.addData("Phase 2", "...");
             telemetry.update();
         }
 
-        rotate(90, power);
+        rotate(-90, power);
         while ((runtime.seconds() < 4)) {
             telemetry.addData("Phase 1", "...");
             telemetry.update();
         }
+        telemetry.addData("Tripwire Stat: ", tripWireActive(8));
+        telemetry.update();
+        resetAngle();
+        do {
+            TL.setPower(-(power - correction));
+            BL.setPower(-(power - correction));
+            TR.setPower(-(power + correction));
+            BR.setPower(-(power + correction));
+            telemetry.addData("Phase 3", "...");
+            telemetry.update();
+        } while (opModeIsActive() && (!tripWireActive(8)));
+
+        TL.setPower(0);
+        TR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+
+        sleep(3000);
+
+        dropDL();
+
+        sleep(1000);
 
         resetAngle();
+        TL.setPower((power - correction));
+        BL.setPower((power - correction));
+        TR.setPower((power + correction));
+        BR.setPower((power + correction));
+
+        runtime.reset();
+        while(opModeIsActive() && runtime.seconds()<3.5) {
+            telemetry.addData("Phase 3.2", "...");
+            telemetry.update();
+        }
+        TL.setPower(0);
+        TR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+
+        raiseDL();
+
+        sleep(500);
+        rotate(-90, .3);
+
         TL.setPower(-(power - correction));
         BL.setPower(-(power - correction));
         TR.setPower(-(power + correction));
         BR.setPower(-(power + correction));
 
-        while (opModeIsActive() && (!tripWireActive(8))) {
-            telemetry.addData("Phase 3", "...");
+        runtime.reset();
+        while(opModeIsActive() && runtime.seconds()<3) {
+            telemetry.addData("Phase 3.5", "...");
             telemetry.update();
         }
 
-        
+        TL.setPower(0);
+        TR.setPower(0);
+        BL.setPower(0);
+        BR.setPower(0);
+
+
+        runtime.reset();
+
         while(opModeIsActive() && runtime.seconds()<4) {
             telemetry.addData("Phase 4", "...");
             telemetry.update();
         }
+
+
 
         // turn the motors off.
         TL.setPower(0);
         TR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
+
     }
 
     private void dropDL() {
         hookLeft.setPosition(0.1);
         hookRight.setPosition(0.1);
+    }
+    private void raiseDL() {
+        hookLeft.setPosition(0.9);
+        hookRight.setPosition(0.9);
     }
 
     public boolean tripWireActive(double triggerDist) {
