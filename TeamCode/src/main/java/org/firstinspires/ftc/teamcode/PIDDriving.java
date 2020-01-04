@@ -113,25 +113,25 @@ public class PIDDriving extends LinearOpMode {
             telemetry.update();
 
             // set power levels.
-            TL.setPower(gamepad1.left_stick_y - correction);
-            BL.setPower(gamepad1.left_stick_y - correction);
-            TR.setPower(gamepad1.right_stick_y + correction);
-            BR.setPower(gamepad1.right_stick_y + correction);
+            TL.setPower(gamepad1.left_stick_y );
+            BL.setPower(gamepad1.left_stick_y );
+            TR.setPower(gamepad1.right_stick_y);
+            BR.setPower(gamepad1.right_stick_y);
 //            TL.setPower(power - correction);
 //            BL.setPower(power - correction);
 //            TR.setPower(power + correction);
 //            BR.setPower(power + correction);
             if (gamepad1.dpad_left){
-                TL.setPower(strafeSpeed);
-                BL.setPower(-strafeSpeed);
+                TL.setPower(-strafeSpeed);
+                BL.setPower(strafeSpeed);
                 BR.setPower(-strafeSpeed);
                 TR.setPower(strafeSpeed);
             }
             else if (gamepad1.dpad_right) {
                 TL.setPower(-strafeSpeed);
                 BL.setPower(strafeSpeed);
-                BR.setPower(strafeSpeed);
-                TR.setPower(-strafeSpeed);
+                BR.setPower(-strafeSpeed);
+                TR.setPower(strafeSpeed);
             }
 
             // We record the sensor values because we will test them in more than

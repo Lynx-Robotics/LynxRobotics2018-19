@@ -73,6 +73,9 @@ public class auto3 extends LinearOpMode {
         telemetry.addData("imu calib status", imu.getCalibrationStatus().toString());
         telemetry.update();
 
+        hookRight.setPosition(0.9);
+        hookLeft.setPosition(0.9);
+
         waitForStart();
 
         pidDrive.setSetpoint(0);
@@ -133,8 +136,7 @@ public class auto3 extends LinearOpMode {
             telemetry.update();
         }
 
-        dropDL();
-
+        
         while(opModeIsActive() && runtime.seconds()<4) {
             telemetry.addData("Phase 4", "...");
             telemetry.update();
