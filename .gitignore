@@ -26,3 +26,7 @@ build/
 
 *ASUS_PC_01*
 
+TeamCode/src/main/java/org/firstinspires/ftc/teamcode/BasicTeleOp.java
+TeamCode/src/main/java/org/firstinspires/ftc/teamcode/reformat.java
+TeamCode/src/main/java/org/firstinspires/ftc/teamcode/BasicTeleOp.java
+*.java
