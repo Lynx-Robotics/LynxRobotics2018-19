@@ -15,7 +15,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name = "SkyStone-Auto1")
+@Autonomous(name = "SkyStone-Auto1", group = "FINAL")
+//@Disabled
 public class auto3 extends LinearOpMode {
     PIDController pidRotate, pidDrive;
     double globalAngle, power = .30, correction, rotation;
@@ -23,6 +24,8 @@ public class auto3 extends LinearOpMode {
     BNO055IMU imu;
     DcMotor TL, TR, BL, BR;
     Servo hookLeft, hookRight;
+
+    public double powerUp = 0.5, powerDown = -0.5;
 
     DistanceSensor distanceSensor;
 
@@ -78,6 +81,7 @@ public class auto3 extends LinearOpMode {
 
         waitForStart();
 
+
         pidDrive.setSetpoint(0);
         pidDrive.setOutputRange(0, power);
         pidDrive.setInputRange(-90, 90);
@@ -92,18 +96,17 @@ public class auto3 extends LinearOpMode {
         telemetry.addData("4 turn rotation", rotation);
         telemetry.update();
 
-        // set power levels.
+                /*
+        --------------------------------------------------------------------------------------
+        ACTION CODE (QZ0)
+        -------------------------------------------------------------------------------------
+         */
 
-        rotate(-90, power);
-        while ((runtime.seconds() < 4)) {
-            telemetry.addData("Phase 1", "...");
-            telemetry.update();
-        }
+        //turn LEFT
+        rotate(87, power);
+        wait(4.0, "turning left (PHASE 1)");
 
-        TL.setPower(0);
-        TR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        rest();
 
         sleep(2000);
 
@@ -112,18 +115,16 @@ public class auto3 extends LinearOpMode {
         BL.setPower(-(power - correction));
         TR.setPower(-(power + correction));
         BR.setPower(-(power + correction));
-        runtime.reset();
 
-        while (opModeIsActive() && (runtime.seconds() < 1.4)) {
-            telemetry.addData("Phase 2", "...");
-            telemetry.update();
-        }
+        wait(1.7, "going forward (PHASE 2)");
 
-        rotate(90, power);
-        while ((runtime.seconds() < 4)) {
-            telemetry.addData("Phase 1", "...");
-            telemetry.update();
-        }
+        rest();
+
+        sleep(2000);
+
+        //turn RIGHT
+        rotate(-86, power);
+        wait(4.0, "turning right (PHASE 3)");
 
         resetAngle();
         TL.setPower(-(power - correction));
@@ -131,18 +132,68 @@ public class auto3 extends LinearOpMode {
         TR.setPower(-(power + correction));
         BR.setPower(-(power + correction));
 
-        while (opModeIsActive() && (!tripWireActive(8))) {
-            telemetry.addData("Phase 3", "...");
+        while (opModeIsActive() && (!tripWireActive(11))) {
+            telemetry.addData("Status: ", "going towards waffle (PHASE 4)");
             telemetry.update();
         }
+        rest();
 
-        
-        while(opModeIsActive() && runtime.seconds()<4) {
-            telemetry.addData("Phase 4", "...");
-            telemetry.update();
-        }
+        dropDL();
+        wait(2.0, "dropping hookers (PHASE 5)");
+
+        //go BACK
+        resetAngle();
+        /*TL.setPower((power - correction));
+        BL.setPower((power - correction));
+        TR.setPower((power + correction));
+        BR.setPower((power + correction));*/
+
+        TL.setPower(0.5);
+        BL.setPower(0.5);
+        TR.setPower(0.5);
+        BR.setPower(0.5);
+
+        wait(2.0, "going backwards towards depot (PHASE 6)");
+
+        rest();
+
+        sleep(2000);
+
+        raiseDL();
+
+        wait(2.0);
+
+        //go BACK a lil more
+        TL.setPower((power - correction));
+        BL.setPower((power - correction));
+        TR.setPower((power + correction));
+        BR.setPower((power + correction));
+
+        wait(0.5, "repositioning (PHASE 7)");
+
+        rest();
+
+        //strafing out
+        TL.setPower(powerUp + joltControl());
+        TR.setPower(powerDown);
+        BL.setPower(powerDown);
+        BR.setPower(powerUp);
+
+        wait(2.0, "strafing out and parking (PHASE 8)");
 
         // turn the motors off.
+        rest();
+
+        telemetry.addData("Status: ", "MISSION COMPLETE (PHASE 10)");
+        telemetry.update();
+    }
+
+    public void raiseDL() {
+        hookLeft.setPosition(0.9);
+        hookRight.setPosition(0.9);
+    }
+
+    public void rest() {
         TL.setPower(0);
         TR.setPower(0);
         BL.setPower(0);
@@ -162,10 +213,39 @@ public class auto3 extends LinearOpMode {
         }
     }
 
+    public void wait(double seconds) {
+        ElapsedTime Intruntime = new ElapsedTime();
+        Intruntime.reset();
+        while (opModeIsActive() && Intruntime.seconds() < seconds) {
+            telemetry.addData("Status: ", "Executing the current Phase");
+            telemetry.update();
+        }
+    }
+
+    public void wait(double seconds, String phase) {
+        ElapsedTime Intruntime = new ElapsedTime();
+        Intruntime.reset();
+        while (opModeIsActive() && Intruntime.seconds() < seconds) {
+            telemetry.addData("Status: ", phase);
+            telemetry.update();
+        }
+    }
+
     private void resetAngle() {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         globalAngle = 0;
+    }
+
+    public double joltControl() {
+        ElapsedTime runtime = new ElapsedTime();
+        runtime.reset();
+
+        if (runtime.seconds() < 1.2) {
+            return 0.05;
+        } else {
+            return 0.0;
+        }
     }
 
     /**
