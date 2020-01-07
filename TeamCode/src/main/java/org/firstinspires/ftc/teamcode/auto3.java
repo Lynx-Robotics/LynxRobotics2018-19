@@ -238,10 +238,6 @@ ACTION CODE (QZ0)
         hookLeft.setPosition(0.1);
         hookRight.setPosition(0.1);
     }
-    private void raiseDL() {
-        hookLeft.setPosition(0.9);
-        hookRight.setPosition(0.9);
-    }
 
     public boolean tripWireActive(double triggerDist) {
         if (distanceSensor.getDistance(DistanceUnit.CM) < triggerDist) {
