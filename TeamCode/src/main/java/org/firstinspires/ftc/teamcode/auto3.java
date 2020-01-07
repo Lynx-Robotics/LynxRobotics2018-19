@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -96,15 +97,26 @@ public class auto3 extends LinearOpMode {
         telemetry.addData("4 turn rotation", rotation);
         telemetry.update();
 
-                /*
+                */
+/*
         --------------------------------------------------------------------------------------
         ACTION CODE (QZ0)
         -------------------------------------------------------------------------------------
-         */
+         *//*
+
 
         //turn LEFT
+
+        TL.setPower(-(power - correction));
+        BL.setPower(-(power - correction));
+        TR.setPower(-(power + correction));
+        BR.setPower(-(power + correction));
+
+        wait(0.5, "going forward slightly (PHASE 0)");
+
         rotate(87, power);
-        wait(4.0, "turning left (PHASE 1)");
+
+        wait(3.0, "turning left (PHASE 1)");
 
         rest();
 
@@ -116,7 +128,7 @@ public class auto3 extends LinearOpMode {
         TR.setPower(-(power + correction));
         BR.setPower(-(power + correction));
 
-        wait(1.7, "going forward (PHASE 2)");
+        wait(1.9, "going forward (PHASE 2)");
 
         rest();
 
@@ -124,7 +136,7 @@ public class auto3 extends LinearOpMode {
 
         //turn RIGHT
         rotate(-86, power);
-        wait(4.0, "turning right (PHASE 3)");
+        wait(3.0, "turning right (PHASE 3)");
 
         resetAngle();
         TL.setPower(-(power - correction));
@@ -133,9 +145,10 @@ public class auto3 extends LinearOpMode {
         BR.setPower(-(power + correction));
 
         while (opModeIsActive() && (!tripWireActive(11))) {
-            telemetry.addData("Status: ", "going towards waffle (PHASE 4)");
+            telemetry.addData("Status: ", "going towards foundation (PHASE 4)");
             telemetry.update();
         }
+
         rest();
 
         dropDL();
@@ -143,10 +156,12 @@ public class auto3 extends LinearOpMode {
 
         //go BACK
         resetAngle();
-        /*TL.setPower((power - correction));
+        */
+/*TL.setPower((power - correction));
         BL.setPower((power - correction));
         TR.setPower((power + correction));
-        BR.setPower((power + correction));*/
+        BR.setPower((power + correction));*//*
+
 
         TL.setPower(0.5);
         BL.setPower(0.5);
@@ -179,7 +194,7 @@ public class auto3 extends LinearOpMode {
         BL.setPower(powerDown);
         BR.setPower(powerUp);
 
-        wait(2.0, "strafing out and parking (PHASE 8)");
+        wait(3.0, "strafing out and parking (PHASE 8)");
 
         // turn the motors off.
         rest();
@@ -231,6 +246,22 @@ public class auto3 extends LinearOpMode {
         }
     }
 
+    public void strafeCorrection(){
+        double pulseStrength = 0.05;
+
+        resetAngle();
+
+        if (getAngle()>5){
+            TL.setPower(TL.getPower() + pulseStrength);
+        }
+        if (getAngle()<-5) {
+            BL.setPower(BL.getPower() + pulseStrength);
+        }
+        else {
+            pulseStrength = 0;
+        }
+    }
+
     private void resetAngle() {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
@@ -248,11 +279,13 @@ public class auto3 extends LinearOpMode {
         }
     }
 
-    /**
+    */
+/**
      * Get current cumulative angle rotation from last reset.
      *
      * @return Angle in degrees. + = left, - = right from zero point.
-     */
+     *//*
+
     private double getAngle() {
         // We experimentally determined the Z axis is the axis we want to use for heading angle.
         // We have to process the angle because the imu works in euler angles so the Z axis is
@@ -275,11 +308,13 @@ public class auto3 extends LinearOpMode {
         return globalAngle;
     }
 
-    /**
+    */
+/**
      * Rotate left or right the number of degrees. Does not support turning more than 359 degrees.
      *
      * @param degrees Degrees to turn, + is left - is right
-     */
+     *//*
+
     private void rotate(int degrees, double power) {
         // restart imu angle tracking.
         resetAngle();
@@ -349,3 +384,4 @@ public class auto3 extends LinearOpMode {
         resetAngle();
     }
 }
+*/

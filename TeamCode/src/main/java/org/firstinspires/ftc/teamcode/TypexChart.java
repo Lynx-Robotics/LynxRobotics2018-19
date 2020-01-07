@@ -11,9 +11,11 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+import static java.lang.Thread.sleep;
+
 public class TypexChart {
     public DcMotor TL, TR, BL, BR;
-    //public BNO055IMU imu;
+    public BNO055IMU imu;
     public Servo hookLeft, hookRight;
 
     public DistanceSensor distanceSensor;
@@ -32,33 +34,36 @@ public class TypexChart {
         chart = ahwMap;
 
         // Define and Initialize Motors
-        TL = ahwMap.get(DcMotor.class, "TL");
-        TR = ahwMap.get(DcMotor.class, "TR");
+        distanceSensor = ahwMap.get(DistanceSensor.class, "dist");
+
+        hookLeft = ahwMap.get(Servo.class, "hook");
+        hookRight = ahwMap.get(Servo.class, "hooke");
+
         BL = ahwMap.get(DcMotor.class, "BL");
         BR = ahwMap.get(DcMotor.class, "BR");
+        TR = ahwMap.get(DcMotor.class, "TR");
+        TL = ahwMap.get(DcMotor.class, "TL");
 
         TL.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //imu = ahwMap.get(BNO055IMU.class, "imu");
+        TL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        TR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        hookLeft = ahwMap.get(Servo.class, "hookLeft");
-        hookRight = ahwMap.get(Servo.class, "hookRight");
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
-        // Set all motors to zero power
-        TL.setPower(0);
-        TR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = false;
 
-        hookLeft.setPosition(constants.OPENPOSITION);
-        hookRight.setPosition(constants.OPENPOSITION);
+        imu = ahwMap.get(BNO055IMU.class, "imu");
 
-        TL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        TR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        imu.initialize(parameters);
 
-        distanceSensor = ahwMap.get(DistanceSensor.class, "dist");
+        hookRight.setPosition(0.9);
+        hookLeft.setPosition(0.9);
     }
 }
