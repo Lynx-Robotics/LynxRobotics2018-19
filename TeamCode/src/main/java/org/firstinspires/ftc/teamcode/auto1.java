@@ -22,6 +22,7 @@ as opposed to the human player side.
  */
 
 @Autonomous(name = "auto1", group = "autonomous")
+@Disabled
 public class auto1 extends LinearOpMode {
 
     public DcMotor TL;

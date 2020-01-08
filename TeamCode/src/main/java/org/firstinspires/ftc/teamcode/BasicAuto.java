@@ -1,25 +1,25 @@
-/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.slf4j.MDC;
 
-*/
 /*
  *
  * This encoder test program serves as a form of data collection for the tuning
  * of the P-Controller that is under creation at the moment. Please do not tamper with
  * the values of this program unless given permission to.
  *
-
+*/
 
 
 
 @Autonomous(name = "encoderTestv3", group = "Experimental")
+@Disabled
 public class BasicAuto extends LinearOpMode {
 
     public int TPR = 1120;
@@ -65,10 +65,6 @@ public class BasicAuto extends LinearOpMode {
         }
     }
 
-   The targetPos is slightly redundant, but it esentially allows for the user to input a certain
-   distance as opposed to using pure encoder values. In other words, it takes in a certain amount
-   in human distance (inches, centimeter, etc) and changes it to a value that the program can
-   understand and use (encoder values).
 
 
     public int targetPos(double dist) {
@@ -79,9 +75,6 @@ public class BasicAuto extends LinearOpMode {
             return 0;
         }
     }
-
-    Returns a value of true so long as the encoder value that is being returned is less than or
-    equal to the targetPos.
 
 
     public boolean threshold(DcMotor wheel, int targetPos) {
@@ -96,15 +89,6 @@ public class BasicAuto extends LinearOpMode {
         chart.BL.setPower(power);
     }
 
-    public boolean eachWheelThreshold(DcMotor wheel, int targetPos, int tolerance) {
-        
-        return wheel.getCurrentPosition() <=
-    }
-
-    public boolean rWeThereYet() {
-
-    }
 
 }
 
-*/
