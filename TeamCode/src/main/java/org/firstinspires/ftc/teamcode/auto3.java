@@ -212,8 +212,6 @@ ACTION CODE (QZ0)
 
         wait(3.0, "strafing out and parking (PHASE 8)");
 
-
-
         // turn the motors off.
         rest();
 
