@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
 @TeleOp(name = "steelDrive", group = "steel")
-@Disabled
+//@Disabled
 public class steelDrive extends LinearOpMode {
     public DcMotor TL;
     public DcMotor TR;
@@ -15,6 +15,7 @@ public class steelDrive extends LinearOpMode {
     public DcMotor BR;
 
     public Servo grabRectServo1;
+
     //public Servo grabRectServo2;
 
     public double closePosition = 0.0;

@@ -1,4 +1,3 @@
-
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -96,10 +95,12 @@ public class auto3 extends LinearOpMode {
         telemetry.addData("3 correction", correction);
         telemetry.addData("4 turn rotation", rotation);
         telemetry.update();
-/*
-ACTION CODE (QZ0)
-*/
 
+                /*
+        --------------------------------------------------------------------------------------
+        ACTION CODE (QZ0)
+        -------------------------------------------------------------------------------------
+         */
 
         //turn LEFT
 
@@ -112,7 +113,7 @@ ACTION CODE (QZ0)
 
         rotate(87, power);
 
-        wait(3.0, "turning left (PHASE 1)");
+        wait(2.0, "turning left (PHASE 1)");
 
         rest();
 
@@ -135,26 +136,6 @@ ACTION CODE (QZ0)
         wait(3.0, "turning right (PHASE 3)");
 
         resetAngle();
-        TL.setPower((power - correction));
-        BL.setPower((power - correction));
-        TR.setPower((power + correction));
-        BR.setPower((power + correction));
-
-        runtime.reset();
-        while(opModeIsActive() && runtime.seconds()<3.5) {
-            telemetry.addData("Phase 3.2", "...");
-            telemetry.update();
-        }
-        TL.setPower(0);
-        TR.setPower(0);
-        BL.setPower(0);
-        BR.setPower(0);
-
-        raiseDL();
-
-        sleep(500);
-        rotate(-90, .3);
-
         TL.setPower(-(power - correction));
         BL.setPower(-(power - correction));
         TR.setPower(-(power + correction));
@@ -172,12 +153,10 @@ ACTION CODE (QZ0)
 
         //go BACK
         resetAngle();
-        
-/*TL.setPower((power - correction));
+        /*TL.setPower((power - correction));
         BL.setPower((power - correction));
         TR.setPower((power + correction));
         BR.setPower((power + correction));*/
-
 
         TL.setPower(0.5);
         BL.setPower(0.5);
@@ -205,10 +184,10 @@ ACTION CODE (QZ0)
         rest();
 
         //strafing out
-        TL.setPower(powerUp + joltControl());
-        TR.setPower(powerDown);
-        BL.setPower(powerDown);
-        BR.setPower(powerUp);
+        TL.setPower(powerDown + joltControl());
+        TR.setPower(powerUp);
+        BL.setPower(powerUp);
+        BR.setPower(powerDown);
 
         wait(3.0, "strafing out and parking (PHASE 8)");
 
@@ -229,7 +208,6 @@ ACTION CODE (QZ0)
         TR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
-
     }
 
     private void dropDL() {
@@ -296,7 +274,11 @@ ACTION CODE (QZ0)
         }
     }
 
-
+    /**
+     * Get current cumulative angle rotation from last reset.
+     *
+     * @return Angle in degrees. + = left, - = right from zero point.
+     */
     private double getAngle() {
         // We experimentally determined the Z axis is the axis we want to use for heading angle.
         // We have to process the angle because the imu works in euler angles so the Z axis is
@@ -319,12 +301,11 @@ ACTION CODE (QZ0)
         return globalAngle;
     }
 
-/*
+    /**
      * Rotate left or right the number of degrees. Does not support turning more than 359 degrees.
      *
      * @param degrees Degrees to turn, + is left - is right
      */
-
     private void rotate(int degrees, double power) {
         // restart imu angle tracking.
         resetAngle();
@@ -394,4 +375,3 @@ ACTION CODE (QZ0)
         resetAngle();
     }
 }
-
