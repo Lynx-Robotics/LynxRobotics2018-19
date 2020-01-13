@@ -15,19 +15,21 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name = "SkyStone-Auto1", group = "FINAL")
+@Autonomous(name = "Foundation-Auto-Red (v.1)", group = "FINAL")
 //@Disabled
 public class auto3 extends LinearOpMode {
     PIDController pidRotate, pidDrive;
-    double globalAngle, power = .30, correction, rotation;
+    double globalAngle, power = .50, correction, rotation;
     Orientation lastAngles = new Orientation();
     BNO055IMU imu;
     DcMotor TL, TR, BL, BR;
-    Servo hookLeft, hookRight;
+    Servo hookLeft, hookRight, middleGrab;
 
     public double powerUp = 0.5, powerDown = -0.5;
 
     DistanceSensor distanceSensor;
+
+    Boolean PHASE1, PHASE2, PHASE3, PHASE4,  PHASE5, PHASE6, PHASE7, PHASE8, PHASE9;
 
 
     @Override
@@ -37,6 +39,7 @@ public class auto3 extends LinearOpMode {
 
         hookLeft = hardwareMap.get(Servo.class, "hook");
         hookRight = hardwareMap.get(Servo.class, "hooke");
+        middleGrab = hardwareMap.get(Servo.class, "middleGrab");
 
         BL = hardwareMap.get(DcMotor.class, "BL");
         BR = hardwareMap.get(DcMotor.class, "BR");
@@ -67,6 +70,8 @@ public class auto3 extends LinearOpMode {
         telemetry.addData("Mode", "calibrating...");
         telemetry.update();
 
+        middleGrab.setPosition(0.0);
+
         while (!isStopRequested() && !imu.isGyroCalibrated()) {
             sleep(50);
             idle();
@@ -96,111 +101,118 @@ public class auto3 extends LinearOpMode {
         telemetry.addData("4 turn rotation", rotation);
         telemetry.update();
 
-                /*
+        /*
         --------------------------------------------------------------------------------------
         ACTION CODE (QZ0)
         -------------------------------------------------------------------------------------
          */
 
-        //turn LEFT
-
-        TL.setPower(-(power - correction));
-        BL.setPower(-(power - correction));
-        TR.setPower(-(power + correction));
-        BR.setPower(-(power + correction));
-
-        wait(0.5, "going forward slightly (PHASE 0)");
-
-        rotate(87, power);
-
-        wait(2.0, "turning left (PHASE 1)");
-
+        /*
+        PHASE 0 Description: Goes forward slightly to get the robot off the wall in preparation for the rotation
+         */
+        goForwards();
+        wait(0.65, "going forward slightly (PHASE 0)");
         rest();
-
         sleep(2000);
 
+        /*
+        PHASE 1 Descriptions: Turns left a set number of degrees such that the side of the robot is parallel with the wall
+         */
+        rotate(89, power);
+        wait(2.0, "turning left (PHASE 1)"); //This might not be necessary depending on how the rotate function works
+        rest();
+        sleep(2000);
+
+        /*
+        PHASE 2 Descriptions: Goes foward in preparation for foundation alignment in the x-dimension
+         */
         resetAngle();
-        TL.setPower(-(power - correction));
-        BL.setPower(-(power - correction));
-        TR.setPower(-(power + correction));
-        BR.setPower(-(power + correction));
-
-        wait(1.9, "going forward (PHASE 2)");
-
+        goForwards();
+        wait(2.2, "going forward (PHASE 2)");
         rest();
-
         sleep(2000);
 
-        //turn RIGHT
-        rotate(-86, power);
+        /*
+        PHASE 3 Descriptiom: Turning right and aligning the hookers with the foundation
+         */
+        rotate(-90, power);
         wait(3.0, "turning right (PHASE 3)");
 
+        /*
+        PHASE 4 Descriptiom: Get's close enough to the foundation to grab the foundation
+         */
         resetAngle();
-        TL.setPower(-(power - correction));
-        BL.setPower(-(power - correction));
-        TR.setPower(-(power + correction));
-        BR.setPower(-(power + correction));
-
-        while (opModeIsActive() && (!tripWireActive(11))) {
+        goForwards();
+        while (opModeIsActive() && (!tripWireActive(9.5))) {
             telemetry.addData("Status: ", "going towards foundation (PHASE 4)");
             telemetry.update();
         }
-
         rest();
 
+        /*
+        PHASE 5 Description: Drops the hookers
+         */
         dropDL();
         wait(2.0, "dropping hookers (PHASE 5)");
 
-        //go BACK
+        /*
+        PHASE 6 Description: Goes back towards the depot
+         */
         resetAngle();
-        /*TL.setPower((power - correction));
-        BL.setPower((power - correction));
-        TR.setPower((power + correction));
-        BR.setPower((power + correction));*/
-
-        TL.setPower(0.5);
-        BL.setPower(0.5);
-        TR.setPower(0.5);
-        BR.setPower(0.5);
-
-        wait(2.0, "going backwards towards depot (PHASE 6)");
-
+        goBackwards();
+        wait(3.0, "going backwards towards depot (PHASE 6)");
         rest();
-
         sleep(2000);
 
+        /*
+        PHASE 7: Raises the Hookers and prepares to move our of the way
+         */
         raiseDL();
-
         wait(2.0);
 
-        //go BACK a lil more
-        TL.setPower((power - correction));
-        BL.setPower((power - correction));
-        TR.setPower((power + correction));
-        BR.setPower((power + correction));
-
-        wait(0.5, "repositioning (PHASE 7)");
-
+        /*
+        PHASE 8 Description: makes sure that the robot is clear of the foundation
+         */
+        goBackwards();
+        wait(0.5, "repositioning (PHASE 8)");
         rest();
 
-        //strafing out
-        TL.setPower(powerDown + joltControl());
-        TR.setPower(powerUp);
-        BL.setPower(powerUp);
-        BR.setPower(powerDown);
-
+        /*
+        PHASE 9 Description: strafes to the right and parks
+         */
+        strafeRight();
         wait(3.0, "strafing out and parking (PHASE 8)");
-
-        // turn the motors off.
         rest();
+
 
         telemetry.addData("Status: ", "MISSION COMPLETE (PHASE 10)");
         telemetry.update();
     }
 
+    public void strafeRight(){
+        TL.setPower(powerDown + joltControl());
+        TR.setPower(powerUp);
+        BL.setPower(powerUp);
+        BR.setPower(powerDown);
+    }
+
     public void raiseDL() {
         hookLeft.setPosition(0.9);
         hookRight.setPosition(0.9);
+    }
+
+    public void goForwards(){
+        TL.setPower(-(power - correction));
+        BL.setPower(-(power - correction));
+        TR.setPower(-(power + correction));
+        BR.setPower(-(power + correction));
+    }
+
+    public void goBackwards(){
+        TL.setPower((power - correction));
+        BL.setPower((power - correction));
+        TR.setPower((power + correction));
+        BR.setPower((power + correction));
     }
 
     public void rest() {
