@@ -10,11 +10,19 @@ public class BasicAuto extends LinearOpMode {
 
     ElapsedTime runtime = new ElapsedTime();
 
+    DcMotor tm;
+
+    int targetPoint = 0;
+
     @Override
     public void runOpMode() throws InterruptedException {
+        tm = hardwareMap.get(DcMotor.class, "t");
+        tm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
+
         while(opModeIsActive()) {
+
 
         }
     }
