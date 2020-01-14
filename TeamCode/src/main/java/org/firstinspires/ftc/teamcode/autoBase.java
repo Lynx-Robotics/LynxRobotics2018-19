@@ -134,7 +134,7 @@ Drive Methods Ending NOw
     public boolean timeoutDistSensor() {
         ElapsedTime internalTime = new ElapsedTime();
         internalTime.reset();
-        if ((chart.distanceSensor.getDistance(DistanceUnit.CM) < 10) && (internalTime.seconds() < 4)) {
+        if (((chart.distanceSensor.getDistance(DistanceUnit.CM) < 17) && (chart.distanceSensor.getDistance(DistanceUnit.CM) > 11)) && (internalTime.seconds() < 4)) {
             return true;
         } else {
             return false;
@@ -337,6 +337,21 @@ Drive Methods Ending NOw
     ------------------------------------------------------------------------------------------
     IMU Methods found at the end of here
     ------------------------------------------------------------------------------------------
+     */
+
+    /*
+    ------------------------------------------------------------------------------------------
+    MISC
+    ------------------------------------------------------------------------------------------
+     */
+
+
+
+    /*
+    ------------------------------------------------------------------------------------------
+    MISC
+    ------------------------------------------------------------------------------------------
+
      */
 
     /*

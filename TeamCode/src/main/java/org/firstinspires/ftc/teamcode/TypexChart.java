@@ -108,5 +108,9 @@ public class TypexChart {
         pidDrive = new PIDController(.05, 0, 0);
         pidRotate = new PIDController(.004, .00004, 0);
 
+        bottomColorSensor.enableLed(true);
+        colorSensor.enableLed(true);
+
+
     }
 }

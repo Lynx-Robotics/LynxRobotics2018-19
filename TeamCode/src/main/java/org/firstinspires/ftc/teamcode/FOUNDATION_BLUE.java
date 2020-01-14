@@ -26,7 +26,11 @@ public class FOUNDATION_BLUE extends autoBase {
         chart.globalTime.reset();
         chart.runtime.reset();
 
+        telemetry.addData("Is the sensor working: ", timeoutDistSensor());
+        telemetry.update();
+
         if (distanceSensorWorking){
+
             strafeLeft(0.3); //strafes left to center with foundation
             wait(0.4); //duration of strafe
             rest(); //stops motor power
@@ -51,7 +55,7 @@ public class FOUNDATION_BLUE extends autoBase {
             wait(1.0); //waits one second
 
             goBack(); //goes back towards the wall
-            wait(3.5); //waits 3.5 seconds to do the backing up
+            wait(4.0); //waits 3.5 seconds to do the backing up
             rest(); //stops sending power to the motors
 
             sleep(500); //waits for half a second
