@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -12,6 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public abstract class autoBase extends LinearOpMode {
     TypexChart chart = new TypexChart();
+    CONSTANTS constants = new CONSTANTS();
     /*
     ------------------------------------------------------------------------------------------
     Drive Methods Starting NOW
@@ -81,6 +83,20 @@ public abstract class autoBase extends LinearOpMode {
         chart.BL.setPower(-power);
         chart.BR.setPower(power + joltControl(chart.runtime));
     }
+
+    public void strafeLeftFullThrottle(){
+        chart.TL.setPower(1.0);
+        chart.BL.setPower(-1.0);
+        chart.BR.setPower(-1.0);
+        chart.TR.setPower(1.0);
+    }
+
+    public void strafeRightFullThrottle(){
+        chart.TL.setPower(-1.0);
+        chart.BL.setPower(1.0);
+        chart.BR.setPower(1.0);
+        chart.TR.setPower(-1.0);
+    }
 /*
 ------------------------------------------------------------------------------------------
 Drive Methods Ending NOw
@@ -92,8 +108,8 @@ Drive Methods Ending NOw
     Time Control / State Control Methods Starting NOW
     ------------------------------------------------------------------------------------------
      */
-    public int parkState(ElapsedTime r) {
-        if ((r.seconds() > 20) && (chart.distanceSensor.getDistance(DistanceUnit.CM) < 30)) {
+    public int parkState(double triggerDist) {
+        if (opModeIsActive() && (chart.distanceSensor.getDistance(DistanceUnit.CM) < triggerDist)) {
             return 2;
         } else {
             return 1;
@@ -134,7 +150,7 @@ Drive Methods Ending NOw
     public boolean timeoutDistSensor() {
         ElapsedTime internalTime = new ElapsedTime();
         internalTime.reset();
-        if (((chart.distanceSensor.getDistance(DistanceUnit.CM) < 17) && (chart.distanceSensor.getDistance(DistanceUnit.CM) > 11)) && (internalTime.seconds() < 4)) {
+        if ((isInRange(chart.distanceSensor.getDistance(DistanceUnit.CM), 10)) && (internalTime.seconds() < 4)) {
             return true;
         } else {
             return false;
@@ -168,12 +184,14 @@ Drive Methods Ending NOw
     public boolean tapeSpotted() {
         //Record values for the ground and return false when viewing the grey ground
 
-        int GVal = 14;
-        int BVal = 10;
-        int RVal = 10;
-        int tolerance = 10;
+        int GVal = 50;
+        int BVal = 50;
+        int RVal = 50;
+        int tolerance = 25;
 
-        if ((colorCheclerGreen(chart.bottomColorSensor, GVal, tolerance)) && colorCheclerBlue(chart.bottomColorSensor, BVal, tolerance) && colorCheclerRed(chart.bottomColorSensor, RVal, tolerance)) {
+        if ((colorCheclerGreen(chart.bottomColorSensor, GVal, tolerance)) &&
+                colorCheclerBlue(chart.bottomColorSensor, BVal, tolerance) &&
+                colorCheclerRed(chart.bottomColorSensor, RVal, tolerance)) {
             return false;
         } else {
             return true;
@@ -345,7 +363,9 @@ Drive Methods Ending NOw
     ------------------------------------------------------------------------------------------
      */
 
-
+    public boolean isInRange(double number, double tolerance){
+        return (number < (number+tolerance)) && (number>(number - tolerance));
+    }
 
     /*
     ------------------------------------------------------------------------------------------
@@ -360,8 +380,8 @@ Drive Methods Ending NOw
     ------------------------------------------------------------------------------------------
      */
 
-    public void park() {
-        switch (parkState(chart.globalTime)) {
+    public void park(double triggerDist) {
+        switch (parkState(triggerDist)) {
             case 1:
                 goForward();
                 while (!tapeSpotted()) {
@@ -388,5 +408,38 @@ Drive Methods Ending NOw
                 break;
         }
     }
+
+    /*
+    ------------------------------------------------------------------------------------------
+    Encoder Control Methods
+    ------------------------------------------------------------------------------------------
+     */
+
+    public int encoderTicksForDistance(double distanceTarg){ //ensure that distance is in centimeters
+        return (int)(distanceTarg * constants.ticksPerCm);
+    }
+
+    public void driveWithEncoder(int encoderNum, double power){
+        chart.TL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        chart.TR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        chart.BL.setPower(chart.TL.getPower());
+        chart.BL.setPower(chart.BL.getPower());
+
+        chart.TL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        chart.TR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        goForward(power);
+
+        while(!isInRange(chart.TL.getCurrentPosition(), 3) || !isInRange(chart.TR.getCurrentPosition(), 3)){
+            telemetry.addData("Percentage Complete: (Left Side) ", (
+                    ((double)chart.TL.getCurrentPosition()/(double)encoderNum)*100));
+            telemetry.addData("Percentage Complete: (Right Side) ",
+                    (((double)chart.TR.getCurrentPosition()/(double)encoderNum)*100));
+            telemetry.update();
+        }
+        rest();
+    }
+
 
 }

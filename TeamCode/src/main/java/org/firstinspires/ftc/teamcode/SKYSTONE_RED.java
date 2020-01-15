@@ -4,6 +4,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 @Autonomous(name = "SKYSTONE_RED", group = "Experiment")
 //@Disabled
 public class SKYSTONE_RED extends autoBase {
@@ -43,19 +45,29 @@ public class SKYSTONE_RED extends autoBase {
 
             goForward(0.55);
             while(opModeIsActive() && !tripWireActive(14)){
-
+                telemetry.addData("going forward to the stone", true);
+                telemetry.addData("Distance: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
+                telemetry.addData("Distance Sensor Working?: ", distanceSensorWorking);
+                telemetry.update();
             }
             rest();
 
             strafeLeft();
             while(opModeIsActive() && !SkyStoneSpotted()){
+                telemetry.addData("spotting stone", true);
+                telemetry.addData("Distance: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
+                telemetry.addData("Distance Sensor Working?: ", distanceSensorWorking);
 
+                telemetry.update();
             }
             rest();
 
             strafeRight(0.3);
             while(opModeIsActive() && SkyStoneSpotted()){
-
+                telemetry.addData("moving right to the robot", true);
+                telemetry.addData("Distance: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
+                telemetry.addData("Distance Sensor Working?: ", distanceSensorWorking);
+                telemetry.update();
             }
             sleep(300);
             rest();
@@ -84,7 +96,7 @@ public class SKYSTONE_RED extends autoBase {
 
             }
 
-            park();
+            park(20);
         }
         else {
             goForward(0.55);
@@ -163,6 +175,8 @@ public class SKYSTONE_RED extends autoBase {
             goBack();
             wait(1.5);
             rest();
+
+            park(10);
 
         }
     }

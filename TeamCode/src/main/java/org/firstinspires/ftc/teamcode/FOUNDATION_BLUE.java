@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+
 @Autonomous(name = "FOUNDATION_BLUE", group = "Experiment")
 //@Disabled
 public class FOUNDATION_BLUE extends autoBase {
@@ -31,19 +33,27 @@ public class FOUNDATION_BLUE extends autoBase {
 
         if (distanceSensorWorking){
 
-            strafeLeft(0.3); //strafes left to center with foundation
+            statCheck();
+
+            strafeLeft(0.7); //strafes left to center with foundation
             wait(0.4); //duration of strafe
             rest(); //stops motor power
 
+            statCheck();
+
             sleep(700); //waits 0.7 of a second
+
+            statCheck();
 
             goForward(0.5); //goes forward at 0.5 power
             while (!tripWireActive(13) && opModeIsActive()){
                 //waits until tripwire is activated
             }
 
+            statCheck();
             rest(); //stops sending power to motors
             sleep(700); //waits for 0.7 of second
+            statCheck();
 
             goForward(0.3); //goes forward at 0.3 power
             while (!tripWireActive(9.9)){
@@ -51,32 +61,49 @@ public class FOUNDATION_BLUE extends autoBase {
             }
             rest(); //stops sending power to motors
 
+            statCheck();
+
             dropDL(); //drops the hooks for the foundations
             wait(1.0); //waits one second
+
+            statCheck();
 
             goBack(); //goes back towards the wall
             wait(4.0); //waits 3.5 seconds to do the backing up
             rest(); //stops sending power to the motors
 
-            sleep(500); //waits for half a second
+            statCheck();
+
+            raiseDL(); //raise the grabbers
+
+            statCheck();
+
+            sleep(1000); //waits for half a second
 
             goForward(0.3); //goes slighly forward to prepare for strafe
             wait(0.2); //waits for 0.2 seconds
             rest(); //stops sending power to motors
 
+            statCheck();
+
             rotate(-90, chart.power);
 
-            goForward();
-            while (tripWireActive(30)){
+            statCheck();
 
+            goForward();
+            while (tripWireActive(9)){
+                statCheck();
             }
             rest();
 
+            statCheck();
             while(chart.globalTime.seconds()<19){
-
+                statCheck();
             }
 
-            park();
+
+            park(10);
+            statCheck();
             rest();
 
         }
@@ -144,5 +171,12 @@ public class FOUNDATION_BLUE extends autoBase {
             telemetry.addData("Status: ", "MISSION COMPLETE (PHASE 10)");
             telemetry.update();
         }
+    }
+
+    public void statCheck(){
+        telemetry.addData("going forward to the stone", true);
+        telemetry.addData("Distance: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
+        telemetry.addData("Distance Sensor Working?: ", distanceSensorWorking);
+        telemetry.update();
     }
 }
