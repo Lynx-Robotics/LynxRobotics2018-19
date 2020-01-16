@@ -150,7 +150,7 @@ Drive Methods Ending NOw
     public boolean timeoutDistSensor() {
         ElapsedTime internalTime = new ElapsedTime();
         internalTime.reset();
-        if ((isInRange(chart.distanceSensor.getDistance(DistanceUnit.CM), 10)) && (internalTime.seconds() < 4)) {
+        if ((isInRange(chart.distanceSensor.getDistance(DistanceUnit.CM), 10, 30)) && (internalTime.seconds() < 4)) {
             return true;
         } else {
             return false;
@@ -194,6 +194,7 @@ Drive Methods Ending NOw
                 colorCheclerRed(chart.bottomColorSensor, RVal, tolerance)) {
             return false;
         } else {
+            sleep(50);
             return true;
         }
     }
@@ -363,10 +364,19 @@ Drive Methods Ending NOw
     ------------------------------------------------------------------------------------------
      */
 
-    public boolean isInRange(double number, double tolerance){
-        return (number < (number+tolerance)) && (number>(number - tolerance));
+    public boolean isInRange(double number, double tolerance, double targ){
+        if(((targ+tolerance)>number)&&((targ-tolerance)<number)){
+
+            return true;
+        }else{
+            return false;
+        }
     }
 
+    /*public boolean isInRange(double number, double tolerance){
+        return (number < (targ+tolerance)) && (number>(targ - tolerance));
+    }
+*/
     /*
     ------------------------------------------------------------------------------------------
     MISC
@@ -431,7 +441,7 @@ Drive Methods Ending NOw
 
         goForward(power);
 
-        while(!isInRange(chart.TL.getCurrentPosition(), 3) || !isInRange(chart.TR.getCurrentPosition(), 3)){
+        while(!isInRange(chart.TL.getCurrentPosition(), 3, encoderNum) || !isInRange(chart.TR.getCurrentPosition(), 3, encoderNum)){
             telemetry.addData("Percentage Complete: (Left Side) ", (
                     ((double)chart.TL.getCurrentPosition()/(double)encoderNum)*100));
             telemetry.addData("Percentage Complete: (Right Side) ",

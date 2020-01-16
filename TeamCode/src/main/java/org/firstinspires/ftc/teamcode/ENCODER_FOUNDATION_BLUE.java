@@ -9,6 +9,10 @@ public class ENCODER_FOUNDATION_BLUE extends autoBase {
 
     @Override
     public void runOpMode() throws InterruptedException {
+        chart.init(hardwareMap);
+
+        waitForStart();
+
         //goes forward slightly so it can grab the foundation
         driveWithEncoder(encoderTicksForDistance(90.015), 0.3);
         telemetry.addData("Currently analyzing results", "");
