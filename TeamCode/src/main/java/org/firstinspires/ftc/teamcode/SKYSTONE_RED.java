@@ -53,7 +53,7 @@ public class SKYSTONE_RED extends autoBase {
             rest();
 
             strafeLeft();
-            while(opModeIsActive() && !SkyStoneSpotted()){
+            while(opModeIsActive() && !SkyStoneSpotted(chart.colorSensorLeft)){
                 telemetry.addData("spotting stone", true);
                 telemetry.addData("Distance: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
                 telemetry.addData("Distance Sensor Working?: ", distanceSensorWorking);
@@ -63,7 +63,7 @@ public class SKYSTONE_RED extends autoBase {
             rest();
 
             strafeRight(0.3);
-            while(opModeIsActive() && SkyStoneSpotted()){
+            while(opModeIsActive() && SkyStoneSpotted(chart.colorSensorLeft)){
                 telemetry.addData("moving right to the robot", true);
                 telemetry.addData("Distance: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
                 telemetry.addData("Distance Sensor Working?: ", distanceSensorWorking);
@@ -128,8 +128,8 @@ public class SKYSTONE_RED extends autoBase {
 
             //sleep(2000);
 
-            while(opModeIsActive()&&!SkyStoneSpotted()){
-                telemetry.addData("Status: ", SkyStoneSpotted());
+            while(opModeIsActive()&&!SkyStoneSpotted(chart.colorSensorLeft)){
+                telemetry.addData("Status: ", SkyStoneSpotted(chart.colorSensorLeft));
                 telemetry.update();
 
             }
@@ -141,8 +141,8 @@ public class SKYSTONE_RED extends autoBase {
             chart.TR.setPower(0.3);
             chart.BL.setPower(0.3);
             chart.BR.setPower(-0.3 );
-            while(opModeIsActive()&&SkyStoneSpotted()){
-                telemetry.addData("Status: ", SkyStoneSpotted());
+            while(opModeIsActive()&&SkyStoneSpotted(chart.colorSensorLeft)){
+                telemetry.addData("Status: ", SkyStoneSpotted(chart.colorSensorLeft));
                 telemetry.update();
             }
             sleep(300);

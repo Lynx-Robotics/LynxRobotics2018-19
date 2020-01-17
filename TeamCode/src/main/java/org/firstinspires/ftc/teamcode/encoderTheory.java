@@ -18,8 +18,9 @@ public class encoderTheory extends autoBase {
 
         waitForStart();
 
-        goForward();
-        this.DriveWithEncoder(3000, -0.2);
+        chart.TL.setPower(-0.1);
+        encoderWait(chart.TL, 3000);
+
         rest();
 
 
@@ -32,6 +33,8 @@ public class encoderTheory extends autoBase {
         int encoderPosTL = chart.TL.getCurrentPosition();
         int encoderPesTR = chart.TR.getCurrentPosition();
 
+        double tempPower = chart.power;
+
         while(!isInRange(encoderPosTL,2, encoderNum)&& !isInRange(encoderPesTR, 2, encoderNum)
                 && !isInRange(encoderPosBR, 2, encoderNum) && !isInRange(encoderPosBL, 2, encoderNum)){
             telemetry.addData("Percentage Complete: (Left Side) ", (
@@ -42,11 +45,28 @@ public class encoderTheory extends autoBase {
             telemetry.addData("Position of Right Side: ", chart.TR.getCurrentPosition());
             telemetry.update();
 
+            chart.power = power;
+
             encoderPosTL = chart.TL.getCurrentPosition();
             encoderPesTR = chart.TR.getCurrentPosition();
             encoderPosBL = chart.BL.getCurrentPosition();
             encoderPosBR = chart.BR.getCurrentPosition();
         }
+        chart.power = tempPower;
         rest();
+    }
+
+    public void encoderWait(DcMotor motor, int targetEnc){
+        int encoderPos= motor.getCurrentPosition();
+
+
+        while(!isInRange(encoderPos, 15, targetEnc)){
+            telemetry.addData("Position of Left Side: ", chart.TL.getCurrentPosition());
+            telemetry.addData("Position of Right Side: ", chart.TR.getCurrentPosition());
+            telemetry.update();
+
+            encoderPos = motor.getCurrentPosition();
+
+        }
     }
 }

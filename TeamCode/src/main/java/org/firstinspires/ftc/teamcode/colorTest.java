@@ -8,7 +8,9 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "color tester", group = "tester")
 //@Disabled
-public class colorTest extends autoBase {
+public class colorTest extends TeleBase {
+
+
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -16,9 +18,22 @@ public class colorTest extends autoBase {
 
         waitForStart();
         while(opModeIsActive()){
-            telemetry.addData("GVal: ", chart.bottomColorSensor.green());
-            telemetry.addData("BVal: ", chart.bottomColorSensor.blue());
-            telemetry.addData("RVal: ", chart.bottomColorSensor.red());
+            telemetry.addData("Bottom GVal: ", chart.bottomColorSensor.green());
+            telemetry.addData("Bottom BVal: ", chart.bottomColorSensor.blue());
+            telemetry.addData("Bottom RVal: ", chart.bottomColorSensor.red());
+
+            telemetry.addData("Left GVal: ", chart.colorSensorLeft.green());
+            telemetry.addData("Left BVal: ", chart.colorSensorLeft.blue());
+            telemetry.addData("Left RVal: ", chart.colorSensorLeft.red());
+
+            telemetry.addData("Right GVal: ", chart.colorSensorRight.green());
+            telemetry.addData("Right BVal: ", chart.colorSensorRight.blue());
+            telemetry.addData("Right RVal: ", chart.colorSensorRight.red());
+
+            telemetry.addData("Spotted the skystone Left? ", !SkyStoneSpottedLeft());
+            telemetry.addData("Spotted the skystone Right? ", !SkyStoneSpottedRight());
+
+
             telemetry.update();
         }
     }

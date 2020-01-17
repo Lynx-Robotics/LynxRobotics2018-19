@@ -36,7 +36,7 @@ public class TypexChart {
     BNO055IMU imu;
 
     DistanceSensor distanceSensor;
-    ColorSensor colorSensor, bottomColorSensor;
+    ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
 
     Servo hookLeft,hookRight, middleGrab;
 
@@ -61,7 +61,8 @@ public class TypexChart {
 
         //Name stars
         distanceSensor = hwMap.get(DistanceSensor.class, "dist");
-        colorSensor = hwMap.get(ColorSensor.class, "cs");
+        colorSensorLeft = hwMap.get(ColorSensor.class, "csLeft");
+        colorSensorRight = hwMap.get(ColorSensor.class, "csRight");
         bottomColorSensor = hwMap.get(ColorSensor.class, "bcs");
 
         TL = hwMap.get(DcMotor.class, "TL");
@@ -74,6 +75,11 @@ public class TypexChart {
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
         /* Setting Power Modes */
+        TL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        TR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
         TL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         TR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -109,7 +115,8 @@ public class TypexChart {
         pidRotate = new PIDController(.004, .00004, 0);
 
         bottomColorSensor.enableLed(true);
-        colorSensor.enableLed(true);
+        colorSensorLeft.enableLed(true);
+        colorSensorRight.enableLed(true);
 
 
     }

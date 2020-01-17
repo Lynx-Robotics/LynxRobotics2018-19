@@ -199,7 +199,7 @@ Drive Methods Ending NOw
         }
     }
 
-    public boolean SkyStoneSpotted() {
+    public boolean SkyStoneSpotted(ColorSensor cs) {
         int HUE = 16777216;
         int GVal = 14;
         int BVal = 10;
@@ -207,7 +207,7 @@ Drive Methods Ending NOw
 
         int tolerance = 10;
 
-        if (colorCheclerGreen(chart.colorSensor, GVal, tolerance) && colorCheclerBlue(chart.colorSensor, BVal, tolerance) && colorCheclerRed(chart.colorSensor, RVal, tolerance)) {
+        if (colorCheclerGreen(cs, GVal, tolerance) && colorCheclerBlue(cs, BVal, tolerance) && colorCheclerRed(cs, RVal, tolerance)) {
             return true;
         } else {
             return false;
