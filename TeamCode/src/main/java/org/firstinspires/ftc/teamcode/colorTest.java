@@ -25,13 +25,17 @@ public class colorTest extends TeleBase {
             telemetry.addData("Left GVal: ", chart.colorSensorLeft.green());
             telemetry.addData("Left BVal: ", chart.colorSensorLeft.blue());
             telemetry.addData("Left RVal: ", chart.colorSensorLeft.red());
+            telemetry.addData("Left Hue: ", chart.colorSensorLeft.argb());
+            telemetry.addData("Left Alpha: ", chart.colorSensorLeft.alpha());
 
             telemetry.addData("Right GVal: ", chart.colorSensorRight.green());
             telemetry.addData("Right BVal: ", chart.colorSensorRight.blue());
             telemetry.addData("Right RVal: ", chart.colorSensorRight.red());
+            telemetry.addData("Right Hue: ", chart.colorSensorRight.argb());
+            telemetry.addData("Right Alpha: ", chart.colorSensorRight.alpha());
 
-            telemetry.addData("Spotted the skystone Left? ", !SkyStoneSpottedLeft());
-            telemetry.addData("Spotted the skystone Right? ", !SkyStoneSpottedRight());
+            //telemetry.addData("Spotted the skystone Left? ", !SkyStoneSpottedLeft());
+            //telemetry.addData("Spotted the skystone Right? ", !SkyStoneSpottedRight());
 
 
             telemetry.update();

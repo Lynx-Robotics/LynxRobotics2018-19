@@ -40,7 +40,7 @@ public class TypexChart {
 
     Servo hookLeft,hookRight, middleGrab;
 
-    public double powerUp = 0.5, powerDown = -0.5, power = 0.4;
+    public double powerUp = 0.5, powerDown = -0.5, power = 0.15;
     public double globalAngle;
     Orientation lastAngles = new Orientation();
     /* Recharging local members */
@@ -109,7 +109,7 @@ public class TypexChart {
 
         hookRight.setPosition(0.9);
         hookLeft.setPosition(0.9);
-        middleGrab.setPosition(0.6);
+        middleGrab.setPosition(0.0);
 
         pidDrive = new PIDController(.05, 0, 0);
         pidRotate = new PIDController(.004, .00004, 0);

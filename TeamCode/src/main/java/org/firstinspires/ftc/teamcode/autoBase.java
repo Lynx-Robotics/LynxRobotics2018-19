@@ -41,6 +41,13 @@ public abstract class autoBase extends LinearOpMode {
         chart.BR.setPower((chart.power + chart.correction));
     }
 
+    public void goBack(double power) {
+        chart.TL.setPower((power - chart.correction));
+        chart.BL.setPower((power - chart.correction));
+        chart.TR.setPower((power + chart.correction));
+        chart.BR.setPower((power + chart.correction));
+    }
+
     public void strafeRight() {
         chart.TL.setPower(chart.powerDown + joltControl(chart.runtime));
         chart.TR.setPower(chart.powerUp);
