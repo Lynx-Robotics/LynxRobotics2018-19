@@ -4,6 +4,7 @@ import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
 public abstract class TeleBase extends LinearOpMode {
     TypexChart chart = new TypexChart();
@@ -222,6 +223,15 @@ public abstract class TeleBase extends LinearOpMode {
         }
     }
 
+    public void wait(double seconds) {
+        ElapsedTime Intruntime = new ElapsedTime();
+        Intruntime.reset();
+        while (opModeIsActive() && Intruntime.seconds() < seconds) {
+            /*telemetry.addData("Status: ", "Executing the current Phase");
+            telemetry.update();*/
+        }
+    }
+
     /*
     ------------------------------------------------------------------------------------
     [FIELD NAVIGATION METHODS] END
@@ -253,7 +263,8 @@ public abstract class TeleBase extends LinearOpMode {
         double BValBase = cs.blue();
         double RValBase = cs.red();
 
-        sleep(3);
+        //sleep(3);
+        wait(0.001);
 
         GValNew = cs.green();
         BValNew =cs.blue();

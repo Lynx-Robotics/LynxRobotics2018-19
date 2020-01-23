@@ -15,81 +15,67 @@ import java.lang.reflect.Type;
 //@Disabled
 public class BasicTele extends LinearOpMode {
 
+    Boolean switches = false;
+
     public DcMotor BL;
-    public DcMotor BR;
-    public DcMotor TR;
-    public DcMotor TL;
 
-    public Servo hooker1;
-    public Servo hooker2;
 
-    final double strafeSpeed = 1.0;
-    final double closePosition = 1.0;
-    final double openPosition = 0.0;
-
-    private int upperBound = 1600;
-    private int lowerBound = 0;
-
-    private double speedMultip;
-
-    Servo middleGrab;
+    //Servo middleGrab;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        middleGrab = hardwareMap.get(Servo.class, "middleGrab");
-        hooker1 = hardwareMap.get(Servo.class, "hookRight");
-        hooker2 = hardwareMap.get(Servo.class, "hookLeft");
-
+        //middleGrab = hardwareMap.get(Servo.class, "middleGrab");
         BL = hardwareMap.get(DcMotor.class, "BL");
-        BR = hardwareMap.get(DcMotor.class, "BR");
-        TR = hardwareMap.get(DcMotor.class, "TR");
-        TL = hardwareMap.get(DcMotor.class, "TL");
 
-        TL.setDirection(DcMotorSimple.Direction.REVERSE);
-        BL.setDirection(DcMotorSimple.Direction.REVERSE);
-
-        speedMultip = 1.0;
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         waitForStart();
 
-        while(opModeIsActive()){
-
-
-
-            if (gamepad1.a){
-                middleGrab.setPosition(1.0);
-            }
-            else if(gamepad1.y) {
-                middleGrab.setPosition(0.6);
-            }
-
-            TL.setPower(gamepad1.right_stick_y);
-            BL.setPower(gamepad1.right_stick_y);
-            TR.setPower(gamepad1.left_stick_y);
-            BR.setPower(gamepad1.left_stick_y);
-
-            if (gamepad1.dpad_left){
-                TL.setPower(1.0);
-                BL.setPower(-1.0);
-                BR.setPower(-1.0);
-                TR.setPower(1.0);
-            }
-            else if (gamepad1.dpad_right) {
-                TL.setPower(-1.0);
-                BL.setPower(1.0);
-                BR.setPower(1.0);
-                TR.setPower(-1.0);
-            }
-
-            if (gamepad1.left_bumper) {
-                hooker1.setPosition(0.1);
-                hooker2.setPosition(0.1);
-            }
-
-            if (gamepad1.right_bumper) {
-                hooker1.setPosition(0.9);
-                hooker2.setPosition(0.9);
-            }
+        while (opModeIsActive()) {
+            telemetry.addData("Current Position in motor: ", BL.getCurrentPosition());
+            telemetry.update();
         }
     }
+
+    public void resetEncoders(DcMotor motor) {
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motor.setPower(0);
+    }
+
+    public double sqaureRootPowerControl(DcMotor motor, int target, double tuning){
+        //tuning should be three for experimental
+        int currentPos = motor.getCurrentPosition();
+        double pError = (double)(currentPos - target) / (double)target;
+
+        double underSqrt = tuning * pError;
+        double squareRootResult = Math.sqrt(underSqrt);
+        double correctionPower = 1 / (squareRootResult);
+
+        return 1 - correctionPower;
+
+
+    }
+
+    public void goToPosition(DcMotor motor, int position, double power) {
+        resetEncoders(motor);
+
+        int currentPos = motor.getCurrentPosition();
+        double pError = (double)(currentPos - position) / (double)position;
+        int motorPosition = motor.getCurrentPosition();
+
+        motor.setPower(power);
+
+        while ((motorPosition <= position) /*&&  pError>.25*/) {
+            telemetry.addData("Current Position: ", motor.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor.getCurrentPosition();
+        }
+        motor.setPower(0);
+
+        switches = true;
+    }
+
 }

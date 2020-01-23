@@ -157,6 +157,8 @@ public class COLOR_SKYSTONE_REDV2 extends LinearOpMode {
         boolean blue = isInRange(cs.blue(), 3, 23.75);
         boolean red = isInRange(cs.red(), 4, 56.25);
 
+        boolean hue = isInRange(cs.argb(), 10000, 33554432);
+
         boolean threeColorsMatch = green && blue && red;
 
         boolean alpha = isInRange(cs.alpha(), 10, 113.5);

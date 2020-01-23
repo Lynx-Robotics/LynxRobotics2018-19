@@ -79,8 +79,10 @@ public class operationControl extends TeleBase {
         boolean threeColorsMatch = green && blue && red;
 
         boolean alpha = isInRange(cs.alpha(), 30, 113.5);
+        boolean hue = isInRange(cs.argb(), 10000, 33554432);
 
-        return alpha && threeColorsMatch;
+
+        return (alpha && threeColorsMatch)  &&  hue;
     }
 
     public void smartGrabV5(){

@@ -13,9 +13,9 @@ public class parkTest extends autoBase {
 
         waitForStart();
         goForward(1.0);
-        while(!tapeSpotted()){
+        /*while(!tapeSpotted()){
 
-        }
+        }*/
         rest();
     }
 }

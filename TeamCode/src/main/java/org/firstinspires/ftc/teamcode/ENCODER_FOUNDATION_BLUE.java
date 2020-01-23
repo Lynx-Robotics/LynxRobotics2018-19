@@ -14,7 +14,7 @@ public class ENCODER_FOUNDATION_BLUE extends autoBase {
         waitForStart();
 
         //goes forward slightly so it can grab the foundation
-        driveWithEncoder(encoderTicksForDistance(90.015), 0.3);
+        //driveWithEncoder(encoderTicksForDistance(90.015), 0.3);
         telemetry.addData("Currently analyzing results", "");
         telemetry.update();
         wait(5.0);
@@ -27,7 +27,7 @@ public class ENCODER_FOUNDATION_BLUE extends autoBase {
         wait(5.0);
 
         //goes towards the center of the foundation
-        driveWithEncoder(encoderTicksForDistance(29.18079), 0.3);
+        //driveWithEncoder(encoderTicksForDistance(29.18079), 0.3);
         telemetry.addData("Currently analyzing results", "");
         telemetry.update();
         wait(5.0);
@@ -40,7 +40,7 @@ public class ENCODER_FOUNDATION_BLUE extends autoBase {
         wait(5.0);
 
         //drives closer to the foundation so it can grab
-        driveWithEncoder(encoderTicksForDistance(22.86), 0.3);
+        //driveWithEncoder(encoderTicksForDistance(22.86), 0.3);
         telemetry.addData("Currently analyzing results", "");
         telemetry.update();
         wait(5.0);
@@ -52,7 +52,7 @@ public class ENCODER_FOUNDATION_BLUE extends autoBase {
         wait(5.0);
 
         //goes back with foundation
-        driveWithEncoder(encoderTicksForDistance(150), -0.6);
+        //driveWithEncoder(encoderTicksForDistance(150), -0.6);
         telemetry.addData("Currently analyzing results", "");
         telemetry.update();
         wait(5.0);
@@ -80,12 +80,12 @@ public class ENCODER_FOUNDATION_BLUE extends autoBase {
         if there is an object within the next 30 centimeters then we tell it to simply stop (for now).
         In later iterations of the code it will move to the left and then it will park in the empty spot.
          */
-        if(chart.distanceSensor.getDistance(DistanceUnit.CM)<30){
+        /*if(chart.distanceSensor.getDistance(DistanceUnit.CM)<30){
             rest();
         }
-        /*
+        *//*
         In the case that there is not an object then it will go full throttle until it sees the tape
-         */
+         *//*
         else{
             goForward(1.0);
             while(opModeIsActive()&&!tapeSpotted()){
@@ -93,6 +93,6 @@ public class ENCODER_FOUNDATION_BLUE extends autoBase {
             }
             wait(0.2);
             rest();
-        }
+        }*/
     }
 }

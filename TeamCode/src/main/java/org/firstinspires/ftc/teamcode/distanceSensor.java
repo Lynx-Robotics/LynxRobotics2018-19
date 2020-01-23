@@ -13,7 +13,7 @@ public class distanceSensor extends autoBase {
 
         waitForStart();
         while(opModeIsActive()){
-            telemetry.addData("Distance in CM: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
+            //telemetry.addData("Distance in CM: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
             telemetry.update();
         }
     }

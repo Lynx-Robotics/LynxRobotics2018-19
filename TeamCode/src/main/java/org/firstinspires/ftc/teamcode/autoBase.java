@@ -14,6 +14,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public abstract class autoBase extends LinearOpMode {
     TypexChart chart = new TypexChart();
     CONSTANTS constants = new CONSTANTS();
+
+    boolean objDetected = false;
+
     /*
     ------------------------------------------------------------------------------------------
     Drive Methods Starting NOW
@@ -27,9 +30,9 @@ public abstract class autoBase extends LinearOpMode {
         chart.BR.setPower(-(chart.power + chart.correction));
     }
 
-    public void goForward(double power1) {
-        chart.TL.setPower(-(power1 - chart.correction));
-        chart.BL.setPower(-(power1 - chart.correction));
+    public void goForward(double power1){
+        chart.TL.setPower(-((power1-0.0550) - chart.correction));
+        chart.BL.setPower(-((power1) - chart.correction));
         chart.TR.setPower(-(power1 + chart.correction));
         chart.BR.setPower(-(power1 + chart.correction));
     }
@@ -49,15 +52,15 @@ public abstract class autoBase extends LinearOpMode {
     }
 
     public void strafeRight() {
-        chart.TL.setPower(chart.powerDown + joltControl(chart.runtime));
+        chart.TL.setPower(chart.powerDown);
         chart.TR.setPower(chart.powerUp);
         chart.BL.setPower(chart.powerUp);
         chart.BR.setPower(chart.powerDown);
     }
 
-    public void strafeRight(double power) {
-        chart.TL.setPower(power + joltControl(chart.runtime));
-        chart.TR.setPower(-power);
+    public void strafeLeft(double power) {
+        chart.TL.setPower(power);
+        chart.TR.setPower(-power + 0.004);
         chart.BL.setPower(-power);
         chart.BR.setPower(power);
     }
@@ -84,11 +87,11 @@ public abstract class autoBase extends LinearOpMode {
         chart.BR.setPower(0);
     }
 
-    public void strafeLeft(double power) {
-        chart.TL.setPower(power + joltControl(chart.runtime));
-        chart.TR.setPower(-power);
-        chart.BL.setPower(-power);
-        chart.BR.setPower(power + joltControl(chart.runtime));
+    public void strafeRight(double power) {
+        chart.TL.setPower(-power);
+        chart.TR.setPower(power);
+        chart.BL.setPower(power);
+        chart.BR.setPower(-power);
     }
 
     public void strafeLeftFullThrottle(){
@@ -115,13 +118,13 @@ Drive Methods Ending NOw
     Time Control / State Control Methods Starting NOW
     ------------------------------------------------------------------------------------------
      */
-    public int parkState(double triggerDist) {
+    /*public int parkState(double triggerDist) {
         if (opModeIsActive() && (chart.distanceSensor.getDistance(DistanceUnit.CM) < triggerDist)) {
             return 2;
         } else {
             return 1;
         }
-    }
+    }*/
 
     public void wait(double seconds, String phase) {
         ElapsedTime Intruntime = new ElapsedTime();
@@ -137,9 +140,23 @@ Drive Methods Ending NOw
         ElapsedTime Intruntime = new ElapsedTime();
         Intruntime.reset();
         while (opModeIsActive() && Intruntime.seconds() < seconds) {
-            telemetry.addData("Status: ", "Executing the current Phase");
-            telemetry.update();
+            /*telemetry.addData("Status: ", "Executing the current Phase");
+            telemetry.update();*/
         }
+    }
+
+    public boolean detectsYellow(ColorSensor cs){
+        boolean green = isInRange(cs.green(), 2, 36.5);
+        boolean blue = isInRange(cs.blue(), 3, 23.75);
+        boolean red = isInRange(cs.red(), 4, 56.25);
+
+        boolean hue = isInRange(cs.argb(), 10000, 33554432);
+
+        boolean threeColorsMatch = green && blue && red;
+
+        boolean alpha = isInRange(cs.alpha(), 10, 113.5);
+
+        return alpha && threeColorsMatch;
     }
 
     /*
@@ -154,7 +171,7 @@ Drive Methods Ending NOw
     ------------------------------------------------------------------------------------------
      */
 
-    public boolean timeoutDistSensor() {
+    /*public boolean timeoutDistSensor() {
         ElapsedTime internalTime = new ElapsedTime();
         internalTime.reset();
         if ((isInRange(chart.distanceSensor.getDistance(DistanceUnit.CM), 10, 30)) && (internalTime.seconds() < 4)) {
@@ -171,7 +188,7 @@ Drive Methods Ending NOw
         } else {
             return false;
         }
-    }
+    }*/
 
     public boolean colorCheclerGreen(ColorSensor cs, int GVal, int tolerance) {
 
@@ -188,7 +205,7 @@ Drive Methods Ending NOw
         return ((cs.green() < (RVal + tolerance)) && ((cs.green() > RVal - tolerance)));
     }
 
-    public boolean tapeSpotted() {
+    /*public boolean tapeSpotted() {
         //Record values for the ground and return false when viewing the grey ground
 
         int GVal = 50;
@@ -204,9 +221,9 @@ Drive Methods Ending NOw
             sleep(50);
             return true;
         }
-    }
+    }*/
 
-    public boolean SkyStoneSpotted(ColorSensor cs) {
+    public boolean SkyStoneSpottedOld(ColorSensor colorSensor){
         int HUE = 16777216;
         int GVal = 14;
         int BVal = 10;
@@ -214,11 +231,32 @@ Drive Methods Ending NOw
 
         int tolerance = 10;
 
-        if (colorCheclerGreen(cs, GVal, tolerance) && colorCheclerBlue(cs, BVal, tolerance) && colorCheclerRed(cs, RVal, tolerance)) {
+        if (colorCheclerGreen(colorSensor, GVal, tolerance) && colorCheclerBlue(colorSensor, BVal, tolerance) && colorCheclerRed(colorSensor, RVal, tolerance)){
             return true;
-        } else {
+        }
+        else {
             return false;
         }
+    }
+
+    public boolean SkyStoneSpotted(ColorSensor cs, int tolerance) {
+        int HUE = 16777216;
+        int GVal = 23;
+        int BVal = 21;
+        int RVal = 23;
+
+        boolean alpha = isInRange(cs.alpha(), 10, 60);
+
+        boolean colorMatch = false;
+        boolean alphaMatch = cs.alpha()>75;
+
+        if (colorCheclerGreen(cs, GVal, tolerance) && colorCheclerBlue(cs, BVal, tolerance) && colorCheclerRed(cs, RVal, tolerance)) {
+            colorMatch = true;
+        } else {
+            colorMatch = false;
+        }
+
+        return colorMatch && alphaMatch;
     }
 
     /*
@@ -232,20 +270,20 @@ Drive Methods Ending NOw
     SERVO CONTROL METHODS STARTING NOW
     ------------------------------------------------------------------------------------------
      */
-    public void grabServo() {
+    /*public void grabServo() {
         chart.middleGrab.setPosition(1.0);
-    }
+    }*/
 
     public void dropDL() {
         chart.hookLeft.setPosition(0.1);
         chart.hookRight.setPosition(0.1);
     }
 
-    public void raiseDL() {
+    /*public void raiseDL() {
         chart.hookLeft.setPosition(0.9);
         chart.hookRight.setPosition(0.9);
         chart.middleGrab.setPosition(0.0);
-    }
+    }*/
 
     /*
     ------------------------------------------------------------------------------------------
@@ -384,6 +422,43 @@ Drive Methods Ending NOw
         return (number < (targ+tolerance)) && (number>(targ - tolerance));
     }
 */
+    public void toggleObjDetected(boolean stateControl){
+        if(stateControl == true){
+            objDetected = !objDetected;
+        }
+        else {
+            objDetected = objDetected;
+        }
+    }
+
+    public double pChangeAlpha(ColorSensor cs) {
+        double alphaNew;
+        double alphaBase = cs.alpha();
+        wait(0.01);
+        //sleep(1);
+        alphaNew = cs.alpha();
+
+        double pChangeAlpha = (alphaNew - alphaBase) / alphaBase;
+        return pChangeAlpha;
+
+    }
+
+    public double avgPChangeAlpha(ColorSensor csRight, ColorSensor csLeft){
+        double pChangeAlphaLeft = pChangeAlpha(csLeft);
+        double pChangeAlphaRight = pChangeAlpha(csRight);
+
+        return (pChangeAlphaLeft + pChangeAlphaRight)/2.0;
+    }
+
+    public boolean objDetectedAlpha(double threshold, ColorSensor csRight, ColorSensor csLeft){
+        return threshold < avgPChangeAlpha(csRight, csLeft); //75% change minimum
+        //return ((threshold < pChangeAlpha(csLeft)) && (threshold < pChangeAlpha(csRight)));
+    }
+
+    /*public boolean objDetectedColor(){
+        return detectsYellow(chart.colorSensorLeft) || detectsYellow(chart.colorSensorRight); //75% change minimum
+        //return ((threshold < pChangeAlpha(csLeft)) && (threshold < pChangeAlpha(csRight)));
+    }*/
     /*
     ------------------------------------------------------------------------------------------
     MISC
@@ -397,7 +472,7 @@ Drive Methods Ending NOw
     ------------------------------------------------------------------------------------------
      */
 
-    public void park(double triggerDist) {
+    /*public void park(double triggerDist) {
         switch (parkState(triggerDist)) {
             case 1:
                 goForward();
@@ -424,7 +499,7 @@ Drive Methods Ending NOw
                 rest();
                 break;
         }
-    }
+    }*/
 
     /*
     ------------------------------------------------------------------------------------------
@@ -432,31 +507,71 @@ Drive Methods Ending NOw
     ------------------------------------------------------------------------------------------
      */
 
+    public void resetEncoders(DcMotor motor) {
+        motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motor.setPower(0);
+    }
+
+    public void goToPosition(DcMotor motor, int position, double power) {
+        resetEncoders(motor);
+
+        int motorPosition = motor.getCurrentPosition();
+
+        motor.setPower(power - sqaureRootPowerControl(motor, position, 3.0));
+
+        while (motorPosition <= position) {
+            telemetry.addData("Current Position: ", motor.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor.getCurrentPosition();
+        }
+        //resetEncoders(motor);
+        motor.setPower(0);
+        chart.DebugSwitch = true;
+    }
+
+    public void encoderDrive(int position, double power){
+        /*powerControl(0.00291, position, 0.25, chart.TL);
+        powerControl(0.00291, position, 0.25, chart.TR);
+        powerControl(0.00291, position, 0.25, chart.BL);
+        powerControl(0.00291, position, 0.25, chart.BR);*/
+
+        goToPosition(chart.TL, position, power);
+        goToPosition(chart.TR, position, power);
+        goToPosition(chart.BL, position, power);
+        goToPosition(chart.BR, position, power);
+    }
+
     public int encoderTicksForDistance(double distanceTarg){ //ensure that distance is in centimeters
         return (int)(distanceTarg * constants.ticksPerCm);
     }
 
-    public void driveWithEncoder(int encoderNum, double power){
-        chart.TL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        chart.TR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+    //powerControl proportional and linear
+    public double sqaureRootPowerControl(DcMotor motor, int target, double tuning){
+        //tuning should be three for experimental
+        int currentPos = motor.getCurrentPosition();
+        double pError = (double)(currentPos - target) / (double)target;
 
-        chart.BL.setPower(chart.TL.getPower());
-        chart.BL.setPower(chart.BL.getPower());
+        double underSqrt = tuning * pError;
+        double squareRootResult = Math.sqrt(underSqrt);
+        double correctionPower = 1 / (squareRootResult);
 
-        chart.TL.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        chart.TR.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        return 1 - correctionPower;
 
-        goForward(power);
 
-        while(!isInRange(chart.TL.getCurrentPosition(), 3, encoderNum) || !isInRange(chart.TR.getCurrentPosition(), 3, encoderNum)){
-            telemetry.addData("Percentage Complete: (Left Side) ", (
-                    ((double)chart.TL.getCurrentPosition()/(double)encoderNum)*100));
-            telemetry.addData("Percentage Complete: (Right Side) ",
-                    (((double)chart.TR.getCurrentPosition()/(double)encoderNum)*100));
-            telemetry.update();
-        }
-        rest();
     }
 
+    public double powerControl(double tuningConstant, int position, double thresholdPercent, DcMotor motor){
+        int currentPosition = motor.getCurrentPosition();
+        double pError = (double)(currentPosition - position)/(double)position;
 
+        if((pError < thresholdPercent) && (pError > 0.05)) {
+            return pError * tuningConstant;
+        }
+        else {
+            return pError * 0;
+        }
+    }
 }

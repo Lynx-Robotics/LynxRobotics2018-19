@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -53,7 +54,7 @@ public class SKYSTONE_RED extends autoBase {
             rest();
 
             strafeLeft();
-            while(opModeIsActive() && !SkyStoneSpotted(chart.colorSensorLeft)){
+            while(opModeIsActive() && !SkyStoneSpotted(chart.colorSensorLeft, 10)){
                 telemetry.addData("spotting stone", true);
                 telemetry.addData("Distance: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
                 telemetry.addData("Distance Sensor Working?: ", distanceSensorWorking);
@@ -63,7 +64,7 @@ public class SKYSTONE_RED extends autoBase {
             rest();
 
             strafeRight(0.3);
-            while(opModeIsActive() && SkyStoneSpotted(chart.colorSensorLeft)){
+            while(opModeIsActive() && SkyStoneSpotted(chart.colorSensorLeft, 10)){
                 telemetry.addData("moving right to the robot", true);
                 telemetry.addData("Distance: ", chart.distanceSensor.getDistance(DistanceUnit.CM));
                 telemetry.addData("Distance Sensor Working?: ", distanceSensorWorking);
@@ -128,8 +129,8 @@ public class SKYSTONE_RED extends autoBase {
 
             //sleep(2000);
 
-            while(opModeIsActive()&&!SkyStoneSpotted(chart.colorSensorLeft)){
-                telemetry.addData("Status: ", SkyStoneSpotted(chart.colorSensorLeft));
+            while(opModeIsActive()&&!SkyStoneSpotted(chart.colorSensorLeft, 10)){
+                telemetry.addData("Status: ", SkyStoneSpotted(chart.colorSensorLeft, 10));
                 telemetry.update();
 
             }
@@ -141,8 +142,8 @@ public class SKYSTONE_RED extends autoBase {
             chart.TR.setPower(0.3);
             chart.BL.setPower(0.3);
             chart.BR.setPower(-0.3 );
-            while(opModeIsActive()&&SkyStoneSpotted(chart.colorSensorLeft)){
-                telemetry.addData("Status: ", SkyStoneSpotted(chart.colorSensorLeft));
+            while(opModeIsActive()&&SkyStoneSpotted(chart.colorSensorLeft,10 )){
+                telemetry.addData("Status: ", SkyStoneSpotted(chart.colorSensorLeft,10 ));
                 telemetry.update();
             }
             sleep(300);
@@ -181,3 +182,4 @@ public class SKYSTONE_RED extends autoBase {
         }
     }
 }
+*/

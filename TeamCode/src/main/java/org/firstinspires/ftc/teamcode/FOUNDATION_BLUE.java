@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -108,9 +109,11 @@ public class FOUNDATION_BLUE extends autoBase {
 
         }
         else {
-            /*
+            */
+/*
             PHASE 3 Description: Strafes to the left and centers itself with the foundation
-             */
+             *//*
+
             chart.TL.setPower(chart.powerUp + joltControl(chart.runtime));
             chart.TR.setPower(chart.powerDown);
             chart.BL.setPower(chart.powerDown);
@@ -119,9 +122,11 @@ public class FOUNDATION_BLUE extends autoBase {
             wait(0.7);
             rest();
 
-            /*
+            */
+/*
             PHASE 4 Description: Goes forward until it gets to the foundation
-             */
+             *//*
+
             goForward();
             while (opModeIsActive() && (!tripWireActive(9.5))) {
                 telemetry.addData("Status: ", "going towards foundation (PHASE 4)");
@@ -129,30 +134,38 @@ public class FOUNDATION_BLUE extends autoBase {
             }
             rest();
 
-        /*
+        */
+/*
         PHASE 5 Description: Drops the hookers
-         */
+         *//*
+
             dropDL();
             wait(2.0, "dropping hookers (PHASE 5)");
 
-        /*
+        */
+/*
         PHASE 6 Description: Goes back towards the depot
-         */
+         *//*
+
             //resetAngle();
             goBack();
             wait(3.0, "going backwards towards depot (PHASE 6)");
             rest();
             sleep(2000);
 
-        /*
+        */
+/*
         PHASE 7: Raises the Hookers and prepares to move our of the way
-         */
+         *//*
+
             raiseDL();
             wait(2.0);
 
-        /*
+        */
+/*
         PHASE 8 Description: makes sure that the robot is clear of the foundation
-         */
+         *//*
+
             goBack();
             wait(0.5, "repositioning (PHASE 8)");
             rest();
@@ -160,9 +173,11 @@ public class FOUNDATION_BLUE extends autoBase {
             goForward();
             wait(0.2);
 
-        /*
+        */
+/*
         PHASE 9 Description: strafes to the right and parks
-         */
+         *//*
+
             strafeRight();
             wait(4.0, "strafing out and parking (PHASE 8)");
             rest();
@@ -180,3 +195,4 @@ public class FOUNDATION_BLUE extends autoBase {
         telemetry.update();
     }
 }
+*/

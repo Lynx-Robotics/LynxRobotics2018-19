@@ -5,10 +5,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 @Autonomous(name = "TIME_FOUNDATION_BLUE", group = "TIME")
 public class TIME_FOUNDATION_BLUE extends autoBase {
 
-    double timePhase1 = 0.3;
-    double timePhase2 = 2.0;
-    double timePhase3 = 2.0;
-    double timePhase4 = 0.5;
+    double timePhase1 = 0.42;
+    double timePhase2 = 1.0 ;
+    double timePhase3 = 3.0;
+    double timePhase4 = 1.1;
     double timePhase5 = 3.0;
     double timePhase6;
     double timePhase7;
@@ -34,7 +34,7 @@ public class TIME_FOUNDATION_BLUE extends autoBase {
         --------------------------------------------------------------------------------------
          */
 
-        strafeLeft();
+        strafeLeft(0.45);
         wait(timePhase1);
 
         /*
@@ -43,7 +43,7 @@ public class TIME_FOUNDATION_BLUE extends autoBase {
         --------------------------------------------------------------------------------------
          */
 
-        goForward(0.3);
+        goForward(0.4);
         wait(timePhase2);
         rest();
 
@@ -62,7 +62,7 @@ public class TIME_FOUNDATION_BLUE extends autoBase {
         --------------------------------------------------------------------------------------
          */
 
-        goBack(-0.3);
+        goBack(0.3);
         wait(timePhase4);
         rest();
 
@@ -72,7 +72,7 @@ public class TIME_FOUNDATION_BLUE extends autoBase {
         --------------------------------------------------------------------------------------
          */
 
-        strafeRight();
+        strafeRight(0.4);
         wait(timePhase5);
         rest();
 
@@ -81,20 +81,6 @@ public class TIME_FOUNDATION_BLUE extends autoBase {
         Phase 6
         --------------------------------------------------------------------------------------
          */
-    }
-
-    public void strafeLeft() {
-        chart.TL.setPower(constants.powerDown);
-        chart.BL.setPower(constants.powerUp);
-        chart.TR.setPower(constants.powerUp);
-        chart.BR.setPower(constants.powerDown);
-    }
-
-    public void strafeRight(){
-        chart.TL.setPower(constants.powerUp);
-        chart.BL.setPower(constants.powerDown);
-        chart.TR.setPower(constants.powerDown);
-        chart.BR.setPower(constants.powerUp);
     }
 
 }

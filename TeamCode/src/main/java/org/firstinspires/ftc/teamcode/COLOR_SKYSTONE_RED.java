@@ -25,16 +25,25 @@ public class COLOR_SKYSTONE_RED extends autoBase {
 
         waitForStart();
 
-        goForward();
-        goFront(-0.15);
+        goForward(.15);
+        //goFront(-0.15);
         while(opModeIsActive() && !objDetected){
             telemetry.addData("Finding an object", "...");
-            telemetry.addData("Object Found?",objDetectedAlpha(0.70, chart.colorSensorRight, chart.colorSensorLeft));
+            telemetry.addData("Object Found?",objDetectedAlpha(0.05, chart.colorSensorRight, chart.colorSensorLeft));
             telemetry.addData("ObjDetected Variable: ", objDetected);
             telemetry.update();
 
-            toggleObjDetected(objDetectedAlpha(0.70, chart.colorSensorRight, chart.colorSensorLeft));
+            toggleObjDetected(objDetectedAlpha(0.10, chart.colorSensorRight, chart.colorSensorLeft));
         }
+        rest();
+
+        goForward(-0.175);
+        wait(0.12);
+
+        strafeLeft(-0.175);
+        //while(opModeIsActive()&&!SkyStoneSpottedOld(chart.colorSensorLeft));
+        while(opModeIsActive()&&!SkyStoneSpotted(chart.colorSensorLeft, 5));
+
         rest();
     }
 

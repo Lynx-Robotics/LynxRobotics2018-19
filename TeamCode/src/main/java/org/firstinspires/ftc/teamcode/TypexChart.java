@@ -28,6 +28,8 @@ public class TypexChart {
     public DcMotor BL ;
     public DcMotor BR ;
 
+    boolean DebugSwitch = false, DebugSwitch2 = false, DebugSwitch3 = false, DebugSwitch4 = false; // used for controlling loops for debugging
+
     ElapsedTime runtime = new ElapsedTime();
     ElapsedTime globalTime = new ElapsedTime();
 
@@ -35,7 +37,7 @@ public class TypexChart {
 
     BNO055IMU imu;
 
-    DistanceSensor distanceSensor;
+    //DistanceSensor distanceSensor;
     ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
 
     Servo hookLeft,hookRight, middleGrab;
@@ -60,10 +62,10 @@ public class TypexChart {
         middleGrab = hwMap.get(Servo.class, "middleGrab");
 
         //Name stars
-        distanceSensor = hwMap.get(DistanceSensor.class, "dist");
-        colorSensorLeft = hwMap.get(ColorSensor.class, "csLeft");
-        colorSensorRight = hwMap.get(ColorSensor.class, "csRight");
-        bottomColorSensor = hwMap.get(ColorSensor.class, "bcs");
+        //distanceSensor = hwMap.get(DistanceSensor.class, "dist");
+        //colorSensorLeft = hwMap.get(ColorSensor.class, "csLeft");
+        //colorSensorRight = hwMap.get(ColorSensor.class, "csRight");
+        //bottomColorSensor = hwMap.get(ColorSensor.class, "bcs");
 
         TL = hwMap.get(DcMotor.class, "TL");
         TR = hwMap.get(DcMotor.class, "TR");
@@ -109,14 +111,14 @@ public class TypexChart {
 
         hookRight.setPosition(0.9);
         hookLeft.setPosition(0.9);
-        middleGrab.setPosition(0.0);
+        //middleGrab.setPosition(0.0);
 
         pidDrive = new PIDController(.05, 0, 0);
         pidRotate = new PIDController(.004, .00004, 0);
 
-        bottomColorSensor.enableLed(true);
-        colorSensorLeft.enableLed(true);
-        colorSensorRight.enableLed(true);
+        //bottomColorSensor.enableLed(true);
+        //colorSensorLeft.enableLed(true);
+        //colorSensorRight.enableLed(true);
 
 
     }
