@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 // PID controller courtesy of Peter Tischler, with modifications.
 
-public class PIDController
+public class PController
 {
     private double m_P;                     // factor for "proportional" control
     private double m_I;                     // factor for "integral" control
@@ -27,7 +27,7 @@ public class PIDController
      * @param Ki the integral coefficient
      * @param Kd the derivative coefficient
      */
-    public PIDController(double Kp, double Ki, double Kd)
+    public PController(double Kp, double Ki, double Kd)
     {
         m_P = Kp;
         m_I = Ki;

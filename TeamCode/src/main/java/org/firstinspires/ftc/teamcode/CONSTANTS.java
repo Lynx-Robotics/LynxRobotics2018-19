@@ -1,28 +1,36 @@
 package org.firstinspires.ftc.teamcode;
 
 public class CONSTANTS {
-    public double OPENPOSITION = 0.9;
-    public double CLOSEPOSITION = 0.1;
-    public double STALKPOWER = 0.3, STRAFEPOWER = 0.7, HALFPOWER = 0.5;
+    private double ticksPerRev = 1120;
+    private double circumference = ((3.141593) * 4.00);
 
-    private boolean speedToggle;
-    private boolean positionToggle;
+    public double greenBlack = 0;
+    public double blueBlack = 0;
+    public double redBlack = 0;
+    public double alphaBlackIdeal = 0;
+    public double hueBlackIdeal = 0;
 
-    public double speedMultip = 1;
+    public double greenYellow = 0;
+    public double blueYellow = 0;
+    public double redYellow = 0;
+    public double alphaYellowIdeal = 0;
+    public double hueYellowIdeal = 0;
 
-    public boolean isPositionToggle() {
-        return positionToggle;
-    }
+    public double greenFoundation = 859;
+    public double blueFoundation = 478;
+    public double redFoundation = 444;
+    public double alphaFoundationIdeal = 1764;
+    public double hueFoundationIdeal = 0;
 
-    public void setPositionToggle(boolean positionToggle) {
-        this.positionToggle = positionToggle;
-    }
 
-    public boolean isSpeedToggle() {
-        return speedToggle;
-    }
 
-    public void setSpeedToggle(boolean speedToggle) {
-        this.speedToggle = speedToggle;
-    }
+
+    public double distance2encoder = 25.46479089;
+
+    public double accelerationTime = 10;
+
+    double powerDown = -0.5, powerUp = 0.5;
+
+    public double ticksPerCm = (double) ticksPerRev/circumference;
+
 }

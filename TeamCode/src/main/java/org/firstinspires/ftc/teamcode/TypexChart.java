@@ -1,7 +1,12 @@
 package org.firstinspires.ftc.teamcode;
 
+//import com.qualcomm.hardware.modernrobotics.ModernRoboticsAnalogOpticalDistanceSensor;
+import android.graphics.Color;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.hardware.lynx.commands.standard.LynxGetModuleLEDColorResponse;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -9,56 +14,125 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
+import static java.lang.Thread.sleep;
 
 public class TypexChart {
-    public DcMotor TL, TR, BL, BR;
-    //public BNO055IMU imu;
-    public Servo hookLeft, hookRight;
 
-    public DistanceSensor distanceSensor;
+    /* Plotting public stars */
+    PController pidRotate, pidDrive;
+    CONSTANTS constants = new CONSTANTS();
 
-    HardwareMap chart;
+
+
+    public DcMotor TL ;
+    public DcMotor TR ;
+    public DcMotor BL ;
+    public DcMotor BR ;
+
+    public DcMotor elevMotor;
+
+    boolean DebugSwitch = false, DebugSwitch2 = false, DebugSwitch3 = false, DebugSwitch4 = false; // used for controlling loops for debugging
+
     ElapsedTime runtime = new ElapsedTime();
+    ElapsedTime globalTime = new ElapsedTime();
 
-    public TypexChart()
-    {
+    public double pDoneTimeAccel = ((globalTime.seconds() - constants.accelerationTime)/constants.accelerationTime);
+
+    public double correction, rotation;
+
+    BNO055IMU imu;
+
+    //DistanceSensor distanceSensor;
+    ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
+
+    //Servo hookLeft,hookRight, middleGrab;
+
+    public double powerUp = 0.5, powerDown = -0.5, power = 0.15;
+    public double globalAngle;
+    Orientation lastAngles = new Orientation();
+    /* Recharging local members */
+    HardwareMap hwMap = null;
+
+    /* Pager */
+    public TypexChart() {
 
     }
 
-    public void init(HardwareMap ahwMap) {
-        // Save reference to Hardware map
-        CONSTANTS constants = new CONSTANTS();
-        chart = ahwMap;
+    /* Initializing binaryChart Mainframe */
+    public void init (HardwareMap chart) {
+        hwMap = chart;
 
-        // Define and Initialize Motors
-        TL = ahwMap.get(DcMotor.class, "TL");
-        TR = ahwMap.get(DcMotor.class, "TR");
-        BL = ahwMap.get(DcMotor.class, "BL");
-        BR = ahwMap.get(DcMotor.class, "BR");
+        /*hookRight = hwMap.get(Servo.class, "hookRight");
+        hookLeft = hwMap.get(Servo.class, "hookLeft");
+        middleGrab = hwMap.get(Servo.class, "middleGrab");*/
 
+        //Name stars
+        //distanceSensor = hwMap.get(DistanceSensor.class, "dist");
+        colorSensorLeft = hwMap.get(ColorSensor.class, "csLeft");
+        //colorSensorRight = hwMap.get(ColorSensor.class, "csRight");
+        //bottomColorSensor = hwMap.get(ColorSensor.class, "bcs");
+
+        TL = hwMap.get(DcMotor.class, "TL");
+        TR = hwMap.get(DcMotor.class, "TR");
+        BL = hwMap.get(DcMotor.class, "BL");
+        BR = hwMap.get(DcMotor.class, "BR");
+
+        elevMotor = hwMap.get(DcMotor.class, "elevMotor");
+
+        /* Setting Quantum Harmonizer */
         TL.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //imu = ahwMap.get(BNO055IMU.class, "imu");
+        /* Setting Power Modes */
+        TL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        TR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elevMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        hookLeft = ahwMap.get(Servo.class, "hookLeft");
-        hookRight = ahwMap.get(Servo.class, "hookRight");
+        TL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        TR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        elevMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // Set all motors to zero power
+        TL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        TR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elevMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        /* Securing Brake Field */
         TL.setPower(0);
         TR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
+        elevMotor.setPower(0);
 
-        hookLeft.setPosition(constants.OPENPOSITION);
-        hookRight.setPosition(constants.OPENPOSITION);
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
 
-        TL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        TR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        parameters.mode = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled = false;
 
-        distanceSensor = ahwMap.get(DistanceSensor.class, "dist");
+        imu = hwMap.get(BNO055IMU.class, "imu");
+
+        imu.initialize(parameters);
+
+        /*hookRight.setPosition(0.9);
+        hookLeft.setPosition(0.9);*/
+        //middleGrab.setPosition(0.0);
+
+        pidDrive = new PController(.05, 0, 0);
+        pidRotate = new PController(.004, .00004, 0);
+
+        //bottomColorSensor.enableLed(true);
+        //colorSensorLeft.enableLed(true);
+        //colorSensorRight.enableLed(true);
+
+
     }
 }
