@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class Encoder_Foundation_Blue_v3 extends autoBaseV2 {
     double distPhase1 = 40; //go forwards fast
     double distPhase1a = 7; //go forwards slower and grab
-    double distPhase2 = 22; //strafe left
+    double distPhase2 = 90; //strafe left
     double distPhase3 = 44; //go backwards
     double distPhase4 = 48; //park
 
@@ -17,12 +17,16 @@ public class Encoder_Foundation_Blue_v3 extends autoBaseV2 {
         chart.init(hardwareMap);
         double distPhase1Revised = distance2encoder(distPhase1);
         double distPhase1aRevised = distance2encoder(distPhase1a);
+        double distPhase2Revised = distance2encoder(distPhase2);
+        double distPhase3Revised = distance2encoder(distPhase1);
 
         waitForStart();
         /*
         Pre Run Phase
          */
         goToPosition(chart.elevMotor, upPos, 1.0);
+
+        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distPhase3Revised, -0.3);
 
         /*
         PHASE 1: Go Forward
@@ -45,10 +49,11 @@ public class Encoder_Foundation_Blue_v3 extends autoBaseV2 {
 
         sleep(1500);
 
-        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distPhase1Revised, -1.0);
+        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distPhase2Revised, -1.0);
 
-        while(opModeIsActive() && chart.DebugSwitch){
-            telemetry.addData("Got to the end", true);
-        }
+       /* strafe(0.5);
+        while(opModeIsActive() && !tapeSpotted()){
+            telemetry.addData("Strafing until finding tape: ", true);
+        }*/
     }
 }

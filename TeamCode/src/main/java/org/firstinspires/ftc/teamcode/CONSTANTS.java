@@ -4,16 +4,16 @@ public class CONSTANTS {
     private double ticksPerRev = 1120;
     private double circumference = ((3.141593) * 4.00);
 
-    public double greenBlack = 0;
-    public double blueBlack = 0;
-    public double redBlack = 0;
-    public double alphaBlackIdeal = 0;
+    public double greenBlack = 480;
+    public double blueBlack = 238;
+    public double redBlack = 252;
+    public double alphaBlackIdeal = 965;
     public double hueBlackIdeal = 0;
 
-    public double greenYellow = 0;
-    public double blueYellow = 0;
-    public double redYellow = 0;
-    public double alphaYellowIdeal = 0;
+    public double greenYellow = 1184;
+    public double blueYellow = 276;
+    public double redYellow = 780;
+    public double alphaYellowIdeal = 2100;
     public double hueYellowIdeal = 0;
 
     public double greenFoundation = 859;

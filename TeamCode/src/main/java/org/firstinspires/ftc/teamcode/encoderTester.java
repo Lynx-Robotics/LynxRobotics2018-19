@@ -15,7 +15,11 @@ public class encoderTester extends LinearOpMode {
 
         waitForStart();
         while(opModeIsActive()){
-            telemetry.addData("Encoder Position: ", chart.elevMotor.getCurrentPosition());
+            telemetry.addData("Encoder Position elevMotor: ", chart.elevMotor.getCurrentPosition());
+            telemetry.addData("Encoder Position TL: ", chart.TL.getCurrentPosition());
+            telemetry.addData("Encoder Position TR: ", chart.TR.getCurrentPosition());
+            telemetry.addData("Encoder Position BL: ", chart.BL.getCurrentPosition());
+            telemetry.addData("Encoder Position BR: ", chart.BR.getCurrentPosition());
 
             telemetry.update();
 

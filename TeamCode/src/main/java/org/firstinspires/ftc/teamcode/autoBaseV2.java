@@ -24,17 +24,26 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     //drops the grabbers
-    /*public void dropDL() {
-        chart.hookLeft.setPosition(0.1);
-        chart.hookRight.setPosition(0.1);
-    }*/
+    public void dropDL() {
+        chart.middleGrab.setPosition(0.8);
+    }
+
+    public void raiseDL() {
+        chart.middleGrab.setPosition(0.05);
+    }
 
     //percentage error calculator
-    public double pError(double actual, double theoretical){
+    public double pError(double actual, double theoretical) {
         double actualMinusTheoretical = actual - theoretical;
         double division = actualMinusTheoretical / theoretical;
 
         return division;
+    }
+
+    public void toggleAutoGrab(boolean stateControl) {
+        if (stateControl) {
+            chart.grabState = !chart.grabState;
+        }
     }
 
     //resets the encoder values and brakes
@@ -46,7 +55,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     //Acceleration based on the exponential trend
-    public double acceleratePowerReturnExponential(double targetPower){
+    public double acceleratePowerReturnExponential(double targetPower) {
         double dilationFactor = targetPower;
         double pErrorTime = chart.pDoneTimeAccel;
 
@@ -57,23 +66,23 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     //Acceleration based on square root trend
-    public double acceleratPowerReturn(double targetPower){
+    public double acceleratPowerReturn(double targetPower) {
         double dilationFactor = targetPower;
         double pDoneSqrt = Math.sqrt(chart.pDoneTimeAccel);
 
 
         double rawResult = (pDoneSqrt * dilationFactor);
-        double fixedResult  = Range.clip(rawResult, 0.0, 1.0);
-        return  fixedResult;
+        double fixedResult = Range.clip(rawResult, 0.0, 1.0);
+        return fixedResult;
 
     }
 
     //Deceleration based on square root trend
-    public double decelerationPowerReturnEncoder(double targetPower, double threshold, int targetEncoder, DcMotor motor){
+    public double decelerationPowerReturnEncoder(double targetPower, double threshold, int targetEncoder, DcMotor motor) {
         int currentPosEnc = motor.getCurrentPosition();
 
         double pErrorEncoder = pError(currentPosEnc, targetEncoder);
-        double preparation = ((-pErrorEncoder)+1);
+        double preparation = ((-pErrorEncoder) + 1);
 
         double pDoneSqer = Math.sqrt(preparation);
         return (0.5 * pDoneSqer);
@@ -81,7 +90,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     //goes to specific position down
-    public void goToPositionDown(DcMotor motor1, double position, double power){
+    public void goToPositionDown(DcMotor motor1, double position, double power) {
         int motorPosition = motor1.getCurrentPosition();
 
         motor1.setPower(power);
@@ -97,30 +106,29 @@ public abstract class autoBaseV2 extends LinearOpMode {
         chart.DebugSwitch = true;
     }
 
-    public void driveForward(double power){
+    public void driveForward(double power) {
         chart.TL.setPower(power);
         chart.BL.setPower(power);
-        chart.TR.setPower(power-0.03);
-        chart.BR.setPower(power-0.03);
+        chart.TR.setPower(power - 0.03);
+        chart.BR.setPower(power - 0.03);
     }
 
-    public void rest(){
+    public void rest() {
         chart.TL.setPower(0);
         chart.BL.setPower(0);
         chart.TR.setPower(0);
         chart.BR.setPower(0);
     }
 
-    public boolean FoundationDetected(ColorSensor cs){
+    public boolean FoundationDetected(ColorSensor cs) {
         boolean GREEN = isInRange(cs.green(), 02, constants.greenFoundation);
         boolean BLUE = isInRange(cs.blue(), 15, constants.blueFoundation);
         boolean RED = isInRange(cs.red(), 15, constants.redFoundation);
-        boolean ALPHA = isInRange(cs.alpha(),1 , constants.alphaFoundationIdeal);
+        boolean ALPHA = isInRange(cs.alpha(), 1, constants.alphaFoundationIdeal);
 
-        if(cs.alpha() > 1200){
+        if (cs.alpha() > 1200) {
             return false; //stop looking you found an object
-        }
-        else {
+        } else {
             return true; //keep looking you found nothing
         }
     }
@@ -133,9 +141,9 @@ public abstract class autoBaseV2 extends LinearOpMode {
         int motorPosition = motor1.getCurrentPosition();
 
         motor1.setPower(power);
-        motor2.setPower(power-0.03);
+        motor2.setPower(power - 0.03);
         motor3.setPower(power);
-        motor4.setPower(power-0.03);
+        motor4.setPower(power - 0.03);
 
         while ((motorPosition <= position) /*&&  pError>.25*/) {
             telemetry.addData("Current Position: ", motor1.getCurrentPosition());
@@ -149,6 +157,61 @@ public abstract class autoBaseV2 extends LinearOpMode {
         motor4.setPower(0);
 
         chart.DebugSwitch = true;
+    }
+
+    public void goToPositionStrafeLeft(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double position, double power) {
+        resetEncoders(motor1);
+
+        int motorPosition = motor1.getCurrentPosition();
+
+        motor1.setPower(power); //TL
+        motor2.setPower(-power);  //TR
+        motor3.setPower(-power); //BL
+        motor4.setPower(power); //BR
+
+        while ((motorPosition >= -position) /*&&  pError>.25*/) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+        motor1.setPower(0);
+        motor2.setPower(0);
+        motor3.setPower(0);
+        motor4.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
+
+    public void goToPositionStrafeRight(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double position, double power) {
+        resetEncoders(motor1);
+
+        int motorPosition = motor1.getCurrentPosition();
+
+        motor1.setPower(power); //TL
+        motor2.setPower(-power);  //TR
+        motor3.setPower(-power); //BL
+        motor4.setPower(power); //BR
+
+        while ((motorPosition <= position) /*&&  pError>.25*/) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+        motor1.setPower(0);
+        motor2.setPower(0);
+        motor3.setPower(0);
+        motor4.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
+
+    public void strafe(double power) {
+        chart.TL.setPower(power); //TL
+        chart.TR.setPower(-power);  //TR
+        chart.BL.setPower(-power); //BL
+        chart.BR.setPower(power); //BR
     }
 
     //motor control
@@ -175,9 +238,9 @@ public abstract class autoBaseV2 extends LinearOpMode {
         int motorPosition = motor1.getCurrentPosition();
 
         motor1.setPower(power);
-        motor2.setPower(power+0.03);
+        motor2.setPower(power + 0.03);
         motor3.setPower(power);
-        motor4.setPower(power+0.03);
+        motor4.setPower(power + 0.03);
 
         while ((motorPosition >= (-position)) /*&&  pError>.25*/) {
             telemetry.addData("Current Position: ", motor1.getCurrentPosition());
@@ -193,22 +256,19 @@ public abstract class autoBaseV2 extends LinearOpMode {
         chart.DebugSwitch = true;
     }
 
-    public double distance2encoder(double distance){
-        double encoderTicks = (constants.distance2encoder*distance);
+    public double distance2encoder(double distance) {
+        double encoderTicks = (constants.distance2encoder * distance);
 
         return Math.floor(encoderTicks);
     }
 
     //strafes to the left
-    public void encoderStrafeLeft(int position, double power){
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, -power);
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, power);
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, power);
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, -power);
-    }
+    /*public void encoderStrafeLeft(int position, double power){
+        goToPositionStrafe(chart.TL, chart.TR, chart.BL, chart.BR, position, -power);
+    }*/
 
     //strafes to the right
-    public void encoderStrafeRight(int position, double power){
+    public void encoderStrafeRight(int position, double power) {
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, power);
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, -power);
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, -power);
@@ -216,44 +276,83 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     //@Depreciated - DO NOT USE
-    public void encoderDrive(int position, double power){
+    public void encoderDrive(int position, double power) {
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, power);
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, power);
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, power);
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, position, power);
     }
 
-    public boolean isInRange(double number, double tolerance, double targ){
-        if(((targ+tolerance)>number)&&((targ-tolerance)<number)){
+    public boolean isInRange(double number, double tolerance, double targ) {
+        if (((targ + tolerance) > number) && ((targ - tolerance) < number)) {
 
             return true;
-        }else{
+        } else {
             return false;
         }
     }
 
-    public boolean SkyStoneSpottedBlack(ColorSensor cs, double tolerance){
+    public boolean colorCheclerGreen(ColorSensor cs, double GVal, int tolerance) {
+
+        return ((cs.green() < (GVal + tolerance)) && ((cs.green() > GVal - tolerance)));
+    }
+
+    public boolean colorCheclerBlue(ColorSensor cs, double BVal, int tolerance) {
+
+        return ((cs.blue() < (BVal + tolerance)) && ((cs.blue() > BVal - tolerance)));
+    }
+
+    public boolean colorCheclerRed(ColorSensor cs, double RVal, int tolerance) {
+
+        return ((cs.red() < (RVal + tolerance)) && ((cs.red() > RVal - tolerance)));
+    }
+
+    public boolean SkyStoneSpottedGreen(ColorSensor colorSensor) {
+        double GVal = constants.greenBlack;
+
+        double alpha = constants.alphaBlackIdeal;
+
+
+        if (isInRange(colorSensor.alpha(), 100, alpha)&&colorCheclerGreen(colorSensor, GVal, 30)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean SkyStoneSpotted(ColorSensor colorSensor) {
+        double GVal = constants.greenBlack;
+        double BVal = constants.blueBlack;
+        double RVal = constants.redBlack;
+
+
+        if (colorCheclerGreen(colorSensor, GVal, 200) && colorCheclerBlue(colorSensor, BVal, 80) && colorCheclerRed(colorSensor, RVal, 120)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean SkyStoneSpottedBlack(ColorSensor cs, double tolerance) {
         boolean GREEN = isInRange(cs.green(), tolerance, constants.greenBlack);
         boolean BLUE = isInRange(cs.blue(), tolerance, constants.blueBlack);
         boolean RED = isInRange(cs.red(), tolerance, constants.redBlack);
 
-        if(GREEN && BLUE && RED){
+        if (GREEN && BLUE && RED) {
             return false; //stop looking you found a black
-        }
-        else {
+        } else {
             return true; //keep looking you found a yellow
         }
     }
 
-    public boolean SkyStoneSpottedAntiBlack(ColorSensor cs, double tolerance){
+    public boolean SkyStoneSpottedAntiBlack(ColorSensor cs, double tolerance) {
         boolean GREEN = isInRange(cs.green(), tolerance, constants.greenYellow);
         boolean BLUE = isInRange(cs.blue(), tolerance, constants.blueYellow);
         boolean RED = isInRange(cs.red(), tolerance, constants.redYellow);
 
-        if(GREEN && BLUE && RED){
+        if (GREEN && BLUE && RED) {
             return true; //you found a yellow so keep going
-        }
-        else {
+        } else {
             return false; //you found something not yellow so stop
         }
     }

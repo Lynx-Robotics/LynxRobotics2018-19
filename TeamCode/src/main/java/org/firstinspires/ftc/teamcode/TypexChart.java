@@ -24,6 +24,9 @@ public class TypexChart {
     PController pidRotate, pidDrive;
     CONSTANTS constants = new CONSTANTS();
 
+    boolean grabState = false;
+
+
 
 
     public DcMotor TL ;
@@ -47,7 +50,7 @@ public class TypexChart {
     //DistanceSensor distanceSensor;
     ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
 
-    //Servo hookLeft,hookRight, middleGrab;
+    Servo middleGrab;
 
     public double powerUp = 0.5, powerDown = -0.5, power = 0.15;
     public double globalAngle;
@@ -64,9 +67,9 @@ public class TypexChart {
     public void init (HardwareMap chart) {
         hwMap = chart;
 
-        /*hookRight = hwMap.get(Servo.class, "hookRight");
-        hookLeft = hwMap.get(Servo.class, "hookLeft");
-        middleGrab = hwMap.get(Servo.class, "middleGrab");*/
+        //hookRight = hwMap.get(Servo.class, "hookRight");
+        //hookLeft = hwMap.get(Servo.class, "hookLeft");
+        middleGrab = hwMap.get(Servo.class, "middleGrab");
 
         //Name stars
         //distanceSensor = hwMap.get(DistanceSensor.class, "dist");
