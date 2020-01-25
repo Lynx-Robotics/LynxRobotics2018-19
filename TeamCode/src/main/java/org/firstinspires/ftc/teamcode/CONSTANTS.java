@@ -25,7 +25,7 @@ public class CONSTANTS {
 
 
 
-    public double distance2encoder = 25.46479089;
+    public double distance2encoder = 26.7;
 
     public double accelerationTime = 10;
 

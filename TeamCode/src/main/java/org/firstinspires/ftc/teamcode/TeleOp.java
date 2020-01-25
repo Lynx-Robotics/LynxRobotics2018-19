@@ -7,6 +7,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 public class TeleOp extends autoBaseV2 {
 
     TypexChart chart = new TypexChart();
+    double speedMultip = 1.0;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -15,17 +16,42 @@ public class TeleOp extends autoBaseV2 {
         waitForStart();
         while(opModeIsActive()){
 
-            chart.TL.setPower(-gamepad1.right_stick_y);
-            chart.BL.setPower(-gamepad1.right_stick_y);
-            chart.TR.setPower(-gamepad1.left_stick_y);
-            chart.BR.setPower(-gamepad1.left_stick_y);
+            chart.TL.setPower(-gamepad1.right_stick_y * speedMultip);
+            chart.BL.setPower(-gamepad1.right_stick_y * speedMultip);
+            chart.TR.setPower(-gamepad1.left_stick_y * speedMultip);
+            chart.BR.setPower(-gamepad1.left_stick_y * speedMultip);
+
+            if(gamepad1.dpad_left){
+                chart.TL.setPower(0.5);
+                chart.TR.setPower(-0.5);
+                chart.BL.setPower(-0.5);
+                chart.BR.setPower(0.5);
+            }
+            if(gamepad1.dpad_right){
+                chart.TL.setPower(-1);
+                chart.TR.setPower(1);
+                chart.BL.setPower(1);
+                chart.BR.setPower(-1);
+            }
+
+            if(gamepad2.a){
+                chart.grabState = !chart.grabState;
+                sleep(50); //Maybe Delete?
+                while (gamepad2.a) {
+                }
+            }
 
             if(gamepad1.a){
-                chart.grabState = !chart.grabState;
-                sleep(50);
-                while(gamepad1.a){
-
-                }
+                speedMultip = 0.25;
+            }
+            if(gamepad1.y){
+                speedMultip = 0.5;
+            }
+            if (gamepad1.x){
+                speedMultip = 0.75;
+            }
+            if(gamepad1.b){
+                speedMultip = 1.0;
             }
 
             if(chart.grabState){
@@ -35,7 +61,7 @@ public class TeleOp extends autoBaseV2 {
                 chart.middleGrab.setPosition(0.8);
             }
 
-            chart.elevMotor.setPower((-gamepad1.left_trigger) + (gamepad1.right_trigger));
+            chart.elevMotor.setPower((-gamepad2.left_trigger) + (gamepad2.right_trigger));
 
             telemetry.addData("Encoder Position of elevMotor: ", chart.elevMotor.getCurrentPosition());
 

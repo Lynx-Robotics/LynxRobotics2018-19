@@ -23,9 +23,11 @@ public class EncoderBlueOneStoneFull extends autoBaseV2 {
     public void runOpMode() throws InterruptedException {
         chart.init(hardwareMap);
 
+
+
         waitForStart();
         //Phase 1
-        goToPosition(chart.elevMotor, 30, 1.0);
+        goToPosition(chart.elevMotor, 300, 1.0);
 
         //Phase 2
         goToPositionSpecial(chart.TL, chart.TR, chart.BL, chart.BR, distanceForward, .3);
@@ -37,7 +39,7 @@ public class EncoderBlueOneStoneFull extends autoBaseV2 {
         }
 
         //Phase 4
-        goToPositionDown(chart.elevMotor, 4, -1.0);
+        goToPositionDown(chart.elevMotor, 13, -1.0);
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distanceInchFor, 0.2);
 
         //Phase 5
@@ -48,7 +50,7 @@ public class EncoderBlueOneStoneFull extends autoBaseV2 {
         goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distanceBack, -0.5);
 
         //Phase 7
-        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distanceToFoundation, 1.0);
+        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distanceToFoundation, -1.0);
 
         //Phase 8
         driveForward(0.23);
@@ -83,6 +85,9 @@ public class EncoderBlueOneStoneFull extends autoBaseV2 {
         int motorPosition = motor1.getCurrentPosition();
 
         motor1.setPower(power);
+        motor2.setPower(power);
+        motor3.setPower(power);
+        motor4.setPower(power);
 
         while ((motorPosition <= position) && objDetected(chart.colorSensorLeft)) {
             telemetry.addData("Current Position: ", motor1.getCurrentPosition());
@@ -91,6 +96,9 @@ public class EncoderBlueOneStoneFull extends autoBaseV2 {
             motorPosition = motor1.getCurrentPosition();
         }
         motor1.setPower(0);
+        motor2.setPower(0);
+        motor3.setPower(0);
+        motor4.setPower(0);
 
         chart.DebugSwitch = true;
     }

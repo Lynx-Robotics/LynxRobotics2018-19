@@ -19,6 +19,7 @@ public class Encoder_Foundation_Blue_v3 extends autoBaseV2 {
         double distPhase1aRevised = distance2encoder(distPhase1a);
         double distPhase2Revised = distance2encoder(distPhase2);
         double distPhase3Revised = distance2encoder(distPhase1);
+        double distPhase4Revised = distance2encoder(distPhase4);
 
         waitForStart();
         /*
@@ -50,6 +51,10 @@ public class Encoder_Foundation_Blue_v3 extends autoBaseV2 {
         sleep(1500);
 
         goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distPhase2Revised, -1.0);
+
+        goToPosition(chart.elevMotor, 200d, 1.0);
+
+        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distPhase4Revised, 0.3);
 
        /* strafe(0.5);
         while(opModeIsActive() && !tapeSpotted()){
