@@ -6,9 +6,10 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class Encoder_Foundation_Blue_v3 extends autoBaseV2 {
     double distPhase1 = 40; //go forwards fast
     double distPhase1a = 7; //go forwards slower and grab
-    double distPhase2 = 90; //strafe left
+    double distPhase2 = 82; //strafe left
     double distPhase3 = 44; //go backwards
-    double distPhase4 = 48; //park
+    double distPhase4 = 70; //park
+    double distPhase5 = 45;
 
     double upPos = 503, downPos = 13;
 
@@ -20,6 +21,7 @@ public class Encoder_Foundation_Blue_v3 extends autoBaseV2 {
         double distPhase2Revised = distance2encoder(distPhase2);
         double distPhase3Revised = distance2encoder(distPhase1);
         double distPhase4Revised = distance2encoder(distPhase4);
+        double distPhase5Revised = distance2encoder(distPhase5);
 
         waitForStart();
         /*
@@ -52,9 +54,17 @@ public class Encoder_Foundation_Blue_v3 extends autoBaseV2 {
 
         goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distPhase2Revised, -1.0);
 
-        goToPosition(chart.elevMotor, 200d, 1.0);
+        goToPosition(chart.elevMotor, 200, 1.0);
 
-        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distPhase4Revised, 0.3);
+        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoder(10), 0.5);
+
+        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distPhase4Revised, 0.5);
+
+        goToPositionDown(chart.elevMotor, 1, -1.0);
+
+        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distPhase5Revised, 0.5);
+
+
 
        /* strafe(0.5);
         while(opModeIsActive() && !tapeSpotted()){

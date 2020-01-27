@@ -74,7 +74,7 @@ public class TypexChart {
         //Name stars
         //distanceSensor = hwMap.get(DistanceSensor.class, "dist");
         colorSensorLeft = hwMap.get(ColorSensor.class, "csLeft");
-        //colorSensorRight = hwMap.get(ColorSensor.class, "csRight");
+        colorSensorRight = hwMap.get(ColorSensor.class, "csRight");
         //bottomColorSensor = hwMap.get(ColorSensor.class, "bcs");
 
         TL = hwMap.get(DcMotor.class, "TL");
@@ -127,7 +127,7 @@ public class TypexChart {
 
         /*hookRight.setPosition(0.9);
         hookLeft.setPosition(0.9);*/
-        //middleGrab.setPosition(0.0);
+        middleGrab.setPosition(0.05);
 
         pidDrive = new PController(.05, 0, 0);
         pidRotate = new PController(.004, .00004, 0);

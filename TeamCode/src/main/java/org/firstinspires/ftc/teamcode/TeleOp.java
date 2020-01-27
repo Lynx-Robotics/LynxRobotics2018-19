@@ -9,6 +9,8 @@ public class TeleOp extends autoBaseV2 {
     TypexChart chart = new TypexChart();
     double speedMultip = 1.0;
 
+    double ZERODOWN = 1.0, ZEROUP = 1.0;
+
     @Override
     public void runOpMode() throws InterruptedException {
         chart.init(hardwareMap);
@@ -61,7 +63,14 @@ public class TeleOp extends autoBaseV2 {
                 chart.middleGrab.setPosition(0.8);
             }
 
-            chart.elevMotor.setPower((-gamepad2.left_trigger) + (gamepad2.right_trigger));
+            if(chart.elevMotor.getCurrentPosition() <= 10){
+                ZERODOWN = 0;
+            }
+            else {
+                ZERODOWN = 1;
+            }
+
+            chart.elevMotor.setPower((-gamepad2.left_trigger * ZERODOWN) + (gamepad2.right_trigger * ZEROUP));
 
             telemetry.addData("Encoder Position of elevMotor: ", chart.elevMotor.getCurrentPosition());
 

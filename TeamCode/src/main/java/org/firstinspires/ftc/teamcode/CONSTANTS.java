@@ -10,10 +10,10 @@ public class CONSTANTS {
     public double alphaBlackIdeal = 965;
     public double hueBlackIdeal = 0;
 
-    public double greenYellow = 1184;
-    public double blueYellow = 276;
-    public double redYellow = 780;
-    public double alphaYellowIdeal = 2100;
+    public double greenYellow = 1726;
+    public double blueYellow = 368.5;
+    public double redYellow = 1184;
+    public double alphaYellowIdeal = 3247;
     public double hueYellowIdeal = 0;
 
     public double greenFoundation = 859;
@@ -22,10 +22,30 @@ public class CONSTANTS {
     public double alphaFoundationIdeal = 1764;
     public double hueFoundationIdeal = 0;
 
+    /*
+    Revised values
+     */
+
+    public double avgGreenBlackFAR = 399;
+    public double avgBlueBlackFAR = 196.67;
+    public double avgRedBlackFAR = 217.667;
+    public double avgAlphaFAR = 810.667;
+
+    public double avgGreenBlackMID = 502;
+    public double avgBlueBlackMID = 255;
+    public double avgRedBlackMID = 271;
+    public double avgAlphaMID = 1019;
+
+    public double avgGreenBlackCLOSE = 596;
+    public double avgBlueBlackCLOSE = 291;
+    public double avgRedBlackCLOSE = 326.5;
+    public double avgAlphaCLOSE = 1200;
 
 
 
     public double distance2encoder = 26.7;
+
+    public double distance2encoderNew = 40.922;
 
     public double accelerationTime = 10;
 

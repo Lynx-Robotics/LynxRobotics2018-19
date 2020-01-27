@@ -10,9 +10,9 @@ import java.lang.reflect.Type;
 
 @Autonomous(name = "ENCODER_BLUE_ONE_STONE_FULL")
 public class EncoderBlueOneStoneFull extends autoBaseV2 {
-    double distanceForward = distance2encoder(60);
+    double distanceForward = distance2encoder(62.5);
     double distanceToBlock = distance2encoder(7.5);
-    double distanceInchFor = distance2encoder(2.5);
+    double distanceInchFor = distance2encoder(3.5);
     double distanceBack = distance2encoder(12.4);
     double distanceToBridge = distance2encoder(48);
     double distanceToFoundation = distance2encoder(95);
@@ -34,11 +34,12 @@ public class EncoderBlueOneStoneFull extends autoBaseV2 {
 
         //Phase 3
         strafe(-0.3);
-        while(opModeIsActive() && !SkyStoneSpottedGreen(chart.colorSensorLeft)){
+        while(opModeIsActive() && !SkyStoneSpotted(chart.colorSensorRight)){
 
         }
 
         //Phase 4
+        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoder(5), 0.2);
         goToPositionDown(chart.elevMotor, 13, -1.0);
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distanceInchFor, 0.2);
 

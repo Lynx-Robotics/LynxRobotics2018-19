@@ -25,7 +25,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
     //drops the grabbers
     public void dropDL() {
-        chart.middleGrab.setPosition(0.8);
+        chart.middleGrab.setPosition(0.9);
     }
 
     public void raiseDL() {
@@ -158,6 +158,26 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         chart.DebugSwitch = true;
     }
+    public void goToPosition(DcMotor motor1, DcMotor motor2, double position, double power) {
+        resetEncoders(motor1);
+
+        int currentPos = motor1.getCurrentPosition();
+        int motorPosition = motor1.getCurrentPosition();
+
+        motor1.setPower(power);
+        motor2.setPower(-power);
+
+        while ((motorPosition <= position) /*&&  pError>.25*/) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+        motor1.setPower(0);
+        motor2.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
 
     public void goToPositionStrafeLeft(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double position, double power) {
         resetEncoders(motor1);
@@ -188,6 +208,11 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         int motorPosition = motor1.getCurrentPosition();
 
+        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motor3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motor4.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
         motor1.setPower(power); //TL
         motor2.setPower(-power);  //TR
         motor3.setPower(-power); //BL
@@ -199,6 +224,12 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
             motorPosition = motor1.getCurrentPosition();
         }
+
+        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor3.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor4.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         motor1.setPower(0);
         motor2.setPower(0);
         motor3.setPower(0);
@@ -207,11 +238,19 @@ public abstract class autoBaseV2 extends LinearOpMode {
         chart.DebugSwitch = true;
     }
 
+    public double joltControl(ElapsedTime runtime) {
+        if (runtime.seconds() < 1.0) {
+            return 0.0050;
+        } else {
+            return 0.0;
+        }
+    }
+
     public void strafe(double power) {
-        chart.TL.setPower(power); //TL
+        chart.TL.setPower(power/* - joltControl(chart.runtime)*/); //TL
         chart.TR.setPower(-power);  //TR
         chart.BL.setPower(-power); //BL
-        chart.BR.setPower(power); //BR
+        chart.BR.setPower(power /*+ 0.03*/); //BR
     }
 
     //motor control
@@ -258,6 +297,12 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
     public double distance2encoder(double distance) {
         double encoderTicks = (constants.distance2encoder * distance);
+
+        return Math.floor(encoderTicks);
+    }
+
+    public double distance2encoderNew(double distance) {
+        double encoderTicks = (constants.distance2encoderNew * distance);
 
         return Math.floor(encoderTicks);
     }
@@ -326,11 +371,57 @@ public abstract class autoBaseV2 extends LinearOpMode {
         double RVal = constants.redBlack;
 
 
-        if (colorCheclerGreen(colorSensor, GVal, 200) && colorCheclerBlue(colorSensor, BVal, 80) && colorCheclerRed(colorSensor, RVal, 120)) {
+        if (colorCheclerGreen(colorSensor, GVal, 140) && colorCheclerBlue(colorSensor, BVal, 60) && colorCheclerRed(colorSensor, RVal, 100)) {
             return true;
         } else {
             return false;
         }
+    }
+
+    public boolean SkyStoneReBorn(ColorSensor cs){
+        String alpha = "undefined";
+        double G = constants.avgGreenBlackMID;
+        double B = constants.avgBlueBlackMID;
+        double R = constants.avgRedBlackMID;
+
+        boolean GP = false, BP = false, RP = false;
+
+        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
+            alpha = "far";
+        }
+        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+            alpha = "middle";
+        }
+        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+            alpha = "close";
+        }
+        else {
+            alpha = "middle";
+        }
+
+        switch (alpha){
+            case "far":
+                G = constants.avgGreenBlackFAR;
+                B = constants.avgBlueBlackFAR;
+                R = constants.avgRedBlackFAR;
+                break;
+            case "middle":
+                G = constants.avgGreenBlackMID;
+                B = constants.avgBlueBlackMID;
+                R = constants.avgRedBlackMID;
+                break;
+            case "close":
+                G = constants.avgGreenBlackCLOSE;
+                B = constants.avgBlueBlackCLOSE;
+                R = constants.avgRedBlackCLOSE;
+                break;
+        }
+
+        GP = isInRange(cs.green(), 50, G);
+        BP = isInRange(cs.blue(), 25, B);
+        RP = isInRange(cs.red(), 25, R);
+
+        return GP && RP && BP;
     }
 
     public boolean SkyStoneSpottedBlack(ColorSensor cs, double tolerance) {

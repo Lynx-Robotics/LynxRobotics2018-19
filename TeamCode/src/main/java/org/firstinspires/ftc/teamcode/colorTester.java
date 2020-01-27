@@ -11,11 +11,17 @@ public class colorTester extends autoBaseV2 {
 
         waitForStart();
         while(opModeIsActive()){
-            telemetry.addData("Green: ", chart.colorSensorLeft.green());
-            telemetry.addData("Blue: ", chart.colorSensorLeft.blue());
-            telemetry.addData("Red: ", chart.colorSensorLeft.red());
+            telemetry.addData("Green Left: ", chart.colorSensorLeft.green());
+            telemetry.addData("Blue Left: ", chart.colorSensorLeft.blue());
+            telemetry.addData("Red Left: ", chart.colorSensorLeft.red());
 
-            telemetry.addData("Alpha: ", chart.colorSensorLeft.alpha());
+            telemetry.addData("Alpha Left: ", chart.colorSensorLeft.alpha());
+
+            telemetry.addData("Green Right: ", chart.colorSensorRight.green());
+            telemetry.addData("Blue Right: ", chart.colorSensorRight.blue());
+            telemetry.addData("Red Right: ", chart.colorSensorRight.red());
+
+            telemetry.addData("Alpha Right: ", chart.colorSensorRight.alpha());
 
             telemetry.update();
 
