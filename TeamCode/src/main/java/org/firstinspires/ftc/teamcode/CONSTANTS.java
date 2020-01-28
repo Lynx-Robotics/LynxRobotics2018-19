@@ -47,6 +47,8 @@ public class CONSTANTS {
 
     public double distance2encoderNew = 40.922;
 
+    public double distance2encoderFullVoltage = 43.4475;
+
     public double accelerationTime = 10;
 
     double powerDown = -0.5, powerUp = 0.5;

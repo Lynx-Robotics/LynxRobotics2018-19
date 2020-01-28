@@ -11,12 +11,12 @@ public class EncoderBlueOneStoneFullV2 extends autoBaseV2 {
 
         waitForStart();
         //go forward
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(30), 0.8);
+        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(29), 1.0);
 
         rest();
         sleep(500);
 
-        goToPosition(chart.BR, chart.TL, distance2encoderNew(2.2), 1.0);
+        goToPosition(chart.BR, chart.TL, distance2encoderNew(2.1), 1.0);
 
         sleep(500);
 
@@ -45,10 +45,10 @@ public class EncoderBlueOneStoneFullV2 extends autoBaseV2 {
         goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(12), -1.0);
 
         //strafe left more until foundation
-        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(54), -0.4);
+        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(54), -0.8);
         goToPosition(chart.BR, chart.TL, distance2encoderNew(2.4), 1.0);
 
-        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(51), -0.5);
+        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(48), -0.8);
 
 
 
