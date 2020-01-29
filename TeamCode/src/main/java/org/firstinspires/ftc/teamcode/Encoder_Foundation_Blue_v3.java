@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Autonomous(name = "ENCODER_FOUNDATION_BLUE_V3")
+@Disabled
 public class Encoder_Foundation_Blue_v3 extends autoBaseV2 {
     double distPhase1 = 40; //go forwards fast
     double distPhase1a = 7; //go forwards slower and grab

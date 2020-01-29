@@ -26,10 +26,17 @@ public abstract class autoBaseV2 extends LinearOpMode {
     //drops the grabbers
     public void dropDL() {
         chart.middleGrab.setPosition(0.9);
+        while(chart.middleGrab.getPosition() < 0.7){
+
+        }
     }
+
 
     public void raiseDL() {
         chart.middleGrab.setPosition(0.05);
+        /*while(chart.middleGrab.getPosition() > 0.1){
+
+        }*/
     }
 
     //percentage error calculator
@@ -158,7 +165,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         chart.DebugSwitch = true;
     }
-    public void goToPosition(DcMotor motor1, DcMotor motor2, double position, double power) {
+    public void goToPosition(DcMotor motor1, DcMotor motor2, double position, double power, boolean Debug) {
         resetEncoders(motor1);
 
         int currentPos = motor1.getCurrentPosition();
@@ -167,7 +174,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
         motor1.setPower(power);
         motor2.setPower(-power);
 
-        while ((motorPosition <= position) /*&&  pError>.25*/) {
+        while ((motorPosition <= position) /*&&  pError>.25*/ && !Debug) {
             telemetry.addData("Current Position: ", motor1.getCurrentPosition());
             telemetry.update();
 
@@ -307,6 +314,12 @@ public abstract class autoBaseV2 extends LinearOpMode {
         return Math.floor(encoderTicks);
     }
 
+    public double distance2encoderNewFullVolt(double distance) {
+        double encoderTicks = (constants.distance2encoderFullVoltage * distance);
+
+        return Math.floor(encoderTicks);
+    }
+
     //strafes to the left
     /*public void encoderStrafeLeft(int position, double power){
         goToPositionStrafe(chart.TL, chart.TR, chart.BL, chart.BR, position, -power);
@@ -380,6 +393,52 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
     public boolean SkyStoneReBorn(ColorSensor cs){
         String alpha = "undefined";
+        double G = constants.avgGreenBlackMID;
+        double B = constants.avgBlueBlackMID;
+        double R = constants.avgRedBlackMID;
+
+        boolean GP = false, BP = false, RP = false;
+
+        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
+            alpha = "far";
+        }
+        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+            alpha = "middle";
+        }
+        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+            alpha = "close";
+        }
+        else {
+            alpha = "middle";
+        }
+
+        switch (alpha){
+            case "far":
+                G = constants.avgGreenBlackFAR;
+                B = constants.avgBlueBlackFAR;
+                R = constants.avgRedBlackFAR;
+                break;
+            case "middle":
+                G = constants.avgGreenBlackMID;
+                B = constants.avgBlueBlackMID;
+                R = constants.avgRedBlackMID;
+                break;
+            case "close":
+                G = constants.avgGreenBlackCLOSE;
+                B = constants.avgBlueBlackCLOSE;
+                R = constants.avgRedBlackCLOSE;
+                break;
+        }
+
+        GP = isInRange(cs.green(), 50, G);
+        BP = isInRange(cs.blue(), 25, B);
+        RP = isInRange(cs.red(), 25, R);
+
+        return GP && RP && BP;
+    }
+
+    public boolean bottomTapeSensorDetectedReborn(ColorSensor cs){
+        String alpha;
         double G = constants.avgGreenBlackMID;
         double B = constants.avgBlueBlackMID;
         double R = constants.avgRedBlackMID;

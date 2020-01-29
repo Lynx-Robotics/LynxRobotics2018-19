@@ -49,6 +49,7 @@ public class TypexChart {
 
     //DistanceSensor distanceSensor;
     ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
+    DistanceSensor distSensorLeft, distSensorRight;
 
     Servo middleGrab;
 
@@ -75,7 +76,9 @@ public class TypexChart {
         //distanceSensor = hwMap.get(DistanceSensor.class, "dist");
         colorSensorLeft = hwMap.get(ColorSensor.class, "csLeft");
         colorSensorRight = hwMap.get(ColorSensor.class, "csRight");
-        //bottomColorSensor = hwMap.get(ColorSensor.class, "bcs");
+        distSensorLeft = hwMap.get(DistanceSensor.class, "csLeft");
+        distSensorRight = hwMap.get(DistanceSensor.class, "csRight");
+        bottomColorSensor = hwMap.get(ColorSensor.class, "bcs");
 
         TL = hwMap.get(DcMotor.class, "TL");
         TR = hwMap.get(DcMotor.class, "TR");
