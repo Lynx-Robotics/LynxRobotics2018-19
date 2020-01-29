@@ -11,18 +11,18 @@ public class EncoderBlueOneStoneFullV2 extends autoBaseV2 {
 
         waitForStart();
         //go forward
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(29), 1.0);
+        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(29.2), 1.0);
 
         rest();
-        sleep(500);
+        sleep(450);
 
-        goToPosition(chart.BR, chart.TL, distance2encoderNew(2.1), 1.0);
+        goToPosition(chart.BR, chart.TL, distance2encoderNew(2.05), 1.0);
 
-        sleep(500);
+        sleep(450);
 
         //strafe left
         chart.runtime.reset();
-        strafe(-0.3);
+        strafe(-0.35);
         while(opModeIsActive() && !SkyStoneReBorn(chart.colorSensorLeft)){
 
         }
@@ -36,19 +36,18 @@ public class EncoderBlueOneStoneFullV2 extends autoBaseV2 {
 
         //grab
         dropDL();
-        sleep(1500);
 
         //raise elevMotor
         goToPosition(chart.elevMotor, 13, 1.0);
 
         //go back
-        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(12), -1.0);
+        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(12.7), -1.0);
 
         //strafe left more until foundation
-        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(54), -0.8);
+        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(54), -0.9);
         goToPosition(chart.BR, chart.TL, distance2encoderNew(2.4), 1.0);
 
-        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(48), -0.8);
+        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(44), -0.9);
 
 
 
@@ -57,19 +56,19 @@ public class EncoderBlueOneStoneFullV2 extends autoBaseV2 {
 
 
         //go to foundation
-        goToPosition(chart.BR, chart.TL, distance2encoderNew(2.0), 1.0);
+        goToPosition(chart.BR, chart.TL, distance2encoderNew(1.92), 1.0);
 
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(13.5), 0.4);
+        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(13.58), 0.4);
 
         //goDown elevMotor
         raiseDL();
         goToPositionDown(chart.elevMotor, 9, -1.0);
 
-        sleep(1500);
+        sleep(500);
 
 
         //goBack to wall
-        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(60), -0.6);
+        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(43), -1.0);
 
         //parking
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(3), 1.0);
