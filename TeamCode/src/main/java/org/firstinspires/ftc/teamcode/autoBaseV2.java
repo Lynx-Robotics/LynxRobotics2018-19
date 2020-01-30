@@ -25,8 +25,8 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
     //drops the grabbers
     public void dropDL() {
-        chart.middleGrab.setPosition(0.9);
-        while(chart.middleGrab.getPosition() < 0.7){
+        chart.middleGrab.setPosition(1.0);
+        while(chart.middleGrab.getPosition() < 0.97){
 
         }
     }
@@ -253,6 +253,16 @@ public abstract class autoBaseV2 extends LinearOpMode {
         }
     }
 
+    public void dropHookers(){
+        chart.hookRight.setPosition(0.2);
+        chart.hookLeft.setPosition(0.05);
+    }
+
+    public void raiseHookers(){
+        chart.hookRight.setPosition(0.9);
+        chart.hookLeft.setPosition(0.75);
+    }
+
     public void strafe(double power) {
         chart.TL.setPower(power/* - joltControl(chart.runtime)*/); //TL
         chart.TR.setPower(-power);  //TR
@@ -439,46 +449,15 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
     public boolean bottomTapeSensorDetectedReborn(ColorSensor cs){
         String alpha;
-        double G = constants.avgGreenBlackMID;
-        double B = constants.avgBlueBlackMID;
-        double R = constants.avgRedBlackMID;
+        double G = constants.tapeGreen;
+        double B = constants.tapeBlue;
+        double R = constants.tapeRed;
 
         boolean GP = false, BP = false, RP = false;
 
-        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
-            alpha = "far";
-        }
-        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
-            alpha = "middle";
-        }
-        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
-            alpha = "close";
-        }
-        else {
-            alpha = "middle";
-        }
-
-        switch (alpha){
-            case "far":
-                G = constants.avgGreenBlackFAR;
-                B = constants.avgBlueBlackFAR;
-                R = constants.avgRedBlackFAR;
-                break;
-            case "middle":
-                G = constants.avgGreenBlackMID;
-                B = constants.avgBlueBlackMID;
-                R = constants.avgRedBlackMID;
-                break;
-            case "close":
-                G = constants.avgGreenBlackCLOSE;
-                B = constants.avgBlueBlackCLOSE;
-                R = constants.avgRedBlackCLOSE;
-                break;
-        }
-
-        GP = isInRange(cs.green(), 50, G);
-        BP = isInRange(cs.blue(), 25, B);
-        RP = isInRange(cs.red(), 25, R);
+        GP = isInRange(cs.green(), 150, G);
+        BP = isInRange(cs.blue(), 75, B);
+        RP = isInRange(cs.red(), 75, R);
 
         return GP && RP && BP;
     }

@@ -58,6 +58,14 @@ public class CONSTANTS {
     public double RavgRedBlackCLOSE = 326.5;
     public double RavgAlphaCLOSE = 1200;
 
+    /*
+    -------------------------------------------------------
+     */
+
+    public double tapeGreen = 13280;
+    public double tapeBlue = 4850;
+    public double tapeRed = 10662;
+
 
 
     public double distance2encoder = 26.7;

@@ -70,6 +70,13 @@ public class TeleOp extends autoBaseV2 {
                 ZERODOWN = 1;
             }
 
+            if(gamepad1.left_bumper){
+                chart.hookRight.setPosition(0.2);
+                chart.hookLeft.setPosition(0.05);
+            }
+            if(gamepad1.right_bumper){
+                chart.hookRight.setPosition(0.9);
+                chart.hookLeft.setPosition(0.75);            }
             chart.elevMotor.setPower((-gamepad2.left_trigger * ZERODOWN) + (gamepad2.right_trigger * ZEROUP));
 
             telemetry.addData("Encoder Position of elevMotor: ", chart.elevMotor.getCurrentPosition());

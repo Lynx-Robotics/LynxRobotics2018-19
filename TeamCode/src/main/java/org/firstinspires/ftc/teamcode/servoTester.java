@@ -8,36 +8,32 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @TeleOp(name = "servoTest", group = "test")
-public class servoTester extends LinearOpMode {
-    Servo mGrab;
+public class servoTester extends autoBaseV2 {
     CRServo crGrab;
 
     @Override
     public void runOpMode() throws InterruptedException {
-        mGrab = hardwareMap.get(Servo.class, "middleGrab");
-        crGrab = hardwareMap.get(CRServo.class, "mGrab");
+        chart.init(hardwareMap);
 
-        mGrab.setPosition(0.9);
-
+        
         waitForStart();
         while(opModeIsActive()){
-            telemetry.addData("Position of Servo: ", mGrab.getPosition());
+            telemetry.addData("Position of Servo (middleGrab): ", chart.middleGrab.getPosition());
+            telemetry.addData("Position of Servo (hookRight): ", chart.hookRight.getPosition());
+            telemetry.addData("Position of Servo (hookLeft): ", chart.hookLeft.getPosition());
             telemetry.update();
 
-            if(gamepad2.a){
-                crGrab.setPower(1.0);
-            }
-            else {
-                crGrab.setPower(0.0);
-            }
-
             if(gamepad1.a){
-                mGrab.setPosition(mGrab.getPosition()+0.05);
-                sleep(1000);
+                chart.middleGrab.setPosition(chart.middleGrab.getPosition()+0.05);
+                chart.hookLeft.setPosition(chart.hookLeft.getPosition()+0.05);
+                chart.hookRight.setPosition(chart.hookRight.getPosition()+0.05);
+                while (gamepad1.a);
             }
             if(gamepad1.y){
-                mGrab.setPosition(mGrab.getPosition()-0.05);
-                sleep(1000);
+                chart.middleGrab.setPosition(chart.middleGrab.getPosition()-0.05);
+                chart.hookLeft.setPosition(chart.hookLeft.getPosition()-0.05);
+                chart.hookRight.setPosition(chart.hookRight.getPosition()-0.05);
+                while (gamepad1.y);
             }
         }
     }
