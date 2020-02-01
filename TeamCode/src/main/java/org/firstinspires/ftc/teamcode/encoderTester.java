@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 import java.lang.reflect.Type;
 
 @TeleOp(name = "Encoder Tester")
+@Disabled
 public class encoderTester extends LinearOpMode {
     TypexChart chart = new TypexChart();
 

@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-@TeleOp(name = "StrafingTest")
-public class StrafingTestV2 extends LinearOpMode {
+@TeleOp(name = "StrafingTestV2")
+@Disabled
+public class StrafingTestV2 extends autoBaseV2 {
     @Override
     public void runOpMode() throws InterruptedException {
         TypexChart chart = new TypexChart();
@@ -26,6 +28,8 @@ public class StrafingTestV2 extends LinearOpMode {
                 chart.BL.setPower(power);
                 chart.BR.setPower(-power + correction);
                 sleep(2000);
+                goToPosition(chart.BR, chart.TL, 102, 1.0, false);
+
             }
             if(gamepad1.dpad_right){
                 resetEncoders(chart.TL);

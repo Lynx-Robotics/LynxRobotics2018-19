@@ -186,6 +186,27 @@ public abstract class autoBaseV2 extends LinearOpMode {
         chart.DebugSwitch = true;
     }
 
+    public void goToPositionAnti(DcMotor motor1, DcMotor motor2, double position, double power, boolean Debug) {
+        resetEncoders(motor1);
+
+        int currentPos = motor1.getCurrentPosition();
+        int motorPosition = motor1.getCurrentPosition();
+
+        motor1.setPower(power);
+        motor2.setPower(-power);
+
+        while ((motorPosition >= position) /*&&  pError>.25*/ && !Debug) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+        motor1.setPower(0);
+        motor2.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
+
     public void goToPositionStrafeLeft(DcMotor motor1, DcMotor motor2, DcMotor motor3, DcMotor motor4, double position, double power) {
         resetEncoders(motor1);
 
@@ -254,13 +275,13 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     public void dropHookers(){
-        chart.hookRight.setPosition(0.2);
-        chart.hookLeft.setPosition(0.05);
+        chart.hookRight.setPosition(0.0);
+        chart.hookLeft.setPosition(0.0);
     }
 
     public void raiseHookers(){
-        chart.hookRight.setPosition(0.9);
-        chart.hookLeft.setPosition(0.75);
+        chart.hookRight.setPosition(1.0);
+        chart.hookLeft.setPosition(1.0);
     }
 
     public void strafe(double power) {
@@ -447,17 +468,78 @@ public abstract class autoBaseV2 extends LinearOpMode {
         return GP && RP && BP;
     }
 
-    public boolean bottomTapeSensorDetectedReborn(ColorSensor cs){
-        String alpha;
-        double G = constants.tapeGreen;
-        double B = constants.tapeBlue;
-        double R = constants.tapeRed;
+    public boolean SkyStoneReBornRight(ColorSensor cs){
+        String alpha = "undefined";
+        double G = constants.avgGreenBlackMIDR;
+        double B = constants.avgBlueBlackMIDR;
+        double R = constants.avgRedBlackMIDR;
 
         boolean GP = false, BP = false, RP = false;
 
-        GP = isInRange(cs.green(), 150, G);
-        BP = isInRange(cs.blue(), 75, B);
-        RP = isInRange(cs.red(), 75, R);
+        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
+            alpha = "far";
+        }
+        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+            alpha = "middle";
+        }
+        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+            alpha = "close";
+        }
+        else {
+            alpha = "middle";
+        }
+
+        switch (alpha){
+            case "far":
+                G = constants.avgGreenBlackCLOSER;
+                B = constants.avgBlueBlackCLOSER;
+                R = constants.avgRedBlackCLOSER;
+                break;
+            case "middle":
+                G = constants.avgGreenBlackCLOSER;
+                B = constants.avgBlueBlackCLOSER;
+                R = constants.avgRedBlackCLOSER;
+                break;
+            case "close":
+                G = constants.avgGreenBlackCLOSER;
+                B = constants.avgBlueBlackCLOSER;
+                R = constants.avgRedBlackCLOSER;
+                break;
+        }
+
+        GP = isInRange(cs.green(), 70, G);
+        BP = isInRange(cs.blue(), 45, B);
+        RP = isInRange(cs.red(), 45, R);
+
+        return GP && RP && BP;
+    }
+
+    public boolean bottomTapeSensorDetectedGreyReborn(ColorSensor cs){
+        String alpha;
+        double G = constants.greyG;
+        double B = constants.greyB;
+        double R = constants.greyR;
+
+        boolean GP = false, BP = false, RP = false;
+
+        GP = isInRange(cs.green(), 700, G);
+        BP = isInRange(cs.blue(), 700, B);
+        RP = isInRange(cs.red(), 700, R);
+
+        return GP && RP && BP;
+    }
+
+    public boolean bottomTapeSensorDetectedBlueReborn(ColorSensor cs){
+        String alpha;
+        double G = constants.tapeGreenBLUE;
+        double B = constants.tapeBlueBLUE;
+        double R = constants.tapeRedBLUE;
+
+        boolean GP = false, BP = false, RP = false;
+
+        GP = isInRange(cs.green(), 100, G);
+        BP = isInRange(cs.blue(), 100, B);
+        RP = isInRange(cs.red(), 100, R);
 
         return GP && RP && BP;
     }

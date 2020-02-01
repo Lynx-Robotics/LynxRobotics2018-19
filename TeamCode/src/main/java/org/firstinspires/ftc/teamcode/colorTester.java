@@ -49,6 +49,8 @@ public class colorTester extends autoBaseV2 {
             telemetry.addData("AVG B: ", avgB);
             telemetry.addData("AVG R: ", avgR);
 
+            telemetry.addData("Bottom Sensor Tape Spotted: ", bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor));
+
             telemetry.update();
 
             calibrate(chart.bottomColorSensor);

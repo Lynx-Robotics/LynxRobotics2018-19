@@ -3,12 +3,13 @@ package org.firstinspires.ftc.teamcode;
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import java.lang.reflect.Type;
 
 @Autonomous(name = "ENCODER_BLUE_ONE_STONE_FULL")
+@Disabled
 public class EncoderBlueOneStoneFull extends autoBaseV2 {
     double distanceForward = distance2encoder(62.5);
     double distanceToBlock = distance2encoder(7.5);

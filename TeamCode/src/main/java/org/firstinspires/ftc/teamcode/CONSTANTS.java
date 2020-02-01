@@ -40,6 +40,23 @@ public class CONSTANTS {
     public double avgBlueBlackCLOSE = 291;
     public double avgRedBlackCLOSE = 326.5;
     public double avgAlphaCLOSE = 1200;
+
+    public double avgGreenBlackFARR = 533;
+    public double avgBlueBlackFARR = 189;
+    public double avgRedBlackFARR = 218;
+    public double avgAlphaFARR = 810.667;
+
+    public double avgGreenBlackMIDR = 460;
+    public double avgBlueBlackMIDR = 234;
+    public double avgRedBlackMIDR = 248;
+    public double avgAlphaMIDR = 1019;
+
+    public double avgGreenBlackCLOSER = 320;
+    public double avgBlueBlackCLOSER = 175;
+    public double avgRedBlackCLOSER = 170;
+    public double avgAlphaCLOSER = 620;
+
+
 /*
 --------------------------------------------------------
  */
@@ -62,9 +79,22 @@ public class CONSTANTS {
     -------------------------------------------------------
      */
 
-    public double tapeGreen = 13280;
-    public double tapeBlue = 4850;
-    public double tapeRed = 10662;
+    public double tapeGreenBLUE = 758;
+    public double tapeBlueBLUE = 508;
+    public double tapeRedBLUE = 283;
+
+    public double tapeGreenRED = 741;
+    public double tapeBlueRED = 188;
+    public double tapeRedRED = 717;
+
+
+    /*
+    -------------------------------------------------------
+     */
+
+    public double greyG = 3000;
+    public double greyB = 2000;
+    public double greyR = 5500;
 
 
 
