@@ -36,7 +36,7 @@ public class ENC_RED_HYBRID extends autoBaseV2 {
         //Strafe Right
         chart.runtime.reset();
         strafe(0.30);
-        while(opModeIsActive() && (!SkyStoneReBornRight(chart.colorSensorRight))){
+        while(opModeIsActive() && (!SkyStoneReBornRight(chart.colorSensorLeft))){
 
         }
         rest();
