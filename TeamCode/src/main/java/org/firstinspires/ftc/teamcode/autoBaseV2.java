@@ -543,6 +543,20 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         return GP && RP && BP;
     }
+    public boolean bottomTapeSensorDetectedRedReborn(ColorSensor cs){
+        String alpha;
+        double G = constants.tapeGreenRED;
+        double B = constants.tapeBlueRED;
+        double R = constants.tapeRedRED;
+
+        boolean GP = false, BP = false, RP = false;
+
+        GP = isInRange(cs.green(), 100, G);
+        BP = isInRange(cs.blue(), 100, B);
+        RP = isInRange(cs.red(), 100, R);
+
+        return GP && RP && BP;
+    }
 
     public boolean SkyStoneSpottedBlack(ColorSensor cs, double tolerance) {
         boolean GREEN = isInRange(cs.green(), tolerance, constants.greenBlack);
