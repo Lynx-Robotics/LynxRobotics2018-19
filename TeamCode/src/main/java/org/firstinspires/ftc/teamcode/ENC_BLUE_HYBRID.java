@@ -39,7 +39,7 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
         }
         rest();
         goToPositionDown(chart.elevMotor, 5, -1.0);
-        goToPosition(chart.elevMotor, 350, 1.0);
+//        goToPosition(chart.elevMotor, 350, 1.0);
 
 
         goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.30);
@@ -53,7 +53,7 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
         sleep(1500);
 
         //raise elevMotor
-        goToPosition(chart.elevMotor, 30, 1.0);
+        goToPosition(chart.elevMotor, 80, 1.0);
 
         //go back
         goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(16), -1.0);
