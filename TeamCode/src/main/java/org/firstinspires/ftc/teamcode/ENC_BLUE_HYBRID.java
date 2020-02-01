@@ -85,7 +85,7 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
 
         sleep(500);
 
-        goToPosition(chart.elevMotor, 500, 1.0);
+//        goToPosition(chart.elevMotor, 500, 1.0);
 
 
         goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(3), -.25);
