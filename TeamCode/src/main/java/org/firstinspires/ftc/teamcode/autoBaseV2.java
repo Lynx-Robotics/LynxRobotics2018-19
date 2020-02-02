@@ -445,19 +445,19 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         switch (alpha){
             case "far":
-                G = constants.avgGreenBlackFAR;
-                B = constants.avgBlueBlackFAR;
-                R = constants.avgRedBlackFAR;
+                G = constants.avgGreenBlackCLOSER;
+                B = constants.avgBlueBlackCLOSER;
+                R = constants.avgRedBlackCLOSER;
                 break;
             case "middle":
-                G = constants.avgGreenBlackMID;
-                B = constants.avgBlueBlackMID;
-                R = constants.avgRedBlackMID;
+                G = constants.avgGreenBlackCLOSER;
+                B = constants.avgBlueBlackCLOSER;
+                R = constants.avgRedBlackCLOSER;
                 break;
             case "close":
-                G = constants.avgGreenBlackCLOSE;
-                B = constants.avgBlueBlackCLOSE;
-                R = constants.avgRedBlackCLOSE;
+                G = constants.avgGreenBlackCLOSER;
+                B = constants.avgBlueBlackCLOSER;
+                R = constants.avgRedBlackCLOSER;
                 break;
         }
 
