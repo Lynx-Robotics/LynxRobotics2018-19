@@ -461,9 +461,9 @@ public abstract class autoBaseV2 extends LinearOpMode {
                 break;
         }
 
-        GP = isInRange(cs.green(), 50, G);
-        BP = isInRange(cs.blue(), 25, B);
-        RP = isInRange(cs.red(), 25, R);
+        GP = isInRange(cs.green(), 70, G);
+        BP = isInRange(cs.blue(), 45, B);
+        RP = isInRange(cs.red(), 45, R);
 
         return GP && RP && BP;
     }
