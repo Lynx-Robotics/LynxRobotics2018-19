@@ -7,6 +7,10 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public abstract class autoBaseV2 extends LinearOpMode {
 
@@ -580,5 +584,36 @@ public abstract class autoBaseV2 extends LinearOpMode {
         } else {
             return false; //you found something not yellow so stop
         }
+    }
+    public void resetAngle() {
+        chart.lastAngles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        chart.globalAngle = 0;
+    }
+    public double getAngle() {
+        Orientation angles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double dAngles = angles.firstAngle - chart.lastAngles.firstAngle;
+
+        if (dAngles<-180) dAngles+=360;
+        else if (dAngles>180) dAngles-=360;
+
+        chart.globalAngle += dAngles;
+
+        chart.lastAngles = angles;
+
+        return chart.globalAngle;
+    }
+    public double checkDirection() {
+        double correction, gain = 0.10, angle;
+        angle = getAngle();
+
+        if (angle ==0){
+            correction = 0;
+        }
+        else correction = -angle;
+
+        correction = correction * gain;
+        return
+                correction;
     }
 }
