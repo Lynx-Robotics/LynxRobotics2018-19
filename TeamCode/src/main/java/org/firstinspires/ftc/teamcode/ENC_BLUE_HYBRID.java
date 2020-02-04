@@ -8,11 +8,15 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
 
     boolean parkWall = true;
 
+    double elapsedSec;
+
     @Override
     public void runOpMode() throws InterruptedException {
         chart.init(hardwareMap);
 
         waitForStart();
+
+        chart.globalTime.reset();
 
         //strafe Right
 //        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(5), -0.3);
@@ -37,7 +41,11 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
         while(opModeIsActive() && (!SkyStoneReBornRight(chart.colorSensorRight))){
 
         }
+        elapsedSec = chart.globalTime.seconds();
+        chart.globalTime.reset();
         rest();
+
+        if(chart.globalTime.seconds() < )
         goToPositionDown(chart.elevMotor, 5, -1.0);
 
 
