@@ -189,6 +189,37 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         chart.DebugSwitch = true;
     }
+    //-----------------------------------------------------------------
+
+    public void goToPositionNinety(DcMotor motor1, DcMotor motor2, double position, double power, DcMotor motor3, DcMotor motor4,double position1,double power1,  boolean Debug) {
+        resetEncoders(motor1);
+
+        int currentPos = motor1.getCurrentPosition();
+        int motorPosition = motor1.getCurrentPosition();
+        int currentPos2=motor2.getCurrentPosition();
+        int motorPosition2=motor2.getCurrentPosition();
+        motor1.setPower(power);
+        motor2.setPower(power);
+        motor3.setPower((power1));
+        motor4.setPower(power1);
+
+        while ((motorPosition <= position && motorPosition2<=position1) /*&&  pError>.25*/ && !Debug) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+        motor1.setPower(0);
+        motor2.setPower(0);
+        motor3.setPower(0);
+        motor4.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
+
+    //-----------------------------------------
+
+
 
     public void goToPositionAnti(DcMotor motor1, DcMotor motor2, double position, double power, boolean Debug) {
         resetEncoders(motor1);
