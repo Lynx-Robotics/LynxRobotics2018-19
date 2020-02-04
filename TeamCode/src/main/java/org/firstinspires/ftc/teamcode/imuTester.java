@@ -10,6 +10,12 @@ public class imuTester extends autoBase {
 
         chart.init(hardwareMap);
 
+        while(!chart.imu.isGyroCalibrated() && opModeIsActive()){
+
+        }
+        telemetry.addData("Done Calibrating", true);
+        telemetry.update();
+
         waitForStart();
         rotate(90, 0.4);
 

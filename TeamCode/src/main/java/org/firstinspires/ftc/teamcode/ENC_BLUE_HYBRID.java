@@ -65,7 +65,8 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
         strafe(-0.3);
         while(opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)));
         rest();
-        goToPosition(chart.BR, chart.TL, distance2encoderNew(2.1), 0.4, false);
+
+//        goToPosition(chart.BR, chart.TL, distance2encoderNew(1.9), 1.0, false);
         goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(62.7), -0.7);
 
 
@@ -98,8 +99,15 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
 
         sleep(1000);
 
+        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(3), 1.0);
+        sleep(500);
+        goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(1.1), -1.0, false);
+        strafe(0.3);
+        while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor));
+        rest();
+
         //parking
-        if(parkWall == true){
+        /*if(parkWall == true){
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(3), 1.0);
             sleep(500);
             goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(1.1), -1.0, false);
@@ -120,6 +128,6 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
             }
             rest();
 
-        }
+        }*/
     }
 }

@@ -21,7 +21,7 @@ public class ENC_BLUE_STONE extends autoBaseV2 {
 
         //strafe to the right with csLeft active
         strafe(0.35);
-        while(opModeIsActive() && !SkyStoneReBorn(chart.colorSensorLeft)){
+        while(opModeIsActive() && !SkyStoneReBornRight(chart.colorSensorRight)){
 
         }
         rest();
