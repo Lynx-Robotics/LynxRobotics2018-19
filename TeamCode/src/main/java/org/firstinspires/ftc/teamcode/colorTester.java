@@ -53,7 +53,7 @@ public class colorTester extends autoBaseV2 {
 
             telemetry.update();
 
-            calibrate(chart.bottomColorSensor);
+            calibrate(chart.colorSensorLeft);
 
         }
     }

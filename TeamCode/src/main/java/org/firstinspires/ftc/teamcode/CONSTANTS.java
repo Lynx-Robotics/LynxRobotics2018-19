@@ -60,20 +60,7 @@ public class CONSTANTS {
 /*
 --------------------------------------------------------
  */
-    public double RavgGreenBlackFAR = 399;
-    public double RavgBlueBlackFAR = 196.67;
-    public double RavgRedBlackFAR = 217.667;
-    public double RavgAlphaFAR = 810.667;
 
-    public double RavgGreenBlackMID = 502;
-    public double RavgBlueBlackMID = 255;
-    public double RavgRedBlackMID = 271;
-    public double RavgAlphaMID = 1019;
-
-    public double RavgGreenBlackCLOSE = 596;
-    public double RavgBlueBlackCLOSE = 291;
-    public double RavgRedBlackCLOSE = 326.5;
-    public double RavgAlphaCLOSE = 1200;
 
     /*
     -------------------------------------------------------
