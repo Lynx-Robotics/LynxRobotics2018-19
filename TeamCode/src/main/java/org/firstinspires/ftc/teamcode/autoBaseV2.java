@@ -480,19 +480,19 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         switch (alpha){
             case "far":
-                G = constants.avgGreenBlackCLOSE;
-                B = constants.avgBlueBlackCLOSE;
-                R = constants.avgRedBlackCLOSE;
+                G = constants.avgGreenBlackCLOSEL;
+                B = constants.avgBlueBlackCLOSEL;
+                R = constants.avgRedBlackCLOSEL;
                 break;
             case "middle":
-                G = constants.avgGreenBlackCLOSE;
-                B = constants.avgBlueBlackCLOSE;
-                R = constants.avgRedBlackCLOSE;
+                G = constants.avgGreenBlackCLOSEL;
+                B = constants.avgBlueBlackCLOSEL;
+                R = constants.avgRedBlackCLOSEL;
                 break;
             case "close":
-                G = constants.avgGreenBlackCLOSE;
-                B = constants.avgBlueBlackCLOSE;
-                R = constants.avgRedBlackCLOSE;
+                G = constants.avgGreenBlackCLOSEL;
+                B = constants.avgBlueBlackCLOSEL;
+                R = constants.avgRedBlackCLOSEL;
                 break;
         }
 
@@ -545,6 +545,53 @@ public abstract class autoBaseV2 extends LinearOpMode {
         GP = isInRange(cs.green(), 70, G);
         BP = isInRange(cs.blue(), 45, B);
         RP = isInRange(cs.red(), 45, R);
+
+        return GP && RP && BP;
+    }
+
+    // this is what I added...Subash
+    public boolean SkyStoneReBornLeft(ColorSensor cs){
+        String alpha = "undefined";
+        double G = constants.avgGreenBlackCLOSEL;
+        double B = constants.avgBlueBlackCLOSEL;
+        double R = constants.avgRedBlackCLOSEL;
+
+        boolean GP = false, BP = false, RP = false;
+
+        if(isInRange(cs.alpha(), 70, 810)){ //if it is far
+            alpha = "far";
+        }
+        else if (isInRange(cs.alpha(), 70, 1019)){ //if it is middle
+            alpha = "middle";
+        }
+        else if(isInRange(cs.alpha(), 70, 1200)){ //if it is very close
+            alpha = "close";
+        }
+        else {
+            alpha = "middle";
+        }
+
+        switch (alpha){
+            case "far":
+                G = constants.avgGreenBlackCLOSEL;
+                B = constants.avgBlueBlackCLOSEL;
+                R = constants.avgRedBlackCLOSEL;
+                break;
+            case "middle":
+                G = constants.avgGreenBlackCLOSEL;
+                B = constants.avgBlueBlackCLOSEL;
+                R = constants.avgRedBlackCLOSEL;
+                break;
+            case "close":
+                G = constants.avgGreenBlackCLOSEL;
+                B = constants.avgBlueBlackCLOSEL;
+                R = constants.avgRedBlackCLOSEL;
+                break;
+        }
+
+        GP = isInRange(cs.green(), 70, G);
+        BP = isInRange(cs.blue(), 70, B);
+        RP = isInRange(cs.red(), 70, R);
 
         return GP && RP && BP;
     }

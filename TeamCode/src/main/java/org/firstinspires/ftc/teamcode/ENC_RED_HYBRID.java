@@ -28,26 +28,27 @@ public class ENC_RED_HYBRID extends autoBaseV2 {
         //Strafe Left
         goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(8), 0.35);
 
+        goToPosition(chart.BR, chart.TL, distance2encoderNew(0.6), 1.0, false);
+
         //repositioning for strafe
         goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(0.6), 1.0, false);
 
         sleep(450);
 
-        //Strafe Right
+
+
+        //strafe left
         chart.runtime.reset();
         strafe(0.30);
-        while(opModeIsActive() && (!SkyStoneReBorn(chart.colorSensorLeft))){
+        while(opModeIsActive() && (!SkyStoneReBornLeft(chart.colorSensorLeft))){
 
         }
         rest();
         goToPositionDown(chart.elevMotor, 5, -1.0);
-        goToPosition(chart.elevMotor, 350, 1.0);
-
 
         goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.30);
 
-
-        //go forward
+       //go forward
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.4);
 
         //grab

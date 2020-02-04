@@ -36,10 +36,16 @@ public class CONSTANTS {
     public double avgRedBlackMID = 271;
     public double avgAlphaMID = 1019;
 
-    public double avgGreenBlackCLOSE = 390;
-    public double avgBlueBlackCLOSE = 190;
-    public double avgRedBlackCLOSE = 200;
-    public double avgAlphaCLOSE = 1200;
+    public double avgGreenBlackCLOSE = 310;
+    public double avgBlueBlackCLOSE = 175;
+    public double avgRedBlackCLOSE = 175;
+    public double avgAlphaCLOSE = 620;
+
+    public double avgGreenBlackCLOSEL = 490;
+    public double avgBlueBlackCLOSEL = 246;
+    public double avgRedBlackCLOSEL = 260;
+    public double avgAlphaCLOSEL = 982;
+
 
     public double avgGreenBlackFARR = 533;
     public double avgBlueBlackFARR = 189;
