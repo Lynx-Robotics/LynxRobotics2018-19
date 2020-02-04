@@ -10,6 +10,8 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
 
     double elapsedSec;
 
+    double CORRECTION_ANTI_ONE;
+
     @Override
     public void runOpMode() throws InterruptedException {
         chart.init(hardwareMap);
@@ -45,7 +47,10 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
         chart.globalTime.reset();
         rest();
 
-        if(chart.globalTime.seconds() < )
+        if(isInRange(elapsedSec, 0.116, 4.07)){ //is in position 3
+            CORRECTION_ANTI_ONE = 7;
+        }
+
         goToPositionDown(chart.elevMotor, 5, -1.0);
 
 
@@ -68,7 +73,7 @@ public class ENC_BLUE_HYBRID extends autoBaseV2 {
         //strafe left more until foundation
 
         //adjust slightly
-        goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(4), -0.4, false);
+        goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(CORRECTION_ANTI_ONE), -0.4, false);
 
         strafe(-0.3);
         while(opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)));
