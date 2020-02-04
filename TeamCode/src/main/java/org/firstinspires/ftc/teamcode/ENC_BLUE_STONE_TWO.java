@@ -75,7 +75,7 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
            // goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(35), 0.7);
            //goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(40), -1.0);
             rest();
-            goToPosition(chart.BR,chart.TL,distance2encoder(54),1,false);
+            goToPosition(chart.BR,chart.TR,distance2encoder(54),1,false);
             rest();
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(10), 0.4);
 
