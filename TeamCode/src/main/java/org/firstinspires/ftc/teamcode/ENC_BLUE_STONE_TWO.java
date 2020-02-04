@@ -61,9 +61,9 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
 
             //strafe left more until foundation
             //goToPositionNinety(chart.BL,chart.TR,distance2encoderNew(8),1,chart.TL,chart.BR,distance2encoderNew(5),-1,false);
-            goToPosition(chart.BL,chart.TR,distance2encoder(45),1,false);
+            goToPosition(chart.BL,chart.TR,distance2encoder(52),1,false);
 
-            goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(20), -1.0);
+            goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(25), -1.0);
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(75), 0.8);
            // while(opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)));
             rest();
@@ -75,7 +75,7 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
            // goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(35), 0.7);
            //goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(40), -1.0);
             rest();
-            goToPosition(chart.BR,chart.TL,distance2encoder(50),0.6,false);
+            goToPosition(chart.BR,chart.TL,distance2encoder(54),1,false);
             rest();
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(10), 0.4);
 
