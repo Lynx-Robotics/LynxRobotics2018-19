@@ -7,6 +7,10 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public abstract class autoBaseV2 extends LinearOpMode {
 
@@ -185,6 +189,37 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         chart.DebugSwitch = true;
     }
+    //-----------------------------------------------------------------
+
+    public void goToPositionNinety(DcMotor motor1, DcMotor motor2, double position, double power, DcMotor motor3, DcMotor motor4,double position1,double power1,  boolean Debug) {
+        resetEncoders(motor1);
+
+        int currentPos = motor1.getCurrentPosition();
+        int motorPosition = motor1.getCurrentPosition();
+        int currentPos2=motor2.getCurrentPosition();
+        int motorPosition2=motor2.getCurrentPosition();
+        motor1.setPower(power);
+        motor2.setPower(power);
+        motor3.setPower((power1));
+        motor4.setPower(power1);
+
+        while ((motorPosition <= position && motorPosition2<=position1) /*&&  pError>.25*/ && !Debug) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+        motor1.setPower(0);
+        motor2.setPower(0);
+        motor3.setPower(0);
+        motor4.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
+
+    //-----------------------------------------
+
+
 
     public void goToPositionAnti(DcMotor motor1, DcMotor motor2, double position, double power, boolean Debug) {
         resetEncoders(motor1);
@@ -580,5 +615,36 @@ public abstract class autoBaseV2 extends LinearOpMode {
         } else {
             return false; //you found something not yellow so stop
         }
+    }
+    public void resetAngle() {
+        chart.lastAngles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        chart.globalAngle = 0;
+    }
+    public double getAngle() {
+        Orientation angles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double dAngles = angles.firstAngle - chart.lastAngles.firstAngle;
+
+        if (dAngles<-180) dAngles+=360;
+        else if (dAngles>180) dAngles-=360;
+
+        chart.globalAngle += dAngles;
+
+        chart.lastAngles = angles;
+
+        return chart.globalAngle;
+    }
+    public double checkDirection() {
+        double correction, gain = 0.10, angle;
+        angle = getAngle();
+
+        if (angle ==0){
+            correction = 0;
+        }
+        else correction = -angle;
+
+        correction = correction * gain;
+        return
+                correction;
     }
 }

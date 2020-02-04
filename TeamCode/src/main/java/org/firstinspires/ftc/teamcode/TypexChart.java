@@ -28,11 +28,14 @@ public class TypexChart {
 
 
 
-
+    public BNO055IMU imu;
     public DcMotor TL ;
     public DcMotor TR ;
     public DcMotor BL ;
     public DcMotor BR ;
+
+    Orientation angle;
+    Orientation lastAngles;
 
     public DcMotor elevMotor;
 
@@ -45,7 +48,6 @@ public class TypexChart {
 
     public double correction, rotation;
 
-    BNO055IMU imu;
 
     //DistanceSensor distanceSensor;
     ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
@@ -55,7 +57,6 @@ public class TypexChart {
 
     public double powerUp = 0.5, powerDown = -0.5, power = 0.15;
     public double globalAngle;
-    Orientation lastAngles = new Orientation();
     /* Recharging local members */
     HardwareMap hwMap = null;
 
@@ -67,6 +68,7 @@ public class TypexChart {
     /* Initializing binaryChart Mainframe */
     public void init (HardwareMap chart) {
         hwMap = chart;
+
 
         hookRight = hwMap.get(Servo.class, "hookRight");
         hookLeft = hwMap.get(Servo.class, "hookLeft");
