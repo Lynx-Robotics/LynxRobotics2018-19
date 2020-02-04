@@ -26,7 +26,7 @@ public class ENC_RED_HYBRID extends autoBaseV2 {
         sleep(450);
 
         //Strafe Left
-        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(8), 0.35);
+        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(8), -0.35);
 
         goToPosition(chart.BR, chart.TL, distance2encoderNew(0.6), 1.0, false);
 
@@ -46,7 +46,7 @@ public class ENC_RED_HYBRID extends autoBaseV2 {
         rest();
         goToPositionDown(chart.elevMotor, 5, -1.0);
 
-        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.30);
+        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), -0.30);
 
        //go forward
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.4);

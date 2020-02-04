@@ -663,11 +663,13 @@ public abstract class autoBaseV2 extends LinearOpMode {
             return false; //you found something not yellow so stop
         }
     }
+
     public void resetAngle() {
         chart.lastAngles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         chart.globalAngle = 0;
     }
+
     public double getAngle() {
         Orientation angles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         double dAngles = angles.firstAngle - chart.lastAngles.firstAngle;
