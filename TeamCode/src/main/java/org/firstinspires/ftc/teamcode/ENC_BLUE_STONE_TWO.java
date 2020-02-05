@@ -62,29 +62,33 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
             goToPositionStrafeBackLeft( chart.TL,chart.TR, distance2encoderNew(32), 0.30);
             rest();
             goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(2), -0.3);
-//            goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(3), -4.0);
-//            rest();
+
             goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(1), -7);
             rest();
             goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(1), -0.3);
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(10), 1);
             rest();
             goForward(0.4);
-            while(opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)));
+            while(opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor))){
+
+            }
             rest();
 
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(10), 1);
-           ;
+
             rest();
-//            goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(1), -0.3);
-//            rest();
-           // goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(15), 1);
+
             raiseDL();
             sleep(450);
 
             goToPosition(chart.elevMotor, 10, 1.0);
 
-            goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(30), -1.0);
+            goForward(-0.4);
+            while(opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor))){
+
+            }
+
+            goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(20), -1.0);
             rest();
             goToPositionStrafeBackLeft( chart.TR,chart.TL, distance2encoderNew(30), 0.30);
             rest();
@@ -94,12 +98,8 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(12.5), 0.4);
 
             rest();
-            //sleep(450);
 
-//            goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(38), 0.3);
-//            //goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(1.0), 1.0);
-//            goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(0.8), 1.0);
-//            //repositioning for strafe
+
             goToPosition(chart.BR, chart.TL, distance2encoderNew(0.3), 1.0, false);
 
             sleep(450);
