@@ -1,5 +1,8 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+
+@Autonomous(name = "ENC_BLUE_HYBRID_REBORN")
 public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
 
     @Override
@@ -8,7 +11,7 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
 
         waitForStart();
         //go forward to the blocks
-        goToPosition(distance2encoderNewFullVolt(27.2), 1.0);
+        goToPositionForward(distance2encoderNewFullVolt(27.2), 1.0);
 
         sleep(350);
 

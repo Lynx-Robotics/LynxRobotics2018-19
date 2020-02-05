@@ -15,10 +15,7 @@ public abstract class autoBaseV3 extends LinearOpMode {
     }
 
     //standard goToPosition for going forwards and or backwards
-    public void goToPosition(double position, double power) {
-        boolean front;
-        boolean back;
-        double powerOut = power;
+    public void goToPositionForward(double position, double power) {
         double correction = 0.002;
 
         resetEncoders(chart.TL);
@@ -34,54 +31,60 @@ public abstract class autoBaseV3 extends LinearOpMode {
         double avgEncPos = (double) (Math.abs(encoderPosTL) + Math.abs(encoderPosTR) + Math.abs(encoderPosBL) + Math.abs(encoderPosBR)) / 4.0;
         double avgEncPosFixed = Math.floor(avgEncPos);
 
-        if ((Math.abs(power) + power) == 0) { //power is negative and thus we are going backwards
-            /*front = false;
-            back = true;
+        chart.TL.setPower(power);
+        chart.TR.setPower(power - correction);
+        chart.BL.setPower(power);
+        chart.BR.setPower(power - correction);
 
-            powerOut = -power;
-            correction = -correction;*/
-            chart.TL.setPower(power);
-            chart.TR.setPower(power + correction);
-            chart.BL.setPower(power);
-            chart.BR.setPower(power + correction);
+        while (opModeIsActive() && (avgEncPosFixed < position)) {
+            telemetry.addData("In Rotation: ", true);
+            telemetry.update();
 
-            while (opModeIsActive() && (avgEncPosFixed < position)) {
-                telemetry.addData("In Rotation: ", true);
-                telemetry.update();
+            encoderPosTL = chart.TL.getCurrentPosition();
+            encoderPosTR = chart.TR.getCurrentPosition();
+            encoderPosBL = chart.BL.getCurrentPosition();
+            encoderPosBR = chart.BR.getCurrentPosition();
 
-                encoderPosTL = chart.TL.getCurrentPosition();
-                encoderPosTR = chart.TR.getCurrentPosition();
-                encoderPosBL = chart.BL.getCurrentPosition();
-                encoderPosBR = chart.BR.getCurrentPosition();
-
-                avgEncPos = (double) (Math.abs(encoderPosTL) + Math.abs(encoderPosTR) + Math.abs(encoderPosBL) + Math.abs(encoderPosBR)) / 4.0;
-                avgEncPosFixed = Math.floor(avgEncPos);
-            }
-            rest();
-        } else {
-            /*front = true;
-            back = false;
-
-            powerOut = power;*/
-            chart.TL.setPower(power);
-            chart.TR.setPower(power - correction);
-            chart.BL.setPower(power);
-            chart.BR.setPower(power - correction);
-
-            while (opModeIsActive() && (avgEncPosFixed < position)) {
-                telemetry.addData("In Rotation: ", true);
-                telemetry.update();
-
-                encoderPosTL = chart.TL.getCurrentPosition();
-                encoderPosTR = chart.TR.getCurrentPosition();
-                encoderPosBL = chart.BL.getCurrentPosition();
-                encoderPosBR = chart.BR.getCurrentPosition();
-
-                avgEncPos = (double) (Math.abs(encoderPosTL) + Math.abs(encoderPosTR) + Math.abs(encoderPosBL) + Math.abs(encoderPosBR)) / 4.0;
-                avgEncPosFixed = Math.floor(avgEncPos);
-            }
-            rest();
+            avgEncPos = (double) (Math.abs(encoderPosTL) + Math.abs(encoderPosTR) + Math.abs(encoderPosBL) + Math.abs(encoderPosBR)) / 4.0;
+            avgEncPosFixed = Math.floor(avgEncPos);
         }
+        rest();
+    }
+
+    public void goToPositionBackward(double position, double power) {
+        double correction = 0.002;
+
+        resetEncoders(chart.TL);
+        resetEncoders(chart.BR);
+        resetEncoders(chart.TR);
+        resetEncoders(chart.BL);
+
+        int encoderPosTL = chart.TL.getCurrentPosition();
+        int encoderPosTR = chart.TR.getCurrentPosition();
+        int encoderPosBL = chart.BL.getCurrentPosition();
+        int encoderPosBR = chart.BR.getCurrentPosition();
+
+        double avgEncPos = (double) (Math.abs(encoderPosTL) + Math.abs(encoderPosTR) + Math.abs(encoderPosBL) + Math.abs(encoderPosBR)) / 4.0;
+        double avgEncPosFixed = Math.floor(avgEncPos);
+
+        chart.TL.setPower(-power);
+        chart.TR.setPower(-power + correction);
+        chart.BL.setPower(-power);
+        chart.BR.setPower(-power + correction);
+
+        while (opModeIsActive() && (avgEncPosFixed < position)) {
+            telemetry.addData("In Rotation: ", true);
+            telemetry.update();
+
+            encoderPosTL = chart.TL.getCurrentPosition();
+            encoderPosTR = chart.TR.getCurrentPosition();
+            encoderPosBL = chart.BL.getCurrentPosition();
+            encoderPosBR = chart.BR.getCurrentPosition();
+
+            avgEncPos = (double) (Math.abs(encoderPosTL) + Math.abs(encoderPosTR) + Math.abs(encoderPosBL) + Math.abs(encoderPosBR)) / 4.0;
+            avgEncPosFixed = Math.floor(avgEncPos);
+        }
+        rest();
     }
 
     //all values must be put in aboslute value
@@ -102,8 +105,8 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
         chart.TL.setPower(power);
         chart.TR.setPower(-power);
-        chart.BL.setPower(-power);
-        chart.BR.setPower(power);
+        chart.BL.setPower(-power + 0.002);
+        chart.BR.setPower(power - 0.002);
 
         while (opModeIsActive() && (avgEncPosFixed < position)) {
             encoderPosTL = chart.TL.getCurrentPosition();

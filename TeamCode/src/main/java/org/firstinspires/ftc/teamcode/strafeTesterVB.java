@@ -18,8 +18,12 @@ public class strafeTesterVB extends autoBaseV3 {
             telemetry.update();
 
             if(tick % 2 == 0){
-                goToPosition((distance2encoderNew(35) - distance2encoderNew(0.3)), 0.4);
+                goToPositionForward((distance2encoderNew(35) - distance2encoderNew(0.3)), 0.4);
+                goToPositionBackward((distance2encoderNew(35) - distance2encoderNew(0.3)), 0.4);
                 rest();
+
+//                encoderStrafeRight(distance2encoderNew(12), 0.35);
+
                 tick++;
             }
 
