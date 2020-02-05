@@ -42,31 +42,32 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
 
         //strafe left
         chart.runtime.reset();
-        strafe(-0.50);
+        strafe(-0.38);
         while(opModeIsActive() && (!SkyStoneReBornRight(chart.colorSensorRight))){
 
         }
         rest();
         goToPositionDown(chart.elevMotor, 5, -1.0);
-        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(2.5), 0.50);
+        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(6), 0.50);
 
         //go forward
+
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.45);
 
         //grab
         dropDL();
 
-        sleep(250);
+        sleep(450);
         //raise elevMotor
         goToPosition(chart.elevMotor, 13, 1.0);
         //go back
         goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(2), -0.4, false);
-        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(13), -7);
+        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(12.2), -7);
         rest();
     }
 
     public void turnNintyLeft() {
-        goToPositionStrafeBackLeft(chart.TL, chart.TR, distance2encoderNew(33), 0.50);
+        goToPositionStrafeBackLeft(chart.TL, chart.TR, distance2encoderNew(32), 0.50);
         rest();
         goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(3), 1);
 
