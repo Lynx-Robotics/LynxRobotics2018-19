@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "ENC_BLUE_STONE_TWO")
+@Autonomous(name = "ENC_RED_STONE_TWO")
 public class ENC_RED_STONE_TWO extends autoBaseV2 {
     int side = 1;
 
@@ -42,9 +42,8 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
         sleep(450);
 
         //strafe right
-        chart.runtime.reset();
         strafe(0.30);
-        while (opModeIsActive() && (!SkyStoneReBornRight(chart.colorSensorRight))) {
+        while(opModeIsActive() && (!SkyStoneReBornLeft(chart.colorSensorLeft))){
 
         }
         rest();
@@ -66,8 +65,6 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
 
         //go back
         goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(12.5), -7);
-
-
         rest();
     }
 
@@ -85,7 +82,7 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
         goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(1), -0.3);
         goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(10), 1);
         rest();
-        goForward(0.4);
+        goForward(0.3);
         while (opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor))) {
 
         }
@@ -103,14 +100,12 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
 
         goToPosition(chart.elevMotor, 10, 1.0);
 
-        goForward(-0.4);
+        goForward(-0.3);
         while (opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor))) {
 
         }
-
-        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(20), -1.0);
+        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(30), -1.0);
         rest();
-
     }
 
     public void turnNintyRight() {
@@ -121,7 +116,7 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
     public void parkBridge() {
         goToPosition(chart.elevMotor, 10, 1.0);
 
-        goForward(-0.4);
+        goForward(-0.3);
         while (opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor))) {
 
         }
