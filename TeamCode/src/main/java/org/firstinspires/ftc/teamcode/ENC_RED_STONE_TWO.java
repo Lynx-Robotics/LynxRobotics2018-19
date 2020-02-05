@@ -22,7 +22,7 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
         distanceToDrop();
         disToSecondStoneTask();
         turnNintyRight();
-        stoneTaskForward();
+        stoneTaskForwardSecond();
         turnNintyLeft();
         distanceToDrop();
         parkBridge();
@@ -113,6 +113,44 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
         rest();
     }
 
+    public void stoneTaskForwardSecond() {
+        chart.init(hardwareMap);
+        goToPosition(chart.elevMotor, 360, 1.0);
+        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(7.5), 1.0);
+
+        rest();
+        sleep(450);
+
+        goToPosition(chart.BR, chart.TL, distance2encoderNew(0.3), 1.0, false);
+
+        sleep(450);
+
+        //strafe right
+        strafe(0.30);
+        while(opModeIsActive() && (!SkyStoneReBornLeft(chart.colorSensorLeft))){
+
+        }
+        rest();
+        goToPositionDown(chart.elevMotor, 5, -1.0);
+
+
+        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(6), 0.30);
+
+
+        //go forward
+        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.4);
+
+        //grab
+        dropDL();
+        sleep(1500);
+
+        //raise elevMotor
+        goToPosition(chart.elevMotor, 13, 1.0);
+
+        //go back
+        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(12.5), -7);
+        rest();
+    }
     public void parkBridge() {
         goToPosition(chart.elevMotor, 10, 1.0);
 
