@@ -20,11 +20,11 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(27.0), 1.0);
 
             rest();
-            sleep(450);
+            sleep(250);
 
             goToPosition(chart.BR, chart.TL, distance2encoderNew(0.3), 1.0, false);
 
-            sleep(450);
+            sleep(250);
 
             //strafe left
             chart.runtime.reset();
@@ -42,7 +42,7 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
             //grab
             dropDL();
 
-            sleep(500);
+            sleep(250);
             //raise elevMotor
             goToPosition(chart.elevMotor, 13, 1.0);
             //go back
@@ -52,7 +52,7 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             //goToPosition(chart.BL,chart.TR,distance2encoder(38),0.4,false);
-            goToPositionStrafeBackLeft( chart.TL,chart.TR, distance2encoderNew(32), 0.40);
+            goToPositionStrafeBackLeft( chart.TL,chart.TR, distance2encoderNew(33), 0.40);
             rest();
             goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(2), -0.6, false);
             goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), -0.6);
@@ -77,7 +77,7 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
             rest();
 
             raiseDL();
-            goToPosition(chart.elevMotor, 14, 1.0);
+           // goToPosition(chart.elevMotor, 14, 1.0);
             goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(2.5), -0.5);
             goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(2), -0.6, false);
             sleep(200);
@@ -90,7 +90,7 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
 //
 //            }
 
-            goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(80), -1.0);
+            goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(77), -1.0);
             rest();
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
             goToPositionStrafeBackLeft( chart.TR,chart.TL, distance2encoderNew(30), 0.45);
@@ -99,7 +99,7 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(7), 1);
             rest();
           //  goToPosition(chart.BR, chart.TL, distance2encoderNew(0.3), 1.0, false);
-            sleep(450);
+            sleep(250);
             goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(4), -0.6, false);
             //strafe left
             chart.runtime.reset();
@@ -114,7 +114,7 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.4);
             //grab
             dropDL();
-            sleep(1500);
+            sleep(250);
             //raise elevMotor
             goToPosition(chart.elevMotor, 13, 1.0);
             //go back
@@ -133,7 +133,7 @@ public class ENC_BLUE_STONE_TWO extends autoBaseV2 {
 
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(40), 1);
             raiseDL();
-            sleep(450);
+            sleep(250);
 
             goToPosition(chart.elevMotor, 10, 1.0);
 
