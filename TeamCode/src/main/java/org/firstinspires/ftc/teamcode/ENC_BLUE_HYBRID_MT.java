@@ -20,6 +20,9 @@ public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
     @Override
     public void runOpMode() throws InterruptedException {
         chart.init(hardwareMap);
+        colorDetect t = new colorDetect();
+        t.start();
+
 
         waitForStart();
 
