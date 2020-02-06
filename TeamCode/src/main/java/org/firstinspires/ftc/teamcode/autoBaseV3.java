@@ -332,10 +332,41 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
         boolean GP = false, BP = false, RP = false;
 
-        GP = isInRange(cs.green(), 100, G);
-        BP = isInRange(cs.blue(), 100, B);
-        RP = isInRange(cs.red(), 100, R);
+        GP = isInRange(cs.green(), 150, G);
+        BP = isInRange(cs.blue(), 150, B);
+        RP = isInRange(cs.red(), 150, R);
 
+        return GP && RP && BP;
+    }
+
+    public boolean bottomTapeSensorDetectedBlueReborn1(ColorSensor cs){
+        String alpha;
+        double G = constants.tapeGreenBLUE;
+        double B = constants.tapeBlueBLUE;
+        double R = constants.tapeRedBLUE;
+
+        boolean GP = false, BP = false, RP = false;
+
+      if(isInRange(cs.blue(),200,B)){
+          GP=true;
+          BP=true;
+          RP=true;
+      }
+        return GP && RP && BP;
+    }
+
+    public boolean greyDetected(ColorSensor cs) {
+        double G = constants.greyG;
+        double B = constants.greyB;
+        double R = constants.greyR;
+
+        boolean GP = false, BP = false, RP = false;
+
+        if (G <2800 && B < 1700 && R < 5000) {
+            GP=true;
+            BP=true;
+            RP=true;
+        }
         return GP && RP && BP;
     }
 
@@ -480,6 +511,54 @@ public abstract class autoBaseV3 extends LinearOpMode {
         return GP && RP && BP;
     }
 
+    public boolean SkyStoneReBornLeft(ColorSensor cs){
+        String alpha = "undefined";
+        double G = constants.avgGreenBlackMID;
+        double B = constants.avgBlueBlackMID;
+        double R = constants.avgRedBlackMID;
+
+        boolean GP = false, BP = false, RP = false;
+
+        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
+            alpha = "far";
+        }
+        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+            alpha = "middle";
+        }
+        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+            alpha = "close";
+        }
+        else {
+            alpha = "middle";
+        }
+
+        switch (alpha){
+            case "far":
+                G = constants.avgGreenBlackCLOSE;
+                B = constants.avgBlueBlackCLOSE;
+                R = constants.avgRedBlackCLOSE;
+                break;
+            case "middle":
+                G = constants.avgGreenBlackCLOSE;
+                B = constants.avgBlueBlackCLOSE;
+                R = constants.avgRedBlackCLOSE;
+                break;
+            case "close":
+                G = constants.avgGreenBlackCLOSE;
+                B = constants.avgBlueBlackCLOSE;
+                R = constants.avgRedBlackCLOSE;
+                break;
+        }
+
+        GP = isInRange(cs.green(), 70, G);
+        BP = isInRange(cs.blue(), 45, B);
+        RP = isInRange(cs.red(), 45, R);
+
+        return GP && RP && BP;
+    }
+
+
+
     public void elevMotorDown(DcMotor motor1, double position, double power) {
         int motorPosition = motor1.getCurrentPosition();
 
@@ -495,4 +574,58 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
         chart.DebugSwitch = true;
     }
+    public void goToPositionStrafeBackLeft(DcMotor motor1, DcMotor motor2, double position, double power) {
+        resetEncoders(motor1);
+
+        int motorPosition = motor1.getCurrentPosition();
+
+        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+        motor1.setPower(power); //TL
+        motor2.setPower(-power);  //TR
+
+
+        while ((motorPosition <= position) /*&&  pError>.25*/) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+
+        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        motor1.setPower(0);
+        motor2.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
+    public void goForward(double power) {
+        chart.TL.setPower(power/* - joltControl(chart.runtime)*/); //TL
+        chart.TR.setPower(power - 0.03);  //TR
+        chart.BL.setPower(power); //BL
+        chart.BR.setPower(power - 0.03 /*+ 0.03*/); //BR
+    }
+    public void goToPosition(DcMotor motor1, DcMotor motor2, double position, double power, boolean Debug) {
+        resetEncoders(motor1);
+
+        int currentPos = motor1.getCurrentPosition();
+        int motorPosition = motor1.getCurrentPosition();
+
+        motor1.setPower(power);
+        motor2.setPower(-power);
+
+        while ((motorPosition <= position) /*&&  pError>.25*/ && !Debug) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+        motor1.setPower(0);
+        motor2.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
+
 }

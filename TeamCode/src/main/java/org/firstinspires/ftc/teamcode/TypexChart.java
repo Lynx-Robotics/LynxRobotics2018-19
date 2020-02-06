@@ -14,6 +14,9 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import static java.lang.Thread.sleep;
@@ -34,8 +37,9 @@ public class TypexChart {
     public DcMotor BL ;
     public DcMotor BR ;
 
+
     Orientation angle;
-    Orientation lastAngles;
+    Orientation lastAngles = new Orientation();
 
     public DcMotor elevMotor;
 
@@ -121,6 +125,8 @@ public class TypexChart {
         elevMotor.setPower(0);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         parameters.mode = BNO055IMU.SensorMode.IMU;
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
