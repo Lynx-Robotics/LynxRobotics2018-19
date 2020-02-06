@@ -35,15 +35,15 @@ public class ENC_RED_STONE_TWO extends autoBaseV3 {
 
         rest();
         sleep(250);
-        correctionRight(distance2encoderNew(2.0), 0.5);
+        correctionRight(distance2encoderNew(1.0), 0.5);
         goToPositionForward(distance2encoderNew(3.5), 0.4);
 
-        correctionRight(distance2encoderNew(1), 0.5);
+        correctionRight(distance2encoderNew(0.2), 1);
 
         rest();
         //strafe left
         chart.runtime.reset();
-        strafeRight(0.4);
+        strafeLeft(0.4);
         while(opModeIsActive() && (!SkyStoneReBornRight(chart.colorSensorRight))){
 
         }
@@ -70,7 +70,8 @@ public class ENC_RED_STONE_TWO extends autoBaseV3 {
     public void turnNintyLeft() {
         goToPositionStrafeBackLeft(chart.TL, chart.TR, distance2encoderNew(32), 0.50);
         rest();
-        encoderStrafeRight(distance2encoderNew(3), 1);
+        encoderStrafeRight(distance2encoderNew(4), 1);
+        correctionLeft(distance2encoderNew(0.6), 1);
 
         rest();
     }
@@ -78,7 +79,8 @@ public class ENC_RED_STONE_TWO extends autoBaseV3 {
     public void distanceToDrop() {
 
         encoderStrafeRight(distance2encoderNew(1.5), 0.6);
-
+        rest();
+        correctionLeft(0.2,1);
         goToPositionForward(distance2encoderNew(10), 1);
         rest();
         goForward(0.4);

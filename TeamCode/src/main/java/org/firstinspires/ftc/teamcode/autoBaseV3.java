@@ -250,10 +250,41 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
         boolean GP = false, BP = false, RP = false;
 
-        GP = isInRange(cs.green(), 100, G);
-        BP = isInRange(cs.blue(), 100, B);
-        RP = isInRange(cs.red(), 100, R);
+        GP = isInRange(cs.green(), 150, G);
+        BP = isInRange(cs.blue(), 150, B);
+        RP = isInRange(cs.red(), 150, R);
 
+        return GP && RP && BP;
+    }
+
+    public boolean bottomTapeSensorDetectedBlueReborn1(ColorSensor cs){
+        String alpha;
+        double G = constants.tapeGreenBLUE;
+        double B = constants.tapeBlueBLUE;
+        double R = constants.tapeRedBLUE;
+
+        boolean GP = false, BP = false, RP = false;
+
+      if(isInRange(cs.blue(),200,B)){
+          GP=true;
+          BP=true;
+          RP=true;
+      }
+        return GP && RP && BP;
+    }
+
+    public boolean greyDetected(ColorSensor cs) {
+        double G = constants.greyG;
+        double B = constants.greyB;
+        double R = constants.greyR;
+
+        boolean GP = false, BP = false, RP = false;
+
+        if (G <2800 && B < 1700 && R < 5000) {
+            GP=true;
+            BP=true;
+            RP=true;
+        }
         return GP && RP && BP;
     }
 
