@@ -52,6 +52,60 @@ public abstract class autoBaseV3 extends LinearOpMode {
         rest();
     }
 
+    public void goToPositionBackwardRealFast(double position, double power) {
+        double correction = 0.002;
+
+        resetEncoders(chart.TL);
+        resetEncoders(chart.BR);
+        resetEncoders(chart.TR);
+        resetEncoders(chart.BL);
+
+        int encoderPosTL = chart.TL.getCurrentPosition();
+        int encoderPosTR = chart.TR.getCurrentPosition();
+        int encoderPosBL = chart.BL.getCurrentPosition();
+        int encoderPosBR = chart.BR.getCurrentPosition();
+
+        double avgEncPos = (double) (Math.abs(encoderPosTL) + Math.abs(encoderPosTR) + Math.abs(encoderPosBL) + Math.abs(encoderPosBR)) / 4.0;
+        double avgEncPosFixed = Math.floor(avgEncPos);
+
+        chart.TL.setPower(-power);
+        chart.TR.setPower(-power + correction);
+        chart.BL.setPower(-power);
+        chart.BR.setPower(-power + correction);
+
+        while (opModeIsActive() && (avgEncPosFixed < (position - distance2encoderNew(4)))) {
+            telemetry.addData("In Rotation: ", true);
+            telemetry.update();
+
+            encoderPosTL = chart.TL.getCurrentPosition();
+            encoderPosTR = chart.TR.getCurrentPosition();
+            encoderPosBL = chart.BL.getCurrentPosition();
+            encoderPosBR = chart.BR.getCurrentPosition();
+
+            avgEncPos = (double) (Math.abs(encoderPosTL) + Math.abs(encoderPosTR) + Math.abs(encoderPosBL) + Math.abs(encoderPosBR)) / 4.0;
+            avgEncPosFixed = Math.floor(avgEncPos);
+        }
+        chart.TL.setPower(-(power/2.0));
+        chart.TR.setPower(-(power/2.0) + correction);
+        chart.BL.setPower(-(power/2.0));
+        chart.BR.setPower(-(power/2.0) + correction);
+
+        while (opModeIsActive() && (avgEncPosFixed < (position))) {
+            telemetry.addData("In Rotation: ", true);
+            telemetry.update();
+
+            encoderPosTL = chart.TL.getCurrentPosition();
+            encoderPosTR = chart.TR.getCurrentPosition();
+            encoderPosBL = chart.BL.getCurrentPosition();
+            encoderPosBR = chart.BR.getCurrentPosition();
+
+            avgEncPos = (double) (Math.abs(encoderPosTL) + Math.abs(encoderPosTR) + Math.abs(encoderPosBL) + Math.abs(encoderPosBR)) / 4.0;
+            avgEncPosFixed = Math.floor(avgEncPos);
+        }
+        rest();
+
+    }
+
     public void goToPositionBackward(double position, double power) {
         double correction = 0.002;
 

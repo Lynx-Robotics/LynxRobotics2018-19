@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "ENC_BLUE_HYBRID_REBORN")
-public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
+@Autonomous(name = "ENC_RED_HYBRID_REBORN")
+public class ENC_RED_HYBRID_REBORN extends autoBaseV3 {
 
     double timeUntilDetection;
 
@@ -47,15 +47,15 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
 
             //strafe to the right for a certain distance
             if (phase == 3) {
-                correctionRight(distance2encoderNew(1.95), 0.6);
-                encoderStrafeRight(distance2encoderNew(8), 0.35);
+                correctionLeft(distance2encoderNew(1.95), 0.6);
+                encoderStrafeLeft(distance2encoderNew(8), 0.35);
                 phase++;
             }
 
             //strafe left until we see a block
             if (phase == 4) {
                 chart.globalTime.reset();
-                strafeLeft(0.3);
+                strafeRight(0.3);
                 while (opModeIsActive() && !SkyStoneReBornRight(chart.colorSensorRight)) {
                 }
                 phase++;
@@ -115,7 +115,7 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
             if(phase==7) {
                 sleep(500);
 //                correctionLeft(distance2encoderNew(0.95), 0.6);
-                correctionLeft(distance2encoderNew(CORRECTION_BEFORE_BACKWARDS_LEFT), 0.6);
+                correctionRight(distance2encoderNew(CORRECTION_BEFORE_BACKWARDS_LEFT), 0.6);
                 goToPositionBackwardRealFast(distance2encoderNew(10), 1.0); //can be replaced if causes troubles
                 phase++;
                 phase++;//should be removed if the phase of this condition is returned to 8
@@ -123,26 +123,28 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
 
             //strafe until we see tape
             if(phase==9) {
-                strafeLeft(0.6);
-                while (opModeIsActive() && !bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)) {
+                strafeRight(0.6);
+                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor)) {
 
                 }
                 rest();
                 phase++;
             }
 
-            //correct if needed
+            //correct if needed and position to middle of foundation
             if(phase == 10){
-                correctionRight(distance2encoderNew(CORRECTION_AFTER_TAPE_SPOTTED), 0.6);
-                encoderStrafeLeft(distance2encoderNew(64), 0.35);
+                correctionLeft(distance2encoderNew(CORRECTION_AFTER_TAPE_SPOTTED), 0.6);
+                encoderStrafeRight(distance2encoderNew(64), 0.35);
                 phase++;
             }
 
+            //go towards the foundation
             if(phase == 11){
                 goToPositionForward(distance2encoderNew(DISTANCE_GO_TO_FOUNDATION), 0.6);
                 phase++;
             }
 
+            //deploy block and grab the foundation
             if(phase == 12){
                 raiseDL();
                 sleep(500);
@@ -150,22 +152,20 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
                 phase++;
             }
 
+            //go backwards with foundation
             if(phase == 13){
                 goToPositionBackward(distance2encoderNew(55), 0.8);
                 phase++;
             }
 
+            //park
             if(phase == 14){
                 elevControl(chart.elevMotor, 500, 1.0);
-                chart.middleGrab.setPosition(0.5);
                 goToPositionForward(distance2encoderNew(3), 0.4);
-                encoderStrafeRight(distance2encoderNew(48), 0.4);
-
-                correctionRight(0.95, 0.6);
-                goToPositionForward(distance2encoderNew(10), 0.6);
-
-                strafeRight(0.38);
-                while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)){
+                encoderStrafeLeft(distance2encoderNew(48), 0.4);
+                goToPositionForward(distance2encoderNew(22), 0.6);
+                strafeLeft(0.4);
+                while(opModeIsActive() && phase == 14 && !bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor)){
 
                 }
                 rest();
