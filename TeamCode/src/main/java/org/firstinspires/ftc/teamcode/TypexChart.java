@@ -136,7 +136,7 @@ public class TypexChart {
         middleGrab.setPosition(0.0);
         hookLeft.setPosition(1.0);
         hookRight.setPosition(1.0);
-        capServo.setPosition(1.0);
+        capServo.setPosition(.6);
 
         pidDrive = new PController(.05, 0, 0);
         pidRotate = new PController(.004, .00004, 0);
