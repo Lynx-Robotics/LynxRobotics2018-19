@@ -508,9 +508,9 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     public boolean SkyStoneSpotted(ColorSensor colorSensor) {
-        double GVal = constants.greenBlack;
-        double BVal = constants.blueBlack;
-        double RVal = constants.redBlack;
+        double GVal = constants.YgreenBlack;
+        double BVal = constants.YblueBlack;
+        double RVal = constants.YredBlack;
 
 
         if (colorCheclerGreen(colorSensor, GVal, 140) && colorCheclerBlue(colorSensor, BVal, 60) && colorCheclerRed(colorSensor, RVal, 100)) {
