@@ -413,4 +413,57 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
         chart.DebugSwitch = true;
     }
+    public void goToPositionStrafeBackLeft(DcMotor motor1, DcMotor motor2, double position, double power) {
+        resetEncoders(motor1);
+
+        int motorPosition = motor1.getCurrentPosition();
+
+        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+
+        motor1.setPower(power); //TL
+        motor2.setPower(-power);  //TR
+
+
+        while ((motorPosition <= position) /*&&  pError>.25*/) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+
+        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        motor1.setPower(0);
+        motor2.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
+    public void goForward(double power) {
+        chart.TL.setPower(power/* - joltControl(chart.runtime)*/); //TL
+        chart.TR.setPower(power - 0.03);  //TR
+        chart.BL.setPower(power); //BL
+        chart.BR.setPower(power - 0.03 /*+ 0.03*/); //BR
+    }
+    public void goToPosition(DcMotor motor1, DcMotor motor2, double position, double power, boolean Debug) {
+        resetEncoders(motor1);
+
+        int currentPos = motor1.getCurrentPosition();
+        int motorPosition = motor1.getCurrentPosition();
+
+        motor1.setPower(power);
+        motor2.setPower(-power);
+
+        while ((motorPosition <= position) /*&&  pError>.25*/ && !Debug) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+        motor1.setPower(0);
+        motor2.setPower(0);
+
+        chart.DebugSwitch = true;
+    }
 }
