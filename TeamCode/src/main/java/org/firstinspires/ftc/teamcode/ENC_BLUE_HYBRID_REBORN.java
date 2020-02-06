@@ -18,10 +18,6 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
     public void runOpMode() throws InterruptedException {
         chart.init(hardwareMap);
 
-        while(iteration!= 50){
-            calibrate(chart.bottomColorSensor);
-        }
-
         waitForStart();
         chart.globalTime.reset();
 
@@ -128,7 +124,7 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
             //strafe until we see tape
             if(phase==9) {
                 strafeLeft(0.6);
-                while (opModeIsActive() && !detectNonGrey()) {
+                while (opModeIsActive() && !bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)) {
 
                 }
                 rest();
@@ -184,13 +180,5 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
             telemetry.update();
 
         }
-    }
-
-    public boolean detectNonGrey(){
-        boolean G = isInRange(chart.bottomColorSensor.green(), 120, avgG);
-        boolean B = isInRange(chart.bottomColorSensor.blue(), 120, avgB);
-        boolean R = isInRange(chart.bottomColorSensor.red(), 120, avgR);
-
-        return G && B && R;
     }
 }

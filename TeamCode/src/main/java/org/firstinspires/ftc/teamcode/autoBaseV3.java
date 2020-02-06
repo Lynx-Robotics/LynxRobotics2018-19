@@ -326,13 +326,13 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
     public boolean bottomTapeSensorDetectedBlueReborn(ColorSensor cs){
         String alpha;
-        double G = constants.tapeGreenBLUE;
-        double B = constants.tapeBlueBLUE;
-        double R = constants.tapeRedBLUE;
+        double G = 1049;//constants.tapeGreenBLUE;
+        double B = 513;//constants.tapeBlueBLUE;
+        double R = 530.5;//constants.tapeRedBLUE;
 
         boolean GP = false, BP = false, RP = false;
 
-        GP = isInRange(cs.green(), 150, G);
+        GP = isInRange(cs.green(), 300, G);
         BP = isInRange(cs.blue(), 150, B);
         RP = isInRange(cs.red(), 150, R);
 
