@@ -34,8 +34,9 @@ public class TypexChart {
     public DcMotor BL ;
     public DcMotor BR ;
 
+    
     Orientation angle;
-    Orientation lastAngles;
+    Orientation lastAngles = new Orientation();
 
     public DcMotor elevMotor;
 
