@@ -257,6 +257,21 @@ public abstract class autoBaseV3 extends LinearOpMode {
         return GP && RP && BP;
     }
 
+    public boolean bottomTapeSensorDetectedRedReborn(ColorSensor cs){
+        String alpha;
+        double G = constants.tapeGreenRED;
+        double B = constants.tapeBlueRED;
+        double R = constants.tapeRedRED;
+
+        boolean GP = false, BP = false, RP = false;
+
+        GP = isInRange(cs.green(), 150, G);
+        BP = isInRange(cs.blue(), 150, B);
+        RP = isInRange(cs.red(), 150, R);
+
+        return GP && RP && BP;
+    }
+
     public void motorControl(double position, double power) {
         boolean down = false;
         int encoderPosition = chart.elevMotor.getCurrentPosition();
