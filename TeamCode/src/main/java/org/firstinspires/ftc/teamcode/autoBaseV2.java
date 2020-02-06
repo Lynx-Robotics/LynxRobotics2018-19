@@ -727,13 +727,13 @@ public abstract class autoBaseV2 extends LinearOpMode {
         }
     }
 
-    public void resetAngle() {
+    /*public void resetAngle() {
         chart.lastAngles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         chart.globalAngle = 0;
-    }
+    }*/
 
-    public double getAngle() {
+    /*public double getAngle() {
         Orientation angles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         double dAngles = angles.firstAngle - chart.lastAngles.firstAngle;
 
@@ -745,8 +745,8 @@ public abstract class autoBaseV2 extends LinearOpMode {
         chart.lastAngles = angles;
 
         return chart.globalAngle;
-    }
-    public double checkDirection() {
+    }*/
+    /*public double checkDirection() {
         double correction, gain = 0.10, angle;
         angle = getAngle();
 
@@ -758,5 +758,5 @@ public abstract class autoBaseV2 extends LinearOpMode {
         correction = correction * gain;
         return
                 correction;
-    }
+    }*/
 }

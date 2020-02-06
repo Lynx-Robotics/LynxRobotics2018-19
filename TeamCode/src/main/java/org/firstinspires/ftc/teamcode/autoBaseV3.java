@@ -8,11 +8,39 @@ public abstract class autoBaseV3 extends LinearOpMode {
     TypexChart chart = new TypexChart();
     CONSTANTS constants = new CONSTANTS();
 
+    int greyG;
+    int greyB;
+    int greyR;
+    int greyA;
+
+    int totalG, totalB, totalR;
+    int avgG, avgB, avgR;
+
+
+
+    int iteration = 0;
+
     public void resetEncoders(DcMotor motor) {
         motor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         motor.setPower(0);
+    }
+
+    public void calibrate(ColorSensor cs){
+        int baseG = cs.green();
+        int baseB = cs.blue();
+        int baseR = cs.red();
+
+        totalG = totalG+baseG;
+        totalB = totalB+baseB;
+        totalR = totalR+baseR;
+
+        avgG = (totalG/iteration);
+        avgB = (totalB/iteration);
+        avgR = (totalR/iteration);
+
+        iteration++;
     }
 
     //standard goToPosition for going forwards and or backwards
@@ -298,13 +326,13 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
     public boolean bottomTapeSensorDetectedBlueReborn(ColorSensor cs){
         String alpha;
-        double G = constants.tapeGreenBLUE;
-        double B = constants.tapeBlueBLUE;
-        double R = constants.tapeRedBLUE;
+        double G = 1049;//constants.tapeGreenBLUE;
+        double B = 513;//constants.tapeBlueBLUE;
+        double R = 530.5;//constants.tapeRedBLUE;
 
         boolean GP = false, BP = false, RP = false;
 
-        GP = isInRange(cs.green(), 150, G);
+        GP = isInRange(cs.green(), 300, G);
         BP = isInRange(cs.blue(), 150, B);
         RP = isInRange(cs.red(), 150, R);
 

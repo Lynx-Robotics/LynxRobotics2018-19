@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -169,3 +170,4 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
 
         }
 }
+*/

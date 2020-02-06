@@ -31,7 +31,7 @@ public class TypexChart {
 
 
 
-    public BNO055IMU imu;
+//    public BNO055IMU imu;
     public DcMotor TL ;
     public DcMotor TR ;
     public DcMotor BL ;
@@ -130,8 +130,8 @@ public class TypexChart {
         hookRight.setPosition(1.0);
         capServo.setPosition(.6);
 
-        pidDrive = new PController(.05, 0, 0);
-        pidRotate = new PController(.004, .00004, 0);
+/*        pidDrive = new PController(.05, 0, 0);
+        pidRotate = new PController(.004, .00004, 0);*/
 
         //bottomColorSensor.enableLed(true);
         //colorSensorLeft.enableLed(true);
