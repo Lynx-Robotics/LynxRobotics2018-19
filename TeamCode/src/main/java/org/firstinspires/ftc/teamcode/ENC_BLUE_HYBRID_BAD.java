@@ -29,7 +29,9 @@ public class ENC_BLUE_HYBRID_BAD extends autoBaseV2_BAD {
         double globalAngle, power = .30, correction;
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
+        imu.initialize(parameters);
         parameters.mode = BNO055IMU.SensorMode.IMU;
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
