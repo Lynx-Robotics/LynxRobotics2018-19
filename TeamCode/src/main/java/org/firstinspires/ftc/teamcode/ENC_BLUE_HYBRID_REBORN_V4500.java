@@ -3,9 +3,10 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name = "ENC_BLUE_HYBRID_REBORN")
-public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
+public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
 
-    double timeUntilDetection;
+    double timeUntilDetection = 0, timeUntilDetectionFinal = 0;
+
 
     int step = 1;
     int phase = 0;
@@ -34,6 +35,7 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
             }
 
             if (phase == 1) {
+                chart.globalTime.reset();
                 elevControl(chart.elevMotor, 500, 1.0);
                 phase++;
             }
@@ -59,9 +61,8 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
                 while (opModeIsActive() && !SkyStoneReBornRight(chart.colorSensorRight)) {
                 }
                 rest();
-                timeUntilDetection = chart.globalTime.milliseconds();
+                timeUntilDetectionFinal = chart.globalTime.milliseconds();
                 phase++;
-
             }
             rest();
             /*
@@ -84,13 +85,13 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
              */
 
             //strafe right for a certain distance
-            if(phase == 5) {
+            if(phase == 50) {
                 encoderStrafeRight(distance2encoderNew(RIGHT_DIST_STRAFE_ONE), 0.3);
                 phase++;
             }
 
             //extract the block
-            if(phase == 6) {
+            if(phase == 60) {
                 elevMotorDown(chart.elevMotor, 5, -1.0);
                 goToPositionForward(distance2encoderNew(1.7), 0.4);
                 dropDL();
@@ -99,7 +100,7 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
             }
 
             //raise the block and secure from Lava
-            if(phase==7) {
+            if(phase==70) {
                 elevControl(chart.elevMotor, 360, 1.0);
                 phase++;
             }
@@ -113,7 +114,7 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
             - added a new distance of 2 with half speed
                 - Should decrease error in stoppage
              */
-            if(phase==7) {
+            if(phase==70) {
                 sleep(500);
 //                correctionLeft(distance2encoderNew(0.95), 0.6);
                 correctionLeft(distance2encoderNew(CORRECTION_BEFORE_BACKWARDS_LEFT), 0.6);
@@ -123,7 +124,7 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
             }
 
             //strafe until we see tape
-            if(phase==9) {
+            if(phase==90) {
                 strafeLeft(0.6);
                 while (opModeIsActive() && !bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)) {
 
@@ -133,30 +134,30 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
             }
 
             //correct if needed
-            if(phase == 10){
+            if(phase == 100){
                 correctionRight(distance2encoderNew(CORRECTION_AFTER_TAPE_SPOTTED), 0.6);
                 encoderStrafeLeft(distance2encoderNew(64), 0.35);
                 phase++;
             }
 
-            if(phase == 11){
+            if(phase == 110){
                 goToPositionForward(distance2encoderNew(DISTANCE_GO_TO_FOUNDATION), 0.6);
                 phase++;
             }
 
-            if(phase == 12){
+            if(phase == 120){
                 raiseDL();
                 sleep(500);
                 elevMotorDown(chart.elevMotor, 8, -1.0);
                 phase++;
             }
 
-            if(phase == 13){
+            if(phase == 130){
                 goToPositionBackward(distance2encoderNew(55), 0.8);
                 phase++;
             }
 
-            if(phase == 14){
+            if(phase == 140){
                 elevControl(chart.elevMotor, 500, 1.0);
                 chart.middleGrab.setPosition(0.5);
                 goToPositionForward(distance2encoderNew(3), 0.4);
@@ -172,12 +173,14 @@ public class ENC_BLUE_HYBRID_REBORN extends autoBaseV3 {
                 rest();
                 phase++;
             }
+
+            waitUntilEnd();
         }
     }
 
     public void waitUntilEnd() {
         while (opModeIsActive() && !gamepad1.a) {
-            telemetry.addData("Time Until Detection: (ms)", timeUntilDetection);
+            telemetry.addData("Time Until Detection: (ms)", timeUntilDetectionF);
             telemetry.update();
 
         }
