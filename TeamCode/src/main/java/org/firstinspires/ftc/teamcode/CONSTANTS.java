@@ -82,9 +82,9 @@ public class CONSTANTS {
     public double tapeBlueBLUE = 508;
     public double tapeRedBLUE = 283;
 
-    public double tapeGreenRED = 741;
-    public double tapeBlueRED = 188;
-    public double tapeRedRED = 717;
+    public double tapeGreenRED = 811;
+    public double tapeBlueRED = 207;
+    public double tapeRedRED = 778;
 
 
     /*
@@ -99,7 +99,7 @@ public class CONSTANTS {
 
     public double distance2encoder = 26.7;
 
-    public double distance2encoderNew = 40.922;
+    public double distance2encoderNew = 38.922;
 
     public double distance2encoderFullVoltage = 43.4475;
 
