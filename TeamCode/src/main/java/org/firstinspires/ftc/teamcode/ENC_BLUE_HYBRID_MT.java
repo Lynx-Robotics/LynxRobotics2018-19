@@ -8,6 +8,15 @@ public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
 
     boolean parkWall = true;
 
+    int csTotalR = 0;
+    int csTotalG = 0;
+    int csTotalB = 0;
+    int csAvarageR = 0;
+    int csAvarageG = 0;
+    int csAvarageB = 0;
+    double tolerance = 0.4;
+    boolean changeDetected = false;
+
     @Override
     public void runOpMode() throws InterruptedException {
         chart.init(hardwareMap);
@@ -63,7 +72,7 @@ public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
         goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(4), -0.4, false);
 
         strafe(-0.3);
-        while(opModeIsActive() && (!bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)));
+        while(opModeIsActive() && (!changeDetected));
         rest();
         goToPosition(chart.BR, chart.TL, distance2encoderNew(2.1), 0.4, false);
         goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(62.7), -0.7);
@@ -104,7 +113,7 @@ public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
             sleep(500);
             goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(1.1), -1.0, false);
             strafe(0.3);
-            while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor));
+            while(opModeIsActive() && !changeDetected);
             rest();
         }
         else{
@@ -115,20 +124,38 @@ public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
             goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(3), -0.5);
             goToPosition(chart.TL, chart.TR, chart.BL, chart.BR,distance2encoderNewFullVolt(18), 1.0);
             strafe(0.3);
-            while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)){
+            while(opModeIsActive() && !changeDetected){
 
             }
             rest();
 
         }
     }
-    private class LiftThread extends Thread {
+    private class colorDetect extends Thread {
 
         @Override
         public void run() {
             try {
                 while (!isInterrupted()) {
 
+                    csTotalR = chart.bottomColorSensor.red();
+                    csTotalB = chart.bottomColorSensor.blue();
+                    csTotalG = chart.bottomColorSensor.red();
+
+
+                    csAvarageR = (csAvarageR + csTotalR)/ 2;
+                    csAvarageB = (csAvarageB + csTotalB)/ 2;
+                    csAvarageG = (csAvarageG + csTotalG)/ 2;
+
+                    if ((csTotalR * tolerance+1) >= csAvarageR || (csTotalR * (1-tolerance) <= csAvarageR))
+                        changeDetected = true;
+                    else changeDetected = false;
+                    if ((csTotalB * tolerance+1) >= csAvarageB || (csTotalB * (1-tolerance) <= csAvarageB))
+                        changeDetected = true;
+                    else changeDetected = false;
+                    if ((csTotalG * tolerance+1) >= csAvarageG || (csTotalG * (1-tolerance) <= csAvarageG))
+                        changeDetected = true;
+                    else changeDetected = false;
 
 
                     idle();
