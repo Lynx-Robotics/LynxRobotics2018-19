@@ -1,18 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
-import android.graphics.Color;
-
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
-import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
-import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-public abstract class autoBaseV2 extends LinearOpMode {
+
+public abstract class autoBaseV2_BAD extends LinearOpMode {
 
     TypexChart chart = new TypexChart();
     CONSTANTS constants = new CONSTANTS();
@@ -30,7 +25,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
     //drops the grabbers
     public void dropDL() {
         chart.middleGrab.setPosition(1.0);
-        while(chart.middleGrab.getPosition() < 0.97){
+        while (chart.middleGrab.getPosition() < 0.97) {
 
         }
     }
@@ -169,6 +164,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         chart.DebugSwitch = true;
     }
+
     public void goToPosition(DcMotor motor1, DcMotor motor2, double position, double power, boolean Debug) {
         resetEncoders(motor1);
 
@@ -191,19 +187,19 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
     //-----------------------------------------------------------------
 
-    public void goToPositionNinety(DcMotor motor1, DcMotor motor2, double position, double power, DcMotor motor3, DcMotor motor4,double position1,double power1,  boolean Debug) {
+    public void goToPositionNinety(DcMotor motor1, DcMotor motor2, double position, double power, DcMotor motor3, DcMotor motor4, double position1, double power1, boolean Debug) {
         resetEncoders(motor1);
 
         int currentPos = motor1.getCurrentPosition();
         int motorPosition = motor1.getCurrentPosition();
-        int currentPos2=motor2.getCurrentPosition();
-        int motorPosition2=motor2.getCurrentPosition();
+        int currentPos2 = motor2.getCurrentPosition();
+        int motorPosition2 = motor2.getCurrentPosition();
         motor1.setPower(power);
         motor2.setPower(power);
         motor3.setPower((power1));
         motor4.setPower(power1);
 
-        while ((motorPosition <= position && motorPosition2<=position1) /*&&  pError>.25*/ && !Debug) {
+        while ((motorPosition <= position && motorPosition2 <= position1) /*&&  pError>.25*/ && !Debug) {
             telemetry.addData("Current Position: ", motor1.getCurrentPosition());
             telemetry.update();
 
@@ -218,7 +214,6 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     //-----------------------------------------
-
 
 
     public void goToPositionAnti(DcMotor motor1, DcMotor motor2, double position, double power, boolean Debug) {
@@ -300,61 +295,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         chart.DebugSwitch = true;
     }
-    public void goToPositionStrafeBackLeft(DcMotor motor1, DcMotor motor2, double position, double power) {
-        resetEncoders(motor1);
 
-        int motorPosition = motor1.getCurrentPosition();
-
-        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
-        motor1.setPower(power); //TL
-        motor2.setPower(-power);  //TR
-
-
-        while ((motorPosition <= position) /*&&  pError>.25*/) {
-            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
-            telemetry.update();
-
-            motorPosition = motor1.getCurrentPosition();
-        }
-
-        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        motor1.setPower(0);
-        motor2.setPower(0);
-
-        chart.DebugSwitch = true;
-    }
-    public void goToPositionStrafeBackRight(DcMotor motor1, DcMotor motor2, double position, double power) {
-        resetEncoders(motor1);
-
-        int motorPosition = motor1.getCurrentPosition();
-
-        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-
-        motor1.setPower(power); //TL
-        motor2.setPower(power);  //TR
-
-
-
-        while ((motorPosition <= position) /*&&  pError>.25*/) {
-            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
-            telemetry.update();
-
-            motorPosition = motor1.getCurrentPosition();
-        }
-
-        motor1.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motor2.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        motor1.setPower(0);
-        motor2.setPower(0);
-
-        chart.DebugSwitch = true;
-    }
     public double joltControl(ElapsedTime runtime) {
         if (runtime.seconds() < 1.0) {
             return 0.0050;
@@ -363,12 +304,12 @@ public abstract class autoBaseV2 extends LinearOpMode {
         }
     }
 
-    public void dropHookers(){
+    public void dropHookers() {
         chart.hookRight.setPosition(0.0);
         chart.hookLeft.setPosition(0.0);
     }
 
-    public void raiseHookers(){
+    public void raiseHookers() {
         chart.hookRight.setPosition(1.0);
         chart.hookLeft.setPosition(1.0);
     }
@@ -378,15 +319,6 @@ public abstract class autoBaseV2 extends LinearOpMode {
         chart.TR.setPower(-power);  //TR
         chart.BL.setPower(-power); //BL
         chart.BR.setPower(power /*+ 0.03*/); //BR
-    }
-    public void goForward(double power){
-        chart.TL.setPower(power/* - joltControl(chart.runtime)*/); //TL
-        chart.TR.setPower(power-0.03);  //TR
-        chart.BL.setPower(power); //BL
-        chart.BR.setPower(power-0.03 /*+ 0.03*/); //BR
-
-
-
     }
 
     //motor control
@@ -500,7 +432,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
         double alpha = constants.alphaBlackIdeal;
 
 
-        if (isInRange(colorSensor.alpha(), 100, alpha)&&colorCheclerGreen(colorSensor, GVal, 30)) {
+        if (isInRange(colorSensor.alpha(), 100, alpha) && colorCheclerGreen(colorSensor, GVal, 30)) {
             return true;
         } else {
             return false;
@@ -508,9 +440,9 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     public boolean SkyStoneSpotted(ColorSensor colorSensor) {
-        double GVal = constants.YgreenBlack;
-        double BVal = constants.YblueBlack;
-        double RVal = constants.YredBlack;
+        double GVal = constants.greenBlack;
+        double BVal = constants.blueBlack;
+        double RVal = constants.redBlack;
 
 
         if (colorCheclerGreen(colorSensor, GVal, 140) && colorCheclerBlue(colorSensor, BVal, 60) && colorCheclerRed(colorSensor, RVal, 100)) {
@@ -520,7 +452,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
         }
     }
 
-    public boolean SkyStoneReBorn(ColorSensor cs){
+    public boolean SkyStoneReBorn(ColorSensor cs) {
         String alpha = "undefined";
         double G = constants.avgGreenBlackMID;
         double B = constants.avgBlueBlackMID;
@@ -528,20 +460,17 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         boolean GP = false, BP = false, RP = false;
 
-        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
+        if (isInRange(cs.alpha(), 50, 810)) { //if it is far
             alpha = "far";
-        }
-        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+        } else if (isInRange(cs.alpha(), 50, 1019)) { //if it is middle
             alpha = "middle";
-        }
-        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+        } else if (isInRange(cs.alpha(), 50, 1200)) { //if it is very close
             alpha = "close";
-        }
-        else {
+        } else {
             alpha = "middle";
         }
 
-        switch (alpha){
+        switch (alpha) {
             case "far":
                 G = constants.avgGreenBlackCLOSEL;
                 B = constants.avgBlueBlackCLOSEL;
@@ -566,7 +495,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
         return GP && RP && BP;
     }
 
-    public boolean SkyStoneReBornRight(ColorSensor cs){
+    public boolean SkyStoneReBornRight(ColorSensor cs) {
         String alpha = "undefined";
         double G = constants.avgGreenBlackMIDR;
         double B = constants.avgBlueBlackMIDR;
@@ -574,20 +503,17 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         boolean GP = false, BP = false, RP = false;
 
-        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
+        if (isInRange(cs.alpha(), 50, 810)) { //if it is far
             alpha = "far";
-        }
-        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+        } else if (isInRange(cs.alpha(), 50, 1019)) { //if it is middle
             alpha = "middle";
-        }
-        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+        } else if (isInRange(cs.alpha(), 50, 1200)) { //if it is very close
             alpha = "close";
-        }
-        else {
+        } else {
             alpha = "middle";
         }
 
-        switch (alpha){
+        switch (alpha) {
             case "far":
                 G = constants.avgGreenBlackCLOSER;
                 B = constants.avgBlueBlackCLOSER;
@@ -613,7 +539,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
     }
 
     // this is what I added...Subash
-    public boolean SkyStoneReBornLeft(ColorSensor cs){
+    public boolean SkyStoneReBornLeft(ColorSensor cs) {
         String alpha = "undefined";
         double G = constants.avgGreenBlackCLOSEL;
         double B = constants.avgBlueBlackCLOSEL;
@@ -621,20 +547,17 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         boolean GP = false, BP = false, RP = false;
 
-        if(isInRange(cs.alpha(), 70, 810)){ //if it is far
+        if (isInRange(cs.alpha(), 70, 810)) { //if it is far
             alpha = "far";
-        }
-        else if (isInRange(cs.alpha(), 70, 1019)){ //if it is middle
+        } else if (isInRange(cs.alpha(), 70, 1019)) { //if it is middle
             alpha = "middle";
-        }
-        else if(isInRange(cs.alpha(), 70, 1200)){ //if it is very close
+        } else if (isInRange(cs.alpha(), 70, 1200)) { //if it is very close
             alpha = "close";
-        }
-        else {
+        } else {
             alpha = "middle";
         }
 
-        switch (alpha){
+        switch (alpha) {
             case "far":
                 G = constants.avgGreenBlackCLOSEL;
                 B = constants.avgBlueBlackCLOSEL;
@@ -659,7 +582,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
         return GP && RP && BP;
     }
 
-    public boolean bottomTapeSensorDetectedGreyReborn(ColorSensor cs){
+    public boolean bottomTapeSensorDetectedGreyReborn(ColorSensor cs) {
         String alpha;
         double G = constants.greyG;
         double B = constants.greyB;
@@ -674,7 +597,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
         return GP && RP && BP;
     }
 
-    public boolean bottomTapeSensorDetectedBlueReborn(ColorSensor cs){
+    public boolean bottomTapeSensorDetectedBlueReborn(ColorSensor cs) {
         String alpha;
         double G = constants.tapeGreenBLUE;
         double B = constants.tapeBlueBLUE;
@@ -688,7 +611,8 @@ public abstract class autoBaseV2 extends LinearOpMode {
 
         return GP && RP && BP;
     }
-    public boolean bottomTapeSensorDetectedRedReborn(ColorSensor cs){
+
+    public boolean bottomTapeSensorDetectedRedReborn(ColorSensor cs) {
         String alpha;
         double G = constants.tapeGreenRED;
         double B = constants.tapeBlueRED;
@@ -726,37 +650,5 @@ public abstract class autoBaseV2 extends LinearOpMode {
             return false; //you found something not yellow so stop
         }
     }
-
-    public void resetAngle() {
-        chart.lastAngles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-        chart.globalAngle = 0;
-    }
-
-    public double getAngle() {
-        Orientation angles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double dAngles = angles.firstAngle - chart.lastAngles.firstAngle;
-
-        if (dAngles<-180) dAngles+=360;
-        else if (dAngles>180) dAngles-=360;
-
-        chart.globalAngle += dAngles;
-
-        chart.lastAngles = angles;
-
-        return chart.globalAngle;
-    }
-    public double checkDirection() {
-        double correction, gain = 0.10, angle;
-        angle = getAngle();
-
-        if (angle ==0){
-            correction = 0;
-        }
-        else correction = -angle;
-
-        correction = correction * gain;
-        return
-                correction;
-    }
 }
+
