@@ -38,8 +38,6 @@ public class TypexChart {
     public DcMotor BR ;
 
 
-    Orientation angle;
-    Orientation lastAngles = new Orientation();
 
     public DcMotor elevMotor;
 
@@ -124,18 +122,6 @@ public class TypexChart {
         BR.setPower(0);
         elevMotor.setPower(0);
 
-        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-
-        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-
-        parameters.mode = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled = false;
-
-        imu = hwMap.get(BNO055IMU.class, "imu");
-
-        imu.initialize(parameters);
 
         /*hookRight.setPosition(0.9);
         hookLeft.setPosition(0.9);*/

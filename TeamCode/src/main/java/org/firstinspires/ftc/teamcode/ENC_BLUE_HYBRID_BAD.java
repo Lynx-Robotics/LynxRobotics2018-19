@@ -15,6 +15,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 @Autonomous(name = "ENC_BLUE_V2_BAD_IMU")
 public class ENC_BLUE_HYBRID_BAD extends autoBaseV2_BAD {
 
+    BNO055IMU               imu;
+    Orientation             lastAngles = new Orientation();
+    double                  globalAngle, correction, power = 0.3;
+
 
     boolean spotLeftSensor = false, spotRightSensor = false;
 
@@ -24,18 +28,14 @@ public class ENC_BLUE_HYBRID_BAD extends autoBaseV2_BAD {
     public void runOpMode() throws InterruptedException {
 
         chart.init(hardwareMap);
-        BNO055IMU imu;
-        Orientation lastAngles = new Orientation();
-        double globalAngle, power = .30, correction;
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
-        imu = hardwareMap.get(BNO055IMU.class, "imu");
 
-        imu.initialize(parameters);
-        parameters.mode = BNO055IMU.SensorMode.IMU;
-        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-        parameters.loggingEnabled = false;
+        parameters.mode                = BNO055IMU.SensorMode.IMU;
+        parameters.angleUnit           = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit           = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.loggingEnabled      = false;
+
 
         imu = hardwareMap.get(BNO055IMU.class, "imu");
 
@@ -44,8 +44,8 @@ public class ENC_BLUE_HYBRID_BAD extends autoBaseV2_BAD {
         telemetry.addData("Mode", "calibrating...");
         telemetry.update();
 
-        // make sure the imu gyro is calibrated before continuing.
-        while (!isStopRequested() && !imu.isGyroCalibrated()) {
+        while (!isStopRequested() && !imu.isGyroCalibrated())
+        {
             sleep(50);
             idle();
         }
@@ -58,6 +58,8 @@ public class ENC_BLUE_HYBRID_BAD extends autoBaseV2_BAD {
 
         telemetry.addData("Mode", "running");
         telemetry.update();
+
+        sleep(1000);
         //strafe Right
 //        goToPositionStrafeLeft(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(5), -0.3);
 
@@ -179,23 +181,23 @@ public class ENC_BLUE_HYBRID_BAD extends autoBaseV2_BAD {
     }
 
     public void resetAngle() {
-        chart.lastAngles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
-        chart.globalAngle = 0;
+        globalAngle = 0;
     }
 
     public double getAngle() {
-        Orientation angles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double dAngles = angles.firstAngle - chart.lastAngles.firstAngle;
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double dAngles = angles.firstAngle - lastAngles.firstAngle;
 
         if (dAngles<-180) dAngles+=360;
         else if (dAngles>180) dAngles-=360;
 
-        chart.globalAngle += dAngles;
+        globalAngle += dAngles;
 
-        chart.lastAngles = angles;
+        lastAngles = angles;
 
-        return chart.globalAngle;
+        return globalAngle;
     }
     public double checkDirection() {
         double correction, gain = 0.10, angle;
