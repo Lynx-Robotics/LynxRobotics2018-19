@@ -398,6 +398,54 @@ public abstract class autoBaseV3 extends LinearOpMode {
         return GP && RP && BP;
     }
 
+    public boolean SkyStoneReBornLeft(ColorSensor cs){
+        String alpha = "undefined";
+        double G = constants.avgGreenBlackMID;
+        double B = constants.avgBlueBlackMID;
+        double R = constants.avgRedBlackMID;
+
+        boolean GP = false, BP = false, RP = false;
+
+        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
+            alpha = "far";
+        }
+        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+            alpha = "middle";
+        }
+        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+            alpha = "close";
+        }
+        else {
+            alpha = "middle";
+        }
+
+        switch (alpha){
+            case "far":
+                G = constants.avgGreenBlackCLOSE;
+                B = constants.avgBlueBlackCLOSE;
+                R = constants.avgRedBlackCLOSE;
+                break;
+            case "middle":
+                G = constants.avgGreenBlackCLOSE;
+                B = constants.avgBlueBlackCLOSE;
+                R = constants.avgRedBlackCLOSE;
+                break;
+            case "close":
+                G = constants.avgGreenBlackCLOSE;
+                B = constants.avgBlueBlackCLOSE;
+                R = constants.avgRedBlackCLOSE;
+                break;
+        }
+
+        GP = isInRange(cs.green(), 70, G);
+        BP = isInRange(cs.blue(), 45, B);
+        RP = isInRange(cs.red(), 45, R);
+
+        return GP && RP && BP;
+    }
+
+
+
     public void elevMotorDown(DcMotor motor1, double position, double power) {
         int motorPosition = motor1.getCurrentPosition();
 
@@ -466,4 +514,5 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
         chart.DebugSwitch = true;
     }
+
 }
