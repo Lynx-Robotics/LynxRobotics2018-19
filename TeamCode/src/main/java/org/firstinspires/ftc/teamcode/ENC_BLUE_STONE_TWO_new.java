@@ -1,3 +1,4 @@
+/*
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -94,7 +95,7 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             rest();
             correctionLeft( 1.5, 1);
             rest();
-            goToPositionBackward( distance2encoderNew(38), 1.0);
+            goToPositionBackward( distance2encoderNew(35), 1.0);
             rest();
             correctionLeft( 1, 1);
             goToPositionBackward( distance2encoderNew(10), 0.6);
@@ -104,17 +105,17 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             sleep(200);
             elevControl(chart.elevMotor, 360, 1.0);
             sleep(100);
-            encoderStrafeRight(distance2encoderNew(10), 0.45);
+            encoderStrafeRight(distance2encoderNew(7), 0.45);
             rest();
             sleep(400);
             encoderStrafeLeft(2,0.8);
             rest();
-            goToPositionForward(distance2encoderNew(8.5), 0.6);
+            goToPositionForward(distance2encoderNew(6.8), 0.6);
             rest();
     //        sleep(250);
             //goToPosition(chart.BR, chart.TL, distance2encoderNew(0.5), 1.0, false);
             //sleep(250);
-            goToPositionForward(distance2encoderNew(2.8), 0.5);
+            goToPositionForward(distance2encoderNew(2.7), 0.5);
             encoderStrafeRight(distance2encoderNew(4), 0.8);
             //strafe left
             sleep(250);
@@ -169,3 +170,4 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
 
         }
 }
+*/

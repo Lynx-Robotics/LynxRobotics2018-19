@@ -11,7 +11,7 @@ public class ENC_IMU_BLUE_HYBRID extends autoBaseV2 {
     @Override
     public void runOpMode() throws InterruptedException {
         chart.init(hardwareMap);
-        chart.correction = checkDirection();
+//        chart.correction = checkDirection();
 
         waitForStart();
 
