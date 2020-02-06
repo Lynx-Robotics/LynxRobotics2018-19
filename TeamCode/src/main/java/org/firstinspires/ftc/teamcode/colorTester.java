@@ -53,13 +53,12 @@ public class colorTester extends autoBaseV2 {
 
             telemetry.update();
 
-            calibrate(chart.colorSensorLeft);
+            calibrate(chart.bottomColorSensor);
 
         }
     }
 
     public void calibrate(ColorSensor cs){
-        int newG, newB, newR;
 
         int baseG = cs.green();
         int baseB = cs.blue();

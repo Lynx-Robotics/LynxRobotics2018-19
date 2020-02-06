@@ -292,7 +292,7 @@ Drive Methods Ending NOw
     IMU Methods HERE
     ------------------------------------------------------------------------------------------
      */
-    private void resetAngle() {
+    /*private void resetAngle() {
         chart.lastAngles = chart.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
         chart.globalAngle = 0;
@@ -318,14 +318,14 @@ Drive Methods Ending NOw
         chart.lastAngles = angles;
 
         return chart.globalAngle;
-    }
+    }*/
 
     /**
      * Rotate left or right the number of degrees. Does not support turning more than 359 degrees.
      *
-     * @param degrees Degrees to turn, + is left - is right
+     //* @param degrees Degrees to turn, + is left - is right
      */
-    public void rotate(int degrees, double power) {
+    /*public void rotate(int degrees, double power) {
         // restart imu angle tracking.
         resetAngle();
 
@@ -392,7 +392,7 @@ Drive Methods Ending NOw
 
         // reset angle tracking on new heading.
         resetAngle();
-    }
+    }*/
     /*
     ------------------------------------------------------------------------------------------
     IMU Methods found at the end of here
