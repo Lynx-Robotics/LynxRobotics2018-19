@@ -3,7 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name = "ENC_BLUE_STONE_TWO")
-public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
+public class ENC_BLUE_STONE_TWO_new extends autoBaseV2 {
     int side = 1;
 
         boolean spotLeftSensor = false, spotRightSensor = false;
@@ -17,7 +17,7 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             waitForStart();
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
             goToPosition(chart.elevMotor, 360, 1.0);
-            goToPositionForward(distance2encoderNew(27.0), 1.0);
+//            goToPositionForward(distance2encoderNew(27.0), 1.0);
 
             rest();
             sleep(250);
