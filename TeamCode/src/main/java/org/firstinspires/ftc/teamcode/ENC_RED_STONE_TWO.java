@@ -4,7 +4,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
 @Autonomous(name = "ENC_RED_STONE_TWO")
-public class ENC_RED_STONE_TWO extends autoBaseV2 {
+public class ENC_RED_STONE_TWO extends autoBaseV3 {
     int side = 1;
 
     boolean spotLeftSensor = false, spotRightSensor = false;
@@ -30,83 +30,84 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
     }
 
     public void stoneTaskForward() {
-        goToPosition(chart.elevMotor, 360, 1.0);
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(27.0), 1.0);
+        elevControl(chart.elevMotor, 360, 1.0);
+        goToPositionForward(distance2encoderNew(23.5), 1.0);
 
         rest();
         sleep(250);
+        correctionRight(distance2encoderNew(1.0), 0.5);
+        goToPositionForward(distance2encoderNew(3.5), 0.4);
 
-        goToPosition(chart.BR, chart.TL, distance2encoderNew(0.3), 1.0, false);
+        correctionRight(distance2encoderNew(0.2), 1);
 
-        sleep(250);
-
+        rest();
         //strafe left
         chart.runtime.reset();
-        strafe(-0.38);
+        strafeLeft(0.4);
         while(opModeIsActive() && (!SkyStoneReBornRight(chart.colorSensorRight))){
 
         }
         rest();
-        goToPositionDown(chart.elevMotor, 5, -1.0);
-        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(6), 0.50);
+        elevMotorDown(chart.elevMotor, 5, -1.0);
+        encoderStrafeRight(distance2encoderNew(6), 0.50);
 
         //go forward
 
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.45);
+        goToPositionForward(distance2encoderNew(4), 0.45);
 
         //grab
         dropDL();
 
         sleep(450);
         //raise elevMotor
-        goToPosition(chart.elevMotor, 13, 1.0);
+        elevControl(chart.elevMotor, 13, 1.0);
         //go back
-        goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(2), -0.4, false);
-        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(12.2), -7);
+        correctionLeft( 0.4, 0.8);
+        goToPositionBackward(distance2encoderNew(12.2), 1);
         rest();
     }
 
     public void turnNintyLeft() {
         goToPositionStrafeBackLeft(chart.TL, chart.TR, distance2encoderNew(32), 0.50);
         rest();
-        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(3), 1);
+        encoderStrafeRight(distance2encoderNew(4), 1);
+        correctionLeft(distance2encoderNew(0.6), 1);
 
-     //   goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(1), -7);
         rest();
     }
 
     public void distanceToDrop() {
 
-        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(1.5), 0.6);
-
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(10), 1);
+        encoderStrafeRight(distance2encoderNew(1.5), 0.6);
         rest();
-        goForward(0.5);
+        correctionLeft(0.2,1);
+        goToPositionForward(distance2encoderNew(10), 1);
+        rest();
+        goForward(0.4);
         while (opModeIsActive() && (! bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor))) {
 
         }
         rest();
 
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(6.5), 1);
+        goToPositionForward(distance2encoderNew(6.5), 1);
 
         rest();
 
         raiseDL();
         //goToPosition(chart.elevMotor, 14, 1.0);
-        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(2.5), 0.5);
-        goToPositionAnti(chart.BR, chart.TL, distance2encoderNew(2), -0.6, false);
+        encoderStrafeRight(distance2encoderNew(2.5), 0.5);
+        correctionLeft( distance2encoderNew(2), 0.6);
         sleep(200);
     }
 
     public void disToSecondStoneTask() {
-
-       // goToPosition(chart.elevMotor, 10, 1.0);
-
-//        goForward(-0.5);
-//        while (opModeIsActive() && (! bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor))) {
-//
-//        }
-        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(77), -1.0);
+        goToPositionBackward(distance2encoderNew(20), 1.0);
+        rest();
+        correctionRight(distance2encoderNew(2.5), 1.0);
+        goToPositionBackward( distance2encoderNew(20), 1.0);
+        rest();
+        encoderStrafeRight(distance2encoderNew(3), 0.8);
+        goToPositionBackward( distance2encoderNew(39), 1.0);
         rest();
     }
 
@@ -117,45 +118,47 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
 
     public void stoneTaskForwardSecond() {
         chart.init(hardwareMap);
-        goToPosition(chart.elevMotor, 360, 1.0);
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(7.5), 1.0);
+        elevControl(chart.elevMotor, 360, 1.0);
+        sleep(100);
+        encoderStrafeLeft(distance2encoderNew(9), 0.7);
+        sleep(200);
 
+
+        goToPositionForward(distance2encoderNew(4), 0.8);
+//         rest();
         sleep(250);
-
-        goToPosition(chart.BR, chart.TL, distance2encoderNew(0.3), 1.0, false);
-
-        sleep(150);
-
+        //goToPosition(chart.BR, chart.TL, distance2encoderNew(0.5), 1.0, false);
+        //sleep(250);
+        goToPositionForward(distance2encoderNew(2.5), 0.3);
+        encoderStrafeLeft(distance2encoderNew(4), 0.5);
         //strafe right
-        strafe(0.50);
-        while(opModeIsActive() && (!SkyStoneReBornLeft(chart.colorSensorLeft))){
+        strafeRight(0.40);
+        while(opModeIsActive() && (!!SkyStoneReBornLeft(chart.colorSensorLeft))){
 
         }
         rest();
-        goToPositionDown(chart.elevMotor, 5, -1.0);
+        elevMotorDown(chart.elevMotor, 5, 1.0);
 
 
-        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(6), 0.50);
+        encoderStrafeRight(distance2encoderNew(6), 0.50);
 
-
-        //go forward
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4), 0.4);
+        goToPositionForward(distance2encoderNew(4), 0.4);
 
         //grab
         dropDL();
-        sleep(300);
+        sleep(200);
 
         //raise elevMotor
-        goToPosition(chart.elevMotor, 13, 1.0);
+        elevControl(chart.elevMotor, 13, 1.0);
 
         //go back
-        goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(12.5), -7);
+        goToPositionBackward(distance2encoderNew(12.5), 7);
         rest();
     }
     public void parkBridge() {
-        goToPosition(chart.elevMotor, 10, 1.0);
+        elevControl(chart.elevMotor, 10, 1.0);
 
-        goForward(-0.3);
+        goForward(0.3);
         while (opModeIsActive() && (! bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor))) {
 
         }
@@ -163,13 +166,16 @@ public class ENC_RED_STONE_TWO extends autoBaseV2 {
     }
     public void distanceToDropSecond(){
 
-        goToPositionStrafeRight(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(4.5), 0.80);
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(20), 1);
+        encoderStrafeRight( distance2encoderNew(1), 0.3);
+        goToPositionForward(distance2encoderNew(20), 1);
         rest();
-        goToPosition(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNew(50), 1);
+        encoderStrafeRight( distance2encoderNew(2), 0.6);
+        rest();
+
+        goToPositionForward( distance2encoderNew(40), 1);
         raiseDL();
         sleep(250);
 
-        goToPosition(chart.elevMotor, 10, 1.0);
+        elevControl(chart.elevMotor, 10, 1.0);
     }
 }

@@ -78,12 +78,17 @@ public class CONSTANTS {
     -------------------------------------------------------
      */
 
-    public double tapeGreenBLUE = 758;
-    public double tapeBlueBLUE = 508;
-    public double tapeRedBLUE = 283;
+    public double tapeGreenBLUE = 1225;
+    public double tapeBlueBLUE = 1213;
+    public double tapeRedBLUE = 464;
 
-    public double tapeGreenRED = 811;
-    public double tapeBlueRED = 207;
+    //Deigo had this.
+//    public double tapeGreenBLUE = 758;
+//    public double tapeBlueBLUE = 508;
+//    public double tapeRedBLUE = 283;
+
+    public double tapeGreenRED = 750;
+    public double tapeBlueRED = 150;
     public double tapeRedRED = 778;
 
 
