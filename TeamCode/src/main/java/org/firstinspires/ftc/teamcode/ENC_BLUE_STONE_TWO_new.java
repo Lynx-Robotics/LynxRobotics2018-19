@@ -118,7 +118,7 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
 
             sleep(300);
             //correctionLeft(distance2encoderNew(2.0),1);
-            encoderStrafeLeft(distance2encoderNew(1),0.8);
+            encoderStrafeLeft(distance2encoderNew(2),0.8);
             rest();
 
             goForward(0.45);
@@ -126,9 +126,9 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
 
             }
             rest();
-            goToPositionBackwardRealFast(distance2encoderNew(2),0.8);
+            goToPositionBackwardRealFast(distance2encoderNew(1.5),0.8);
 
-            encoderStrafeRight(distance2encoderNew(8), 0.8);
+            encoderStrafeRight(distance2encoderNew(2), 0.8);
             //strafe left
             sleep(250);
             chart.runtime.reset();
@@ -148,12 +148,11 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
 
             elevMotorDown(chart.elevMotor, 5, -1.0);
             //go forward
-            goToPositionForward(distance2encoderNew(1.7), 0.4);
+            goToPositionForward(distance2encoderNew(2), 0.4);
 
             dropDL();
 
-            //grab
-           // dropDL();
+
             sleep(450);
             //raise elevMotor
             elevControl(chart.elevMotor, 13, 0.8);
@@ -163,12 +162,12 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
             //I changed here
-            goToPosition(chart.BL,chart.TR,distance2encoderNew(34.8),0.4,false);
+            goToPosition(chart.BL,chart.TR,distance2encoderNew(24.5),0.4,false);
             rest();
             goToPositionBackward( distance2encoderNew(1), 0.7);
             rest();
             //encoderStrafeLeft( distance2encoderNew(1.5), 0.5);
-            correctionLeft(distance2encoderNew(2),1);
+            correctionLeft(distance2encoderNew(4),1);
             goToPositionForward(distance2encoderNew(20), 1);
             rest();
            // encoderStrafeLeft( distance2encoderNew(1), 0.3);
