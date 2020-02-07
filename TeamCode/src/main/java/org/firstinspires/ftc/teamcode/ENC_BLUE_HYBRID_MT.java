@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 @Autonomous(name = "ENC_BLUE_V2_MT")
 public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
     boolean spotLeftSensor = false, spotRightSensor = false;
@@ -14,7 +16,7 @@ public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
     int csAvarageR = 0;
     int csAvarageG = 0;
     int csAvarageB = 0;
-    double tolerance = 0.4;
+    double tolerance = 0.3;
     boolean changeDetected = false;
 
     @Override
@@ -150,15 +152,17 @@ public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
                     csAvarageB = (csAvarageB + csTotalB)/ 2;
                     csAvarageG = (csAvarageG + csTotalG)/ 2;
 
-                    if ((csTotalR * tolerance+1) >= csAvarageR || (csTotalR * (1-tolerance) <= csAvarageR))
+                    if ((csTotalR * tolerance+1) <= csAvarageR || (csTotalR * (1-tolerance) >= csAvarageR))
                         changeDetected = true;
                     else changeDetected = false;
-                    if ((csTotalB * tolerance+1) >= csAvarageB || (csTotalB * (1-tolerance) <= csAvarageB))
+                    if ((csTotalB * tolerance+1) <= csAvarageB || (csTotalB * (1-tolerance) >= csAvarageB))
                         changeDetected = true;
                     else changeDetected = false;
-                    if ((csTotalG * tolerance+1) >= csAvarageG || (csTotalG * (1-tolerance) <= csAvarageG))
+                    if ((csTotalG * tolerance+1) <= csAvarageG || (csTotalG * (1-tolerance) >= csAvarageG))
                         changeDetected = true;
                     else changeDetected = false;
+
+                    telemetry.addData("colordetected:", changeDetected);
 
 
                     idle();
