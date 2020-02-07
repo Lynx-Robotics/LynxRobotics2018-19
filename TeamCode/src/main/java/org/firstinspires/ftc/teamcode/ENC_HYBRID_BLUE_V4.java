@@ -130,10 +130,10 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
                 goToPositionForward(distance2encoderNew(13), 0.6);
 
                 encoderStrafeRight(distance2encoderNew(10), 0.8);
-                goToPositionForward(distance2encoderNew(5), 0.6);
+                goToPositionForward(distance2encoderNew(7), 0.6);
 
 
-                correctionRight(distance2encoderNew(4), 0.6);
+                correctionRight(distance2encoderNew(6), 0.6);
                 strafeRight(0.38);
                 while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(chart.bottomColorSensor)){
 
