@@ -27,14 +27,14 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
             }
 
             if (iteration == 2) {
-                correctionRight(distance2encoderNew(1.95), 0.6);
-                encoderStrafeRight(distance2encoderNew(5), 0.35);
+                correctionLeft(distance2encoderNew(1.95), 0.6);
+                encoderStrafeLeft(distance2encoderNew(8), 0.35);
                 iteration++;
             }
 
             if (iteration == 3) {
                 chart.globalTime.reset();
-                strafeLeft(0.3);
+                strafeRight(0.3);
                 while (opModeIsActive() && !SkyStoneReBornRight(chart.colorSensorRight)) {
                 }
                 timeUntilDetect = chart.globalTime.milliseconds();
@@ -54,7 +54,7 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
 
             if (iteration == 4) {
 //                encoderStrafeRight(distance2encoderNew(2.5), 0.3);
-                encoderStrafeRight(distance2encoderNew(SR_1), 0.3);
+                encoderStrafeLeft(distance2encoderNew(SR_1), 0.3);
                 iteration++;
             }
 
