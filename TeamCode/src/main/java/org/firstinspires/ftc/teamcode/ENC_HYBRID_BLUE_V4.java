@@ -61,7 +61,7 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
              */
 
             if (iteration == 7) {
-                correctionLeft(distance2encoderNew(0.85), 0.6);
+                correctionLeft(distance2encoderNew(0.95), 0.6);
                 goToPositionBackwardRealFast(distance2encoderNew(10), 1.0); //can be replaced if causes troubles}
                 iteration++;
             }
