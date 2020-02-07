@@ -84,7 +84,7 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             rest();
 
             raiseDL();
-            elevMotorDown(chart.elevMotor, 5, -1.0);
+            elevMotorDown(chart.elevMotor, 13, -1.0);
 
            // goToPosition(chart.elevMotor, 14, 1.0);
             encoderStrafeLeft(distance2encoderNew(1.6), 1);
@@ -110,26 +110,19 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             sleep(200);
             elevControl(chart.elevMotor, 500, 1.0);
             sleep(100);
-            encoderStrafeRight(distance2encoderNew(5), 0.45);
+            encoderStrafeRight(distance2encoderNew(4), 0.45);
 
             sleep(300);
-            encoderStrafeLeft(distance2encoder(1.5),0.8);
+            encoderStrafeLeft(distance2encoderNew(1.5),0.8);
             rest();
 
-            goForward(0.4);
-            while(opModeIsActive() && ((chart.colorSensorRight.alpha()<840) && (chart.colorSensorLeft.alpha()<840))){
+            goForward(0.5);
+            while(opModeIsActive() && ((chart.colorSensorRight.alpha()<818) && (chart.colorSensorLeft.alpha()<818))){
 
             }
             rest();
+            goToPositionBackwardRealFast(distance2encoderNew(2),0.8);
 
-            //goToPositionForward(distance2encoderNew(6), 0.6);
-            //rest();
-    //        sleep(250);
-            //goToPosition(chart.BR, chart.TL, distance2encoderNew(0.5), 1.0, false);
-            //sleep(250);
-            //goToPositionBackward(1,1.0);
-            //goToPositionForward(distance2encoderNew(2.4), 0.5);
-            //goToPositionBackward(1,1.0);
             encoderStrafeRight(distance2encoderNew(4), 0.8);
             //strafe left
             sleep(250);
@@ -143,20 +136,15 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
 
 
             encoderStrafeRight( distance2encoderNew(6), 0.30);
-           //go forward
-          //  goToPositionForward(distance2encoderNew(3.8), 0.4);
 
             correctionLeft( distance2encoderNew(0.2), 0.4);
             //grab
 
-            //encoderStrafeRight(distance2encoderNew(3.6), 0.50);
+
             elevMotorDown(chart.elevMotor, 5, -1.0);
             //go forward
             goToPositionForward(distance2encoderNew(1.7), 0.4);
-            // correctionLeft(distance2encoderNew(0.2), 0.3);
-            //grab
 
-            //sleep(200);
             dropDL();
 
             //grab
@@ -168,12 +156,14 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             goToPositionBackward(distance2encoderNew(13), 0.7);
             rest();
 //---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-            goToPosition(chart.BL,chart.TR,distance2encoder(34.8),0.4,false);
+
+            //I changed here
+            goToPosition(chart.BL,chart.TR,distance2encoderNew(34.8),0.4,false);
             rest();
             goToPositionBackward( distance2encoderNew(1), 0.7);
             rest();
-            encoderStrafeLeft( distance2encoderNew(1.5), 0.5);
-            correctionLeft(distance2encoderNew(1.5),1);
+            //encoderStrafeLeft( distance2encoderNew(1.5), 0.5);
+            correctionLeft(distance2encoderNew(2),1);
             goToPositionForward(distance2encoderNew(20), 1);
             rest();
            // encoderStrafeLeft( distance2encoderNew(1), 0.3);
