@@ -347,11 +347,13 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
         boolean GP = false, BP = false, RP = false;
 
-      if(isInRange(cs.blue(),200,B)){
-          GP=true;
-          BP=true;
-          RP=true;
-      }
+
+
+
+        GP = isInRange(cs.green(), 750, G);
+        BP = isInRange(cs.blue(), 750, B);
+        RP = isInRange(cs.red(), 750, R);
+
         return GP && RP && BP;
     }
 
@@ -510,6 +512,53 @@ public abstract class autoBaseV3 extends LinearOpMode {
 
         return GP && RP && BP;
     }
+
+    public boolean StoneReBornRight(ColorSensor cs){
+        String alpha = "undefined";
+        double G = constants.greenYellow;
+        double B = constants.blueYellow;
+        double R = constants.redYellow;
+
+        boolean GP = false, BP = false, RP = false;
+
+        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
+            alpha = "far";
+        }
+        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+            alpha = "middle";
+        }
+        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+            alpha = "close";
+        }
+        else {
+            alpha = "middle";
+        }
+
+        switch (alpha) {
+            case "far":
+                G = constants.greenYellow;
+                B = constants.blueYellow;
+                R = constants.redYellow;
+                break;
+            case "middle":
+                G = constants.greenYellow;
+                B = constants.blueYellow;
+                R = constants.redYellow;
+                break;
+            case "close":
+                G = constants.greenYellow;
+                B = constants.blueYellow;
+                R = constants.redYellow;
+                break;
+        }
+
+        GP = isInRange(cs.green(), 70, G);
+        BP = isInRange(cs.blue(), 45, B);
+        RP = isInRange(cs.red(), 45, R);
+
+        return GP && RP && BP;
+    }
+
 
     public boolean SkyStoneReBornLeft(ColorSensor cs){
         String alpha = "undefined";

@@ -2,6 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
+import org.firstinspires.ftc.robotcore.external.Telemetry;
+
 @Autonomous(name = "ENC_BLUE_V2_MT")
 public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
     boolean spotLeftSensor = false, spotRightSensor = false;
@@ -159,6 +161,8 @@ public class ENC_BLUE_HYBRID_MT extends autoBaseV2 {
                     if ((csTotalG * tolerance+1) >= csAvarageG || (csTotalG * (1-tolerance) <= csAvarageG))
                         changeDetected = true;
                     else changeDetected = false;
+
+                    telemetry.addData("colordetected:", changeDetected);
 
 
                     idle();

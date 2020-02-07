@@ -180,7 +180,7 @@ public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
 
     public void waitUntilEnd() {
         while (opModeIsActive() && !gamepad1.a) {
-            telemetry.addData("Time Until Detection: (ms)", timeUntilDetectionF);
+            telemetry.addData("Time Until Detection: (ms)", timeUntilDetectionFinal);
             telemetry.update();
 
         }

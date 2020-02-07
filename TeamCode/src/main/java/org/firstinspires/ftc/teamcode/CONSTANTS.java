@@ -77,10 +77,10 @@ public class CONSTANTS {
     /*
     -------------------------------------------------------
      */
-
-    public double tapeGreenBLUE = 1225;
-    public double tapeBlueBLUE = 1213;
-    public double tapeRedBLUE = 464;
+//
+     public double tapeGreenBLUE = 1450;
+      public double tapeBlueBLUE = 1700;
+      public double tapeRedBLUE = 501;
 
     //Deigo had this.
 //    public double tapeGreenBLUE = 758;
