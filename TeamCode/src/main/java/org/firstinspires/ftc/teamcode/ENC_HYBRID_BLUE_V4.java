@@ -124,7 +124,7 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
                 elevControl(chart.elevMotor, 500, 1.0);
                 chart.middleGrab.setPosition(0.55);
                 goToPositionForward(distance2encoderNew(4), 0.4);
-                encoderStrafeRight(distance2encoderNew(42), 0.4);
+                encoderStrafeRight(distance2encoderNew(37), 0.4);
 
                 correctionRight(distance2encoderNew(0.5), 0.6);
                 goToPositionForward(distance2encoderNew(13), 0.6);
