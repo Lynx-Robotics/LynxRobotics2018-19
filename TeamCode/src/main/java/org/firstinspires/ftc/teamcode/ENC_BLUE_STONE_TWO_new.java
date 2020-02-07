@@ -17,12 +17,12 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             waitForStart();
 //--------------------------------------------------------------------------------------------------------------------------------------------------------------------
             elevControl(chart.elevMotor, 360, 1.0);
-            goToPositionForward(distance2encoderNew(23.5), 1.0);
+            goToPositionForward(distance2encoderNew(23.6), 1.0);
 
             rest();
             sleep(200);
             correctionRight(distance2encoderNew(1.0), 0.5);
-            goToPositionForward(distance2encoderNew(3.5), 0.4);
+            goToPositionForward(distance2encoderNew(4), 0.4);
 
             correctionRight(distance2encoderNew(1), 0.5);
            // sleep(150);
@@ -110,10 +110,11 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             sleep(200);
             elevControl(chart.elevMotor, 500, 1.0);
             sleep(100);
-            encoderStrafeRight(distance2encoderNew(4), 0.45);
+            encoderStrafeRight(distance2encoderNew(6), 0.6);
 
             sleep(300);
-            encoderStrafeLeft(distance2encoderNew(1.5),0.8);
+            correctionLeft(distance2encoderNew(2.0),1);
+            encoderStrafeLeft(distance2encoderNew(1),0.8);
             rest();
 
             goForward(0.5);
