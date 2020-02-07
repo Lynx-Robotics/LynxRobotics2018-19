@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "COFFEE_RUN_BLUE_HYBRID")
+@Autonomous(name = "COFFEE_RUN_BLUE_HYBRID_ACTUAL")
 public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
 
     int iteration = 0;

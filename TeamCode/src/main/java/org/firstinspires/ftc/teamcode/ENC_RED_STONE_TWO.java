@@ -84,7 +84,7 @@ public class ENC_RED_STONE_TWO extends autoBaseV3 {
         goToPositionForward(distance2encoderNew(10), 1);
         rest();
         goForward(0.4);
-        while (opModeIsActive() && (! bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor))) {
+        while (opModeIsActive() && (! bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor))) {
 
         }
         rest();
@@ -159,7 +159,7 @@ public class ENC_RED_STONE_TWO extends autoBaseV3 {
         elevControl(chart.elevMotor, 10, 1.0);
 
         goForward(0.3);
-        while (opModeIsActive() && (! bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor))) {
+        while (opModeIsActive() && (! bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor))) {
 
         }
         rest();

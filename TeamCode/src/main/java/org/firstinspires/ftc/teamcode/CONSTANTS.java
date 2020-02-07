@@ -87,9 +87,9 @@ public class CONSTANTS {
 //    public double tapeBlueBLUE = 508;
 //    public double tapeRedBLUE = 283;
 
-    public double tapeGreenRED = 750;
-    public double tapeBlueRED = 150;
-    public double tapeRedRED = 778;
+    public double tapeGreenRED = 1490;
+    public double tapeBlueRED = 516;
+    public double tapeRedRED = 1579;
 
 
     /*

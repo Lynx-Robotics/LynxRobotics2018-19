@@ -15,7 +15,7 @@ public class strafeColorTester extends autoBaseV3 {
         waitForStart();
 
         strafeLeft(0.27);
-        while(opModeIsActive() && !detectNonGrey()){
+        while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor)){
 
         }
         rest();

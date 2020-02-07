@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "COFFEE_RUN_RED_HYBRID")
+@Autonomous(name = "COFFEE_RUN_RED_HYBRID_ACTUAL")
 public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
 
     int iteration = 0;
     double timeUntilDetect;
-    
+
     double SR_1;
 
     @Override
@@ -27,13 +27,14 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
             }
 
             if (iteration == 2) {
-                correctionLeft(distance2encoderNew(1.95), 0.6);
+//                correctionLeft(distance2encoderNew(.95), 0.6);
                 encoderStrafeLeft(distance2encoderNew(8), 0.35);
                 iteration++;
             }
 
             if (iteration == 3) {
                 chart.globalTime.reset();
+                correctionRight(distance2encoderNew(0.43), 1.0);
                 strafeRight(0.3);
                 while (opModeIsActive() && !SkyStoneReBornRight(chart.colorSensorRight)) {
                 }
@@ -41,20 +42,21 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
                 rest();
                 iteration++;
             }
-            
+
             if(timeUntilDetect < 434.65){
-                SR_1 = 2.3;
+                SR_1 = 3.80;
             }
             else if(isInRange(timeUntilDetect, 200, 1348.6765)){
-                SR_1 = 2.5;
+                SR_1 = 3.80;
             }
             else {
-                SR_1 = 2.5;
+                SR_1 = 3.80;
             }
 
             if (iteration == 4) {
 //                encoderStrafeRight(distance2encoderNew(2.5), 0.3);
-                encoderStrafeLeft(distance2encoderNew(SR_1), 0.3);
+                correctionRight(distance2encoderNew(3.5), 1.0);
+                encoderStrafeRight(distance2encoderNew(SR_1), 0.3);
                 iteration++;
             }
 
@@ -77,14 +79,15 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
              */
 
             if (iteration == 7) {
-                correctionLeft(distance2encoderNew(0.69), 0.6);
+                correctionRight(distance2encoderNew(0.49), 0.6);
                 goToPositionBackwardRealFast(distance2encoderNew(10), 1.0); //can be replaced if causes troubles}
                 iteration++;
             }
 
             if(iteration == 8){
-                strafeLeft(0.38);
-                while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(chart.bottomColorSensor)){
+                correctionLeft(distance2encoderNew(0.5), 0.6);
+                strafeRight(0.38);
+                while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor)){
 
                 }
                 rest();
@@ -96,8 +99,8 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
              */
 
             if(iteration == 9){
-                correctionLeft(distance2encoderNew(0.5), 0.6);
-                encoderStrafeLeft(distance2encoderNew(67.0), 0.4);
+                correctionRight(distance2encoderNew(0.5), 0.6);
+                encoderStrafeRight(distance2encoderNew(67.0), 0.4);
                 rest();
                 iteration++;
                 iteration++;
@@ -117,7 +120,7 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
 
             if(iteration == 13){
                 goToPositionBackward(distance2encoderNew(5), 0.5);
-                goToPositionBackward(distance2encoderNew(53), 0.8);
+                goToPositionBackwardRealFast(distance2encoderNewFullVolt(48), 1.0);
                 iteration++;
             }
 
@@ -125,18 +128,19 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
                 elevControl(chart.elevMotor, 500, 1.0);
                 chart.middleGrab.setPosition(0.55);
                 goToPositionForward(distance2encoderNew(4), 0.4);
-                encoderStrafeRight(distance2encoderNew(37), 0.4);
+                encoderStrafeLeft(distance2encoderNew(27), 0.4);
 
-                correctionRight(distance2encoderNew(0.5), 0.6);
+//                correctionRight(distance2encoderNew(0.5), 0.6);
                 goToPositionForward(distance2encoderNew(13), 0.6);
 
-                encoderStrafeRight(distance2encoderNew(6), 0.8);
+                encoderStrafeLeft(distance2encoderNew(6), 0.8);
+                correctionLeft(distance2encoderNew(4), 0.6);
                 goToPositionForward(distance2encoderNew(7), 0.6);
 
 
-                correctionRight(distance2encoderNew(6), 0.6);
-                strafeRight(0.38);
-                while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(chart.bottomColorSensor)){
+                correctionLeft(distance2encoderNew(6), 0.6);
+                strafeLeft(0.38);
+                while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor)){
 
                 }
                 rest();
