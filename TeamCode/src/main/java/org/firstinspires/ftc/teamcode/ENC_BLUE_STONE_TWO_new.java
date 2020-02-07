@@ -117,7 +117,7 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             rest();
 
             goForward(0.4);
-            while(opModeIsActive() && ((chart.colorSensorRight.alpha()<825) && (chart.colorSensorLeft.alpha()<825))){
+            while(opModeIsActive() && ((chart.colorSensorRight.alpha()<840) && (chart.colorSensorLeft.alpha()<840))){
 
             }
             rest();
