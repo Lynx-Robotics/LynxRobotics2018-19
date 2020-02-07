@@ -15,6 +15,9 @@ public class TeleOp extends autoBaseV2 {
     public void runOpMode() throws InterruptedException {
         chart.init(hardwareMap);
 
+        speedMultip = 1.75-gamepad1.left_trigger;
+        speedMultip = 1.75-gamepad1.right_trigger;
+
         waitForStart();
         while(opModeIsActive()){
 
@@ -24,16 +27,22 @@ public class TeleOp extends autoBaseV2 {
             chart.BR.setPower(-gamepad1.left_stick_y * speedMultip);
 
             if(gamepad1.dpad_left){
-                chart.TL.setPower(0.5);
-                chart.TR.setPower(-0.5);
-                chart.BL.setPower(-0.5);
-                chart.BR.setPower(0.5);
+                chart.TL.setPower(-0.5);
+                chart.TR.setPower(0.5);
+                chart.BL.setPower(0.5 - 0.002);
+                chart.BR.setPower(-0.5 + 0.002);
+                while(gamepad1.dpad_left){
+
+                }
             }
             if(gamepad1.dpad_right){
-                chart.TL.setPower(-1);
-                chart.TR.setPower(1);
-                chart.BL.setPower(1);
-                chart.BR.setPower(-1);
+                chart.TL.setPower(1);
+                chart.TR.setPower(-1);
+                chart.BL.setPower(-1 + 0.002);
+                chart.BR.setPower(1 - 0.002);
+                while(gamepad1.dpad_right){
+
+                }
             }
 
             if(gamepad2.a){
@@ -43,7 +52,7 @@ public class TeleOp extends autoBaseV2 {
                 }
             }
 
-            if(gamepad1.a){
+            /*if(gamepad1.a){
                 speedMultip = 0.25;
             }
             if(gamepad1.y){
@@ -54,7 +63,7 @@ public class TeleOp extends autoBaseV2 {
             }
             if(gamepad1.b){
                 speedMultip = 1.0;
-            }
+            }*/
 
             if(chart.grabState){
                 chart.middleGrab.setPosition(0.05);

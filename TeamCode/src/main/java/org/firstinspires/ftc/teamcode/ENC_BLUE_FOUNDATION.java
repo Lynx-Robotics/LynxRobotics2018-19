@@ -5,7 +5,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 @Autonomous(name = "ENC_BLUE_FOUNDATION")
 public class ENC_BLUE_FOUNDATION extends autoBaseV3 {
 
-    int phase = 0;
+    int phase = 0, stage;
 
     @Override
     public void runOpMode() throws InterruptedException {

@@ -124,7 +124,7 @@ public class ENC_RED_HYBRID_REBORN extends autoBaseV3 {
             //strafe until we see tape
             if(phase==9) {
                 strafeRight(0.6);
-                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor)) {
+                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor)) {
 
                 }
                 rest();
@@ -165,7 +165,7 @@ public class ENC_RED_HYBRID_REBORN extends autoBaseV3 {
                 encoderStrafeLeft(distance2encoderNew(48), 0.4);
                 goToPositionForward(distance2encoderNew(22), 0.6);
                 strafeLeft(0.4);
-                while(opModeIsActive() && phase == 14 && !bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor)){
+                while(opModeIsActive() && phase == 14 && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor)){
 
                 }
                 rest();

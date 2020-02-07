@@ -61,7 +61,7 @@ public class ENC_RED_FOUNDATION extends autoBaseV3 {
                 goToPositionForward(distance2encoderNew(10), 0.6);
 
                 strafeLeft(0.38);
-                while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn(chart.bottomColorSensor)){
+                while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor)){
 
                 }
                 rest();

@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "DIEGO_TWO_STONE")
+@Autonomous(name = "DIEGO_TWO_STONE_BLUE")
 public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
 
     int iteration = 0;
@@ -157,8 +157,11 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
                 if(timeUntilDetect < (1348.6765 - 200)){
                     iteration++;
                 }
+                else if(timeUntilDetect > (1348.6765 - 200) && SkyStoneReBornRight(chart.colorSensorRight)){
+                    iteration++;
+                }
                 else if(!SkyStoneReBornRight(chart.colorSensorRight) && timeUntilDetect > (1348.6765 - 200)){
-                    iteration = iteration +2;
+                    iteration = 18;
                 }
             }
 
@@ -173,7 +176,12 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
             }
 
             if(iteration == 18){
+                encoderStrafeRight(distance2encoderNew(4), 0.4);
+                elevMotorDown(chart.elevMotor, 5, -1.0);
+                goToPositionForward(distance2encoderNew(3.2), 0.4);
+                dropDL();
                 rest();
+                sleep(500);
 
                 iteration = 19;
             }
