@@ -6,6 +6,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
 
     int iteration = 0;
+    double timeUntilDetect;
+    
+    double SR_1;
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -30,15 +33,28 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
             }
 
             if (iteration == 3) {
+                chart.globalTime.reset();
                 strafeLeft(0.3);
                 while (opModeIsActive() && !SkyStoneReBornRight(chart.colorSensorRight)) {
                 }
+                timeUntilDetect = chart.globalTime.milliseconds();
                 rest();
                 iteration++;
             }
+            
+            if(timeUntilDetect < 434.65){
+                SR_1 = 2.25;
+            }
+            else if(isInRange(timeUntilDetect, 200, 1348.6765)){
+                SR_1 = 2.5;
+            }
+            else {
+                SR_1 = 2.5;
+            }
 
             if (iteration == 4) {
-                encoderStrafeRight(distance2encoderNew(2.5), 0.3);
+//                encoderStrafeRight(distance2encoderNew(2.5), 0.3);
+                encoderStrafeRight(distance2encoderNew(SR_1), 0.3);
                 iteration++;
             }
 
@@ -61,7 +77,7 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
              */
 
             if (iteration == 7) {
-                correctionLeft(distance2encoderNew(0.95), 0.6);
+                correctionLeft(distance2encoderNew(0.69), 0.6);
                 goToPositionBackwardRealFast(distance2encoderNew(10), 1.0); //can be replaced if causes troubles}
                 iteration++;
             }
@@ -78,6 +94,48 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
             /*
             YO WE GOT TO THE TAPE
              */
+
+            if(iteration == 9){
+                correctionLeft(distance2encoderNew(0.5), 0.6);
+                encoderStrafeLeft(distance2encoderNew(60.0), 0.4);
+                rest();
+                iteration++;
+                iteration++;
+            }
+
+            if(iteration == 11){
+                goToPositionForward(distance2encoderNew(20), 0.6);
+                iteration++;
+            }
+
+            if(iteration == 12){
+                raiseDL();
+                sleep(500);
+                elevMotorDown(chart.elevMotor, 8, -1.0);
+                iteration++;
+            }
+
+            if(iteration == 13){
+                goToPositionBackward(distance2encoderNew(35), 0.8);
+                iteration++;
+            }
+
+            if(iteration == 14){
+                elevControl(chart.elevMotor, 500, 1.0);
+                chart.middleGrab.setPosition(0.5);
+                goToPositionForward(distance2encoderNew(3), 0.4);
+                encoderStrafeRight(distance2encoderNew(48), 0.4);
+
+                correctionRight(0.95, 0.6);
+                goToPositionForward(distance2encoderNew(10), 0.6);
+
+                strafeRight(0.38);
+                while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)){
+
+                }
+                rest();
+                iteration++;
+            }
         }
     }
 }

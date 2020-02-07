@@ -171,6 +171,8 @@ public class ENC_RED_HYBRID_REBORN extends autoBaseV3 {
                 rest();
                 phase++;
             }
+
+
         }
     }
 
