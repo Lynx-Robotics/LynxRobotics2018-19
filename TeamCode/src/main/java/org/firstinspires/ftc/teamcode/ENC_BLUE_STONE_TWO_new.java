@@ -102,31 +102,33 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
            // sleep(200);
             goToPositionBackward( distance2encoderNew(35), 1.0);
             rest();
-            correctionLeft( 8, 1);
+            //correctionLeft( 8, 1);
             goToPositionBackward( distance2encoderNew(10), 0.6);
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------
             rest();
             goToPositionForward(distance2encoderNew(1.5),1);
-            goToPositionStrafeBackLeft( chart.TR,chart.TL, distance2encoderNew(38), 0.45);
+            goToPositionStrafeBackLeft( chart.TR,chart.TL, distance2encoderNew(33.5), 0.45);
             sleep(200);
+            rest();
             elevControl(chart.elevMotor, 500, 1.0);
             sleep(100);
-            encoderStrafeRight(distance2encoderNew(10), 1);
+            rest();
+            encoderStrafeRight(distance2encoderNew(15), 0.8);
 
             sleep(300);
             //correctionLeft(distance2encoderNew(2.0),1);
             encoderStrafeLeft(distance2encoderNew(1),0.8);
             rest();
 
-            goForward(0.5);
+            goForward(0.45);
             while(opModeIsActive() && ((chart.colorSensorRight.alpha()<818) && (chart.colorSensorLeft.alpha()<818))){
 
             }
             rest();
             goToPositionBackwardRealFast(distance2encoderNew(2),0.8);
 
-            encoderStrafeRight(distance2encoderNew(5), 0.8);
+            encoderStrafeRight(distance2encoderNew(8), 0.8);
             //strafe left
             sleep(250);
             chart.runtime.reset();
