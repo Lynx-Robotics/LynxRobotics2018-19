@@ -51,7 +51,7 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
 
             sleep(450);
             //raise elevMotor
-            elevControl(chart.elevMotor, 16, 1.0);
+            elevControl(chart.elevMotor, 300, 1.0);
             //go back
            // correctionLeft(distance2encoderNew(2), 0.4);
             goToPositionBackward(distance2encoderNew(12), 1);
@@ -84,6 +84,8 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             rest();
 
             raiseDL();
+            elevMotorDown(chart.elevMotor, 5, -1.0);
+
            // goToPosition(chart.elevMotor, 14, 1.0);
             encoderStrafeLeft(distance2encoderNew(1.6), 1);
             //correctionLeft( distance2encoder(2), 1);
@@ -108,14 +110,14 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             sleep(200);
             elevControl(chart.elevMotor, 500, 1.0);
             sleep(100);
-            encoderStrafeRight(distance2encoderNew(6), 0.45);
+            encoderStrafeRight(distance2encoderNew(5), 0.45);
 
-            sleep(400);
-            encoderStrafeLeft(2,0.8);
+            sleep(300);
+            encoderStrafeLeft(distance2encoder(1.5),0.8);
             rest();
 
             goForward(0.4);
-            while(opModeIsActive() && ((chart.colorSensorRight.alpha()<800) && (chart.colorSensorLeft.alpha()<800))){
+            while(opModeIsActive() && ((chart.colorSensorRight.alpha()<825) && (chart.colorSensorLeft.alpha()<825))){
 
             }
             rest();
