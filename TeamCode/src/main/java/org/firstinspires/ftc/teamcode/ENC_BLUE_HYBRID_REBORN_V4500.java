@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "ENC_BLUE_HYBRID_REBORN")
+@Autonomous(name = "ENC_BLUE_HYBRID_REBORN_4500")
 public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
 
     double timeUntilDetection = 0, timeUntilDetectionFinal = 0;
@@ -12,7 +12,8 @@ public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
     int phase = 0;
 
     double RIGHT_DIST_STRAFE_ONE, CORRECTION_BEFORE_BACKWARDS_LEFT, CORRECTION_AFTER_TAPE_SPOTTED;
-    double DISTANCE_GO_TO_FOUNDATION;
+    double DISTANCE_GO_TO_FOUNDATION, DISTANCE_STRAFE_TO_TAPE;
+
 
 
     @Override
@@ -50,7 +51,7 @@ public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
             //strafe to the right for a certain distance
             if (phase == 3) {
                 correctionRight(distance2encoderNew(1.95), 0.6);
-                encoderStrafeRight(distance2encoderNew(8), 0.35);
+                encoderStrafeRight(distance2encoderNew(5), 0.35);
                 phase++;
             }
 
@@ -69,12 +70,18 @@ public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
             VARIABLE DECLARATION
             ---------------------------------------------------------------------------
              */
-            if(timeUntilDetection < 750){ //if first block spotted is skystone set following param
-                RIGHT_DIST_STRAFE_ONE = 4.5;
+            if(isInRange(timeUntilDetectionFinal, 200, 434.65) || timeUntilDetectionFinal < 434.65){ //if first block spotted is skystone set following param
+                RIGHT_DIST_STRAFE_ONE = 2.5;
                 CORRECTION_BEFORE_BACKWARDS_LEFT = 0.95;
                 CORRECTION_AFTER_TAPE_SPOTTED = 0;
                 DISTANCE_GO_TO_FOUNDATION = 64;
-            } else{
+                DISTANCE_STRAFE_TO_TAPE = 60;
+            } else if(isInRange(timeUntilDetectionFinal, 200, 1348.6765)){
+                RIGHT_DIST_STRAFE_ONE = 4.0;
+                CORRECTION_BEFORE_BACKWARDS_LEFT = 0.95;
+                CORRECTION_AFTER_TAPE_SPOTTED = 0;
+                DISTANCE_GO_TO_FOUNDATION = 64;
+            } else if (isInRange(timeUntilDetectionFinal, 200, 2072.964)){
                 RIGHT_DIST_STRAFE_ONE = 4.0;
                 CORRECTION_BEFORE_BACKWARDS_LEFT = 0.95;
                 CORRECTION_AFTER_TAPE_SPOTTED = 0;
@@ -85,13 +92,13 @@ public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
              */
 
             //strafe right for a certain distance
-            if(phase == 50) {
-                encoderStrafeRight(distance2encoderNew(RIGHT_DIST_STRAFE_ONE), 0.3);
+            if(phase == 5) {
+                encoderStrafeRight(distance2encoderNew(2.5), 0.3);
                 phase++;
             }
 
             //extract the block
-            if(phase == 60) {
+            if(phase == 6) {
                 elevMotorDown(chart.elevMotor, 5, -1.0);
                 goToPositionForward(distance2encoderNew(1.7), 0.4);
                 dropDL();
@@ -100,7 +107,7 @@ public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
             }
 
             //raise the block and secure from Lava
-            if(phase==70) {
+            if(phase==7) {
                 elevControl(chart.elevMotor, 360, 1.0);
                 phase++;
             }
@@ -114,50 +121,46 @@ public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
             - added a new distance of 2 with half speed
                 - Should decrease error in stoppage
              */
-            if(phase==70) {
+            if(phase==8) {
                 sleep(500);
 //                correctionLeft(distance2encoderNew(0.95), 0.6);
                 correctionLeft(distance2encoderNew(CORRECTION_BEFORE_BACKWARDS_LEFT), 0.6);
                 goToPositionBackwardRealFast(distance2encoderNew(10), 1.0); //can be replaced if causes troubles
                 phase++;
-                phase++;//should be removed if the phase of this condition is returned to 8
+//                phase++;//should be removed if the phase of this condition is returned to 8
             }
 
             //strafe until we see tape
-            if(phase==90) {
-                strafeLeft(0.6);
-                while (opModeIsActive() && !bottomTapeSensorDetectedBlueReborn(chart.bottomColorSensor)) {
+            if(phase==9) {
+                encoderStrafeLeft(DISTANCE_STRAFE_TO_TAPE, 0.4);
+                sleep(200);
 
-                }
-                rest();
-                phase++;
-            }
-
-            //correct if needed
-            if(phase == 100){
                 correctionRight(distance2encoderNew(CORRECTION_AFTER_TAPE_SPOTTED), 0.6);
+                sleep(200);
                 encoderStrafeLeft(distance2encoderNew(64), 0.35);
                 phase++;
+                phase++;
             }
 
-            if(phase == 110){
+
+            if(phase == 11){
                 goToPositionForward(distance2encoderNew(DISTANCE_GO_TO_FOUNDATION), 0.6);
                 phase++;
             }
 
-            if(phase == 120){
+            if(phase == 12){
                 raiseDL();
                 sleep(500);
                 elevMotorDown(chart.elevMotor, 8, -1.0);
                 phase++;
             }
 
-            if(phase == 130){
+            if(phase == 13){
                 goToPositionBackward(distance2encoderNew(55), 0.8);
                 phase++;
             }
 
-            if(phase == 140){
+            if(phase == 14){
                 elevControl(chart.elevMotor, 500, 1.0);
                 chart.middleGrab.setPosition(0.5);
                 goToPositionForward(distance2encoderNew(3), 0.4);
@@ -180,7 +183,7 @@ public class ENC_BLUE_HYBRID_REBORN_V4500 extends autoBaseV3 {
 
     public void waitUntilEnd() {
         while (opModeIsActive() && !gamepad1.a) {
-            telemetry.addData("Time Until Detection: (ms)", timeUntilDetectionF);
+            telemetry.addData("Time Until Detection: (ms)", timeUntilDetectionFinal);
             telemetry.update();
 
         }
