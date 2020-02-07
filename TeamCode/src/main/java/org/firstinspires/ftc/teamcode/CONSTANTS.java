@@ -16,10 +16,10 @@ public class CONSTANTS {
     public double YalphaBlackIdeal = 1465;
     public double YhueBlackIdeal = 0;
 
-    public double greenYellow = 1726;
-    public double blueYellow = 368.5;
-    public double redYellow = 1184;
-    public double alphaYellowIdeal = 3247;
+    public double greenYellow = 677;
+    public double blueYellow = 195;
+    public double redYellow = 445;
+    public double alphaYellowIdeal = 1305;
     public double hueYellowIdeal = 0;
 
     public double greenFoundation = 859;

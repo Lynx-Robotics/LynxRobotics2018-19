@@ -524,10 +524,10 @@ public abstract class autoBaseV3 extends LinearOpMode {
         if(isInRange(cs.alpha(), 50, 810)){ //if it is far
             alpha = "far";
         }
-        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+        else if (isInRange(cs.alpha(), 70, 1019)){ //if it is middle
             alpha = "middle";
         }
-        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+        else if(isInRange(cs.alpha(), 100, 1290)){ //if it is very close
             alpha = "close";
         }
         else {
@@ -552,9 +552,9 @@ public abstract class autoBaseV3 extends LinearOpMode {
                 break;
         }
 
-        GP = isInRange(cs.green(), 70, G);
-        BP = isInRange(cs.blue(), 45, B);
-        RP = isInRange(cs.red(), 45, R);
+        GP = isInRange(cs.green(), 50, G);
+        BP = isInRange(cs.blue(), 50, B);
+        RP = isInRange(cs.red(), 50, R);
 
         return GP && RP && BP;
     }
