@@ -43,7 +43,7 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
             }
             
             if(timeUntilDetect < 434.65){
-                SR_1 = 2.25;
+                SR_1 = 2.3;
             }
             else if(isInRange(timeUntilDetect, 200, 1348.6765)){
                 SR_1 = 2.5;
@@ -68,7 +68,7 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
 
             //raise the block and secure from Lava
             if (iteration == 6) {
-                elevControl(chart.elevMotor, 360, 1.0);
+                elevControl(chart.elevMotor, 500, 1.0);
                 iteration++;
             }
 
@@ -97,14 +97,14 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
 
             if(iteration == 9){
                 correctionLeft(distance2encoderNew(0.5), 0.6);
-                encoderStrafeLeft(distance2encoderNew(66.0), 0.4);
+                encoderStrafeLeft(distance2encoderNew(67.0), 0.4);
                 rest();
                 iteration++;
                 iteration++;
             }
 
             if(iteration == 11){
-                goToPositionForward(distance2encoderNew(16), 0.6);
+                goToPositionForward(distance2encoderNew(15), 0.6);
                 iteration++;
             }
 
@@ -129,6 +129,11 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
                 correctionRight(distance2encoderNew(0.5), 0.6);
                 goToPositionForward(distance2encoderNew(13), 0.6);
 
+                encoderStrafeRight(distance2encoderNew(10), 0.8);
+                goToPositionForward(distance2encoderNew(5), 0.6);
+
+
+                correctionRight(distance2encoderNew(4), 0.6);
                 strafeRight(0.38);
                 while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(chart.bottomColorSensor)){
 
