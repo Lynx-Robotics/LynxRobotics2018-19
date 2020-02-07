@@ -97,14 +97,14 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
 
             if(iteration == 9){
                 correctionLeft(distance2encoderNew(0.5), 0.6);
-                encoderStrafeLeft(distance2encoderNew(62.0), 0.4);
+                encoderStrafeLeft(distance2encoderNew(66.0), 0.4);
                 rest();
                 iteration++;
                 iteration++;
             }
 
             if(iteration == 11){
-                goToPositionForward(distance2encoderNew(18), 0.6);
+                goToPositionForward(distance2encoderNew(16), 0.6);
                 iteration++;
             }
 
@@ -116,17 +116,17 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
             }
 
             if(iteration == 13){
-                goToPositionBackward(distance2encoderNew(55), 0.8);
+                goToPositionBackward(distance2encoderNew(58), 0.8);
                 iteration++;
             }
 
             if(iteration == 14){
                 elevControl(chart.elevMotor, 500, 1.0);
-                chart.middleGrab.setPosition(0.5);
-                goToPositionForward(distance2encoderNew(3), 0.4);
-                encoderStrafeRight(distance2encoderNew(48), 0.4);
+                chart.middleGrab.setPosition(0.55);
+                goToPositionForward(distance2encoderNew(4), 0.4);
+                encoderStrafeRight(distance2encoderNew(42), 0.4);
 
-                correctionRight(0.95, 0.6);
+                correctionRight(distance2encoderNew(0.5), 0.6);
                 goToPositionForward(distance2encoderNew(10), 0.6);
 
                 strafeRight(0.38);
