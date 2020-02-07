@@ -72,6 +72,7 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
 
                 }
                 rest();
+                iteration++;
             }
 
             /*
