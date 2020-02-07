@@ -114,19 +114,14 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             encoderStrafeLeft(2,0.8);
             rest();
 
-            goForward(0.4);
-            while(opModeIsActive() &&( (!SkyStoneReBornRight(chart.colorSensorRight))||(!StoneReBornRight(chart.colorSensorRight)))){
 
-            }
-            rest();
-
-            //goToPositionForward(distance2encoderNew(2.6), 0.6);
+            goToPositionForward(distance2encoderNew(2.6), 0.6);
             //rest();
     //        sleep(250);
             //goToPosition(chart.BR, chart.TL, distance2encoderNew(0.5), 1.0, false);
             //sleep(250);
             //goToPositionBackward(1,1.0);
-            //goToPositionForward(distance2encoderNew(2.4), 0.5);
+            goToPositionForward(distance2encoderNew(2.4), 0.5);
             //goToPositionBackward(1,1.0);
             encoderStrafeRight(distance2encoderNew(4), 0.8);
             //strafe left
