@@ -106,14 +106,16 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             goToPositionBackward( distance2encoderNew(10), 0.6);
 
 // -------------------------------------------------------------------------------------------------------------------------------------------------------------
+            rest();
+            goToPositionForward(distance2encoderNew(1.5),1);
             goToPositionStrafeBackLeft( chart.TR,chart.TL, distance2encoderNew(38), 0.45);
             sleep(200);
             elevControl(chart.elevMotor, 500, 1.0);
             sleep(100);
-            encoderStrafeRight(distance2encoderNew(6), 0.6);
+            encoderStrafeRight(distance2encoderNew(10), 1);
 
             sleep(300);
-            correctionLeft(distance2encoderNew(2.0),1);
+            //correctionLeft(distance2encoderNew(2.0),1);
             encoderStrafeLeft(distance2encoderNew(1),0.8);
             rest();
 
@@ -124,7 +126,7 @@ public class ENC_BLUE_STONE_TWO_new extends autoBaseV3 {
             rest();
             goToPositionBackwardRealFast(distance2encoderNew(2),0.8);
 
-            encoderStrafeRight(distance2encoderNew(4), 0.8);
+            encoderStrafeRight(distance2encoderNew(5), 0.8);
             //strafe left
             sleep(250);
             chart.runtime.reset();
