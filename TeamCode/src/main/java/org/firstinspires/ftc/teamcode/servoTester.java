@@ -9,7 +9,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 @TeleOp(name = "servoTest", group = "test")
-@Disabled
+//@Disabled
 public class servoTester extends autoBaseV2 {
     CRServo crGrab;
 
@@ -21,20 +21,17 @@ public class servoTester extends autoBaseV2 {
         waitForStart();
         while(opModeIsActive()){
             telemetry.addData("Position of Servo (middleGrab): ", chart.middleGrab.getPosition());
-            telemetry.addData("Position of Servo (hookRight): ", chart.hookRight.getPosition());
-            telemetry.addData("Position of Servo (hookLeft): ", chart.hookLeft.getPosition());
+            telemetry.addData("Position of Servo (capServo): ", chart.capServo.getPosition());
             telemetry.update();
 
             if(gamepad1.a){
                 chart.middleGrab.setPosition(chart.middleGrab.getPosition()+0.05);
-                chart.hookLeft.setPosition(chart.hookLeft.getPosition()+0.05);
-                chart.hookRight.setPosition(chart.hookRight.getPosition()+0.05);
+                chart.capServo.setPosition(chart.capServo.getPosition()+0.05);
                 while (gamepad1.a);
             }
             if(gamepad1.y){
                 chart.middleGrab.setPosition(chart.middleGrab.getPosition()-0.05);
-                chart.hookLeft.setPosition(chart.hookLeft.getPosition()-0.05);
-                chart.hookRight.setPosition(chart.hookRight.getPosition()-0.05);
+                chart.capServo.setPosition(chart.capServo.getPosition()-0.05);
                 while (gamepad1.y);
             }
         }

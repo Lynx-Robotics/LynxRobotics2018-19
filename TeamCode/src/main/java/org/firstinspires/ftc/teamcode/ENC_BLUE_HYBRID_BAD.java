@@ -147,7 +147,7 @@ public class ENC_BLUE_HYBRID_BAD extends autoBaseV2_BAD {
         goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(41), -1.0);
         goToPositionBack(chart.TL, chart.TR, chart.BL, chart.BR, distance2encoderNewFullVolt(3), -.25);
 
-        raiseHookers();
+//        raiseHookers();
         chart.middleGrab.setPosition(0.5);
         goToPosition(chart.elevMotor, 200, 1.0);
 

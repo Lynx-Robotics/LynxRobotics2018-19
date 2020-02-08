@@ -76,7 +76,7 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
 
             if (iteration == 7) {
                 correctionLeft(distance2encoderNew(0.49), 0.6);
-                goToPositionBackwardRealFast(distance2encoderNew(10), 1.0); //can be replaced if causes troubles}
+                goToPositionBackwardRealFast(distance2encoderNew(11), 1.0); //can be replaced if causes troubles}
                 iteration++;
             }
 
@@ -135,7 +135,7 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
                 elevControl(chart.elevMotor,700, 1.0);
                 raiseDL();
                 goForward(0.64);
-                while(opModeIsActive() && ((chart.colorSensorRight.alpha()<850) && (chart.colorSensorLeft.alpha()<850))){
+                while(opModeIsActive() && ((chart.colorSensorRight.alpha()<830) && (chart.colorSensorLeft.alpha()<830))){
 
                 }
                 rest();

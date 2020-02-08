@@ -80,7 +80,7 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
 
             if (iteration == 7) {
                 correctionRight(distance2encoderNew(0.49), 0.6);
-                goToPositionBackwardRealFast(distance2encoderNew(10), 1.0); //can be replaced if causes troubles}
+                goToPositionBackwardRealFast(distance2encoderNew(11), 1.0); //can be replaced if causes troubles}
                 iteration++;
             }
 
@@ -99,15 +99,16 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
              */
 
             if(iteration == 9){
-                correctionRight(distance2encoderNew(0.5), 0.6);
-                encoderStrafeRight(distance2encoderNew(67.0), 0.4);
+                correctionRight(distance2encoderNew(1.7), 0.6);
+                encoderStrafeRight(distance2encoderNew(59.0), 0.4);
                 rest();
                 iteration++;
                 iteration++;
             }
 
             if(iteration == 11){
-                goToPositionForward(distance2encoderNew(15), 0.6);
+                correctionRight(distance2encoderNew(4), 1.0);
+                goToPositionForward(distance2encoderNew(19), 0.6);
                 iteration++;
             }
 
@@ -128,17 +129,17 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
                 elevControl(chart.elevMotor, 500, 1.0);
                 chart.middleGrab.setPosition(0.55);
                 goToPositionForward(distance2encoderNew(4), 0.4);
-                encoderStrafeLeft(distance2encoderNew(27), 0.4);
+                encoderStrafeLeft(distance2encoderNew(30), 0.4);
 
 //                correctionRight(distance2encoderNew(0.5), 0.6);
-                goToPositionForward(distance2encoderNew(13), 0.6);
+//                goToPositionForward(distance2encoderNew(13), 0.6);
 
-                encoderStrafeLeft(distance2encoderNew(6), 0.8);
+                encoderStrafeLeft(distance2encoderNew(8), 0.8);
                 correctionLeft(distance2encoderNew(4), 0.6);
-                goToPositionForward(distance2encoderNew(7), 0.6);
+                goToPositionForward(distance2encoderNew(15), 0.6);
 
 
-                correctionLeft(distance2encoderNew(6), 0.6);
+                correctionLeft(distance2encoderNew(3.9), 0.6);
                 strafeLeft(0.38);
                 while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor)){
 

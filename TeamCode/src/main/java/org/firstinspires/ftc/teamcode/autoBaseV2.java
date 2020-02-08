@@ -363,7 +363,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
         }
     }
 
-    public void dropHookers(){
+    /*public void dropHookers(){
         chart.hookRight.setPosition(0.0);
         chart.hookLeft.setPosition(0.0);
     }
@@ -371,7 +371,7 @@ public abstract class autoBaseV2 extends LinearOpMode {
     public void raiseHookers(){
         chart.hookRight.setPosition(1.0);
         chart.hookLeft.setPosition(1.0);
-    }
+    }*/
 
     public void strafe(double power) {
         chart.TL.setPower(power/* - joltControl(chart.runtime)*/); //TL

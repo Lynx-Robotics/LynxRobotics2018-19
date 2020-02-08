@@ -55,7 +55,7 @@ public class TypexChart {
     ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
     DistanceSensor distSensorLeft, distSensorRight;
 
-    Servo middleGrab, hookLeft, hookRight, capServo;
+    Servo middleGrab, capServo;
 
     public double powerUp = 0.5, powerDown = -0.5, power = 0.15;
     public double globalAngle;
@@ -72,8 +72,8 @@ public class TypexChart {
         hwMap = chart;
 
 
-        hookRight = hwMap.get(Servo.class, "hookRight");
-        hookLeft = hwMap.get(Servo.class, "hookLeft");
+//        hookRight = hwMap.get(Servo.class, "hookRight");
+//        hookLeft = hwMap.get(Servo.class, "hookLeft");
         middleGrab = hwMap.get(Servo.class, "middleGrab");
         capServo = hwMap.get(Servo.class, "capServo");
 
@@ -126,8 +126,8 @@ public class TypexChart {
         /*hookRight.setPosition(0.9);
         hookLeft.setPosition(0.9);*/
         middleGrab.setPosition(0.0);
-        hookLeft.setPosition(1.0);
-        hookRight.setPosition(1.0);
+//        hookLeft.setPosition(1.0);
+//        hookRight.setPosition(1.0);
         capServo.setPosition(.6);
 
 /*        pidDrive = new PController(.05, 0, 0);
