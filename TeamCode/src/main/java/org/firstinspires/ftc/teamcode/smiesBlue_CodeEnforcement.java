@@ -2,12 +2,12 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "COFFEE_RUN_BLUE_HYBRID_ACTUAL")
-public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
+@Autonomous(name = "DIEGO_TWO_STONE_BLUE_SEMI")
+public class smiesBlue_CodeEnforcement extends autoBaseV3 {
 
     int iteration = 0;
     double timeUntilDetect;
-    
+
     double SR_1;
 
     @Override
@@ -18,9 +18,16 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
         waitForStart();
         iteration++;
 
-        while (opModeIsActive() && !(iteration == 15)) {
+        while (opModeIsActive() && !(iteration == 12)) {
             if (iteration == 1) {
                 elevControl(chart.elevMotor, 500, 1.0);
+                rest();
+                chart.globalTime.reset();
+                while(chart.globalTime.seconds() < 10){
+
+                }
+                chart.globalTime.reset();
+                encoderStrafeRight(distance2encoderNew(25), 0.4);
                 goToPositionForward(distance2encoderNew(30), 0.8); //go to blocks
                 sleep(350);
                 iteration++;
@@ -28,7 +35,7 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
 
             if (iteration == 2) {
                 correctionRight(distance2encoderNew(1.95), 0.6);
-                encoderStrafeRight(distance2encoderNew(5), 0.35);
+                encoderStrafeRight(distance2encoderNew(8), 0.35);
                 iteration++;
             }
 
@@ -41,14 +48,12 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
                 rest();
                 iteration++;
             }
-            
-            if(timeUntilDetect < 434.65){
+
+            if (timeUntilDetect < 434.65) {
                 SR_1 = 2.3;
-            }
-            else if(isInRange(timeUntilDetect, 200, 1348.6765)){
+            } else if (isInRange(timeUntilDetect, 200, 1348.6765)) {
                 SR_1 = 2.5;
-            }
-            else {
+            } else {
                 SR_1 = 2.5;
             }
 
@@ -82,10 +87,10 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
                 iteration++;
             }
 
-            if(iteration == 8){
+            if (iteration == 8) {
                 correctionRight(distance2encoderNew(0.5), 0.6);
                 strafeLeft(0.38);
-                while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(chart.bottomColorSensor)){
+                while (opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(chart.bottomColorSensor)) {
 
                 }
                 rest();
@@ -97,48 +102,19 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
              */
 
             if(iteration == 9){
-                correctionLeft(distance2encoderNew(3.2), 0.4);
-                encoderStrafeLeft(distance2encoderNew(63.0), 0.4);
-                rest();
+                goToPositionBackward(distance2encoderNew(12), 1.0);
                 iteration++;
+            }
+
+            if(iteration == 10){
+                encoderStrafeLeft(distance2encoderNew(15), 0.35);
+                raiseDL();
+                sleep(250);
+                chart.middleGrab.setPosition(0.55);
                 iteration++;
             }
 
             if(iteration == 11){
-                goToPositionForward(distance2encoderNew(17), 0.6);
-                iteration++;
-            }
-
-            if(iteration == 12){
-                raiseDL();
-                sleep(500);
-                goToPositionForward(distance2encoderNew(3), 0.4);
-                elevMotorDown(chart.elevMotor, 8, -1.0);
-                iteration++;
-            }
-
-            if(iteration == 13){
-                goToPositionBackward(distance2encoderNew(5), 0.5);
-                goToPositionBackwardRealFast(distance2encoderNewFullVolt(48), 1.0);
-                encoderStrafeLeft(distance2encoderNew(4), 0.4);
-                iteration++;
-            }
-
-            if(iteration == 14){
-                elevControl(chart.elevMotor, 500, 1.0);
-                chart.middleGrab.setPosition(0.55);
-                goToPositionForward(distance2encoderNew(2.5), 0.4);
-                encoderStrafeRight(distance2encoderNew(35), 0.4);
-
-//                correctionRight(distance2encoderNew(0.5), 0.6);
-//                goToPositionForward(distance2encoderNew(13), 0.6);
-
-                encoderStrafeRight(distance2encoderNew(6), 0.8);
-                correctionRight(distance2encoderNew(4), 0.6);
-                goToPositionForward(distance2encoderNew(20), 0.6);
-
-
-                correctionRight(distance2encoderNew(6.4), 0.6);
                 strafeRight(0.38);
                 while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(chart.bottomColorSensor)){
 
@@ -146,6 +122,10 @@ public class ENC_HYBRID_BLUE_V4 extends autoBaseV3 {
                 rest();
                 iteration++;
             }
+
+
+
+
         }
     }
 }
