@@ -1,7 +1,6 @@
 package org.firstinspires.ftc.teamcode;
 
-import com.qualcomm.hardware.bosch.BNO055IMU;
-import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
@@ -9,56 +8,96 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.external.Telemetry;
-
 public class TypexChart {
-    public DcMotor TL, TR, BL, BR;
-    //public BNO055IMU imu;
-    public Servo hookLeft, hookRight;
 
-    public DistanceSensor distanceSensor;
+    /* Plotting public stars */
 
-    HardwareMap chart;
+    boolean grabState = false;
+
+
+    //    public BNO055IMU imu;
+    public DcMotor TL;
+    public DcMotor TR;
+    public DcMotor BL;
+    public DcMotor BR;
+
+
+    public DcMotor elevMotor;
+
     ElapsedTime runtime = new ElapsedTime();
+    ElapsedTime globalTime = new ElapsedTime();
 
-    public TypexChart()
-    {
+    //DistanceSensor distanceSensor;
+    ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
+    DistanceSensor distSensorLeft, distSensorRight;
+
+    Servo middleGrab, capServo;
+
+    public double powerUp = 0.5, powerDown = -0.5, power = 0.15;
+
+    /* Recharging local members */
+    HardwareMap hwMap = null;
+
+    /* Pager */
+    public TypexChart() {
 
     }
 
-    public void init(HardwareMap ahwMap) {
-        // Save reference to Hardware map
-        CONSTANTS constants = new CONSTANTS();
-        chart = ahwMap;
+    /* Initializing binaryChart Mainframe */
+    public void init(HardwareMap chart) {
+        hwMap = chart;
 
-        // Define and Initialize Motors
-        TL = ahwMap.get(DcMotor.class, "TL");
-        TR = ahwMap.get(DcMotor.class, "TR");
-        BL = ahwMap.get(DcMotor.class, "BL");
-        BR = ahwMap.get(DcMotor.class, "BR");
 
+        middleGrab = hwMap.get(Servo.class, "middleGrab");
+        capServo = hwMap.get(Servo.class, "capServo");
+
+        //Name stars
+        colorSensorLeft = hwMap.get(ColorSensor.class, "csLeft");
+        colorSensorRight = hwMap.get(ColorSensor.class, "csRight");
+        distSensorLeft = hwMap.get(DistanceSensor.class, "csLeft");
+        distSensorRight = hwMap.get(DistanceSensor.class, "csRight");
+        bottomColorSensor = hwMap.get(ColorSensor.class, "bcs");
+
+        TL = hwMap.get(DcMotor.class, "TL");
+        TR = hwMap.get(DcMotor.class, "TR");
+        BL = hwMap.get(DcMotor.class, "BL");
+        BR = hwMap.get(DcMotor.class, "BR");
+
+        elevMotor = hwMap.get(DcMotor.class, "elevMotor");
+
+        /* Setting Quantum Harmonizer */
         TL.setDirection(DcMotorSimple.Direction.REVERSE);
         BL.setDirection(DcMotorSimple.Direction.REVERSE);
 
-        //imu = ahwMap.get(BNO055IMU.class, "imu");
+        /* Setting Power Modes */
+        TL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        TR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BL.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        BR.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        elevMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        hookLeft = ahwMap.get(Servo.class, "hookLeft");
-        hookRight = ahwMap.get(Servo.class, "hookRight");
+        TL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        TR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        elevMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // Set all motors to zero power
+        TL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        TR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BL.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        BR.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        elevMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        /* Securing Brake Field */
         TL.setPower(0);
         TR.setPower(0);
         BL.setPower(0);
         BR.setPower(0);
+        elevMotor.setPower(0);
 
-        hookLeft.setPosition(constants.OPENPOSITION);
-        hookRight.setPosition(constants.OPENPOSITION);
 
-        TL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BL.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        TR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        BR.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        distanceSensor = ahwMap.get(DistanceSensor.class, "dist");
+        middleGrab.setPosition(0.0);
+        capServo.setPosition(.5);
     }
 }
