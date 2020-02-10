@@ -132,7 +132,7 @@ public class TypexChart {
         middleGrab.setPosition(0.0);
 //        hookLeft.setPosition(1.0);
 //        hookRight.setPosition(1.0);
-        capServo.setPosition(.6);
+        capServo.setPosition(.5);
 
         imu = hwMap.get(BNO055IMU.class, "imu");
 

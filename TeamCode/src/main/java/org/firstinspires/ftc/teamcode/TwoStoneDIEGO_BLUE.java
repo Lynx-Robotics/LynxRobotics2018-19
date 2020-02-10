@@ -18,7 +18,7 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
         waitForStart();
         iteration++;
 
-        while (opModeIsActive()) {
+        while (opModeIsActive() && !(iteration == 22)) {
             if (iteration == 1) {
                 elevControl(chart.elevMotor, 500, 1.0);
                 goToPositionForward(distance2encoderNew(30), 0.8); //go to blocks
@@ -112,12 +112,15 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
             }
 
             if (iteration == 11){
-                correctionRight(distance2encoderNew(2.8), 0.8);
+                correctionRight(distance2encoderNew(3.8), 0.8);
                 iteration++;
             }
 
             if(iteration == 12){
-                encoderStrafeRight(distance2encoderNew(75), 0.55);
+                correctionRight(distance2encoderNew(6.2), 0.8);
+                encoderStrafeRight(distance2encoderNew(39), 0.55); //75 somewhat worked
+                correctionRight(distance2encoderNew(9.2), 0.8);
+                encoderStrafeRight(distance2encoderNew(39), 0.55);
 
                 sleep(200);
 //                correctionRight(distance2encoderNew(5.5), 0.8);
@@ -134,10 +137,10 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
             if (iteration == 14){
                 elevControl(chart.elevMotor,700, 1.0);
                 raiseDL();
-                goForward(0.64);
-                while(opModeIsActive() && ((chart.colorSensorRight.alpha()<830) && (chart.colorSensorLeft.alpha()<830))){
+                goToPositionForward(distance2encoderNew(12), 0.5);
+                /*while(opModeIsActive() && ((chart.colorSensorRight.alpha()<810) && (chart.colorSensorLeft.alpha()<810))){ //worked somewhat
 
-                }
+                }*/
                 rest();
                 iteration++;
             }
@@ -145,30 +148,30 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
             if(iteration == 15){
                 goToPositionBackward(distance2encoderNew(3), 0.6);
                 chart.globalTime.reset();
-                iteration++;
+                iteration = 17;
             }
 
-            if(iteration == 16){
+            /*if(iteration == 16){
                 strafeLeft(0.35);
                 while(opModeIsActive() && !SkyStoneReBornRight(chart.colorSensorRight)){
                     timeUntilDetect = chart.globalTime.milliseconds();
                 }
                 timeUntilDetect = chart.globalTime.milliseconds();
-                if(timeUntilDetect < (1348.6765 - 200)){
-                    iteration++;
+                if(timeUntilDetect < (1348.6765 + 400)){
+                    iteration = 18;
                 }
-                else if(timeUntilDetect > (1348.6765 - 200) && SkyStoneReBornRight(chart.colorSensorRight)){
+                *//*if(timeUntilDetect > (1348.6765 - 200) && SkyStoneReBornRight(chart.colorSensorRight)){
                     iteration++;
-                }
+                }*//*
                 else if(!SkyStoneReBornRight(chart.colorSensorRight) && timeUntilDetect > (1348.6765 - 200)){
                     iteration = 18;
                 }
-            }
+            }*/
 
             if(iteration == 17){
                 encoderStrafeLeft(distance2encoderNew(3.85), 0.4);
                 elevMotorDown(chart.elevMotor, 5, -1.0);
-                goToPositionForward(distance2encoderNew(3.2), 0.4);
+                goToPositionForward(distance2encoderNew(5.2), 0.4);
                 dropDL();
                 sleep(500);
                 elevControl(chart.elevMotor, 450, 1.0);
@@ -176,7 +179,7 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
             }
 
             if(iteration == 18){
-                encoderStrafeRight(distance2encoderNew(4), 0.4);
+                encoderStrafeRight(distance2encoderNew(4.0), 0.4);
                 elevMotorDown(chart.elevMotor, 5, -1.0);
                 goToPositionForward(distance2encoderNew(3.2), 0.4);
                 dropDL();
@@ -187,12 +190,13 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
             }
 
             if(iteration == 19){
-                goToPositionBackward(distance2encoderNew(10), 1.0);
+                goToPositionBackward(distance2encoderNew(13.5), 1.0);
                 correctionLeft(distance2encoderNew(1), 1.0);
                 iteration++;
             }
 
             if(iteration == 20){
+                correctionLeft(distance2encoderNew(2), 0.4);
                 encoderStrafeLeft(distance2encoderNew(50), 1.0);
                 iteration++;
             }
@@ -204,7 +208,7 @@ public class TwoStoneDIEGO_BLUE extends autoBaseV3 {
                 encoderStrafeLeft(distance2encoderNew(15), 0.5);
                 rest();
                 raiseDL();
-                elevMotorDown(chart.elevMotor, 450, -1.0);
+                elevControl(chart.elevMotor, 450, -1.0);
                 chart.middleGrab.setPosition(0.55);
                 strafeRight(0.4);
                 while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(chart.bottomColorSensor));

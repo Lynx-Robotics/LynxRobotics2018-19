@@ -44,13 +44,13 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
             }
 
             if(timeUntilDetect < 434.65){
-                SR_1 = 3.80;
+                SR_1 = 4.05;
             }
             else if(isInRange(timeUntilDetect, 200, 1348.6765)){
-                SR_1 = 3.80;
+                SR_1 = 4.05;
             }
             else {
-                SR_1 = 3.80;
+                SR_1 = 4.05;
             }
 
             if (iteration == 4) {
@@ -79,14 +79,16 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
              */
 
             if (iteration == 7) {
-                correctionRight(distance2encoderNew(0.49), 0.6);
+                correctionRight(distance2encoderNew(0.49), 0.4);
                 goToPositionBackwardRealFast(distance2encoderNew(11), 1.0); //can be replaced if causes troubles}
                 iteration++;
             }
 
             if(iteration == 8){
-                correctionLeft(distance2encoderNew(0.5), 0.6);
-                strafeRight(0.38);
+//                correctionLeft(distance2encoderNew(0.5), 0.6);
+                correctionRight(distance2encoderNew(2),1);
+                strafeRight(0.35);
+
                 while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor)){
 
                 }
@@ -99,16 +101,21 @@ public class ENC_HYBRID_RED_V4 extends autoBaseV3 {
              */
 
             if(iteration == 9){
-                correctionRight(distance2encoderNew(1.7), 0.6);
-                encoderStrafeRight(distance2encoderNew(59.0), 0.4);
+                correctionRight(distance2encoderNew(10.7), 0.4);
+                encoderStrafeRight(distance2encoderNew(28.0), 0.35);
                 rest();
+//                sleep(500);
+                goToPositionForward(distance2encoderNew(2), 0.5);
+                correctionRight(distance2encoderNew(6), 0.4);
+                encoderStrafeRight(distance2encoderNew(38.0), 0.35);
+
                 iteration++;
                 iteration++;
             }
 
             if(iteration == 11){
-                correctionRight(distance2encoderNew(4), 1.0);
-                goToPositionForward(distance2encoderNew(19), 0.6);
+                correctionRight(distance2encoderNew(2.6), 1.0);
+                goToPositionForward(distance2encoderNew(24), 0.6);
                 iteration++;
             }
 

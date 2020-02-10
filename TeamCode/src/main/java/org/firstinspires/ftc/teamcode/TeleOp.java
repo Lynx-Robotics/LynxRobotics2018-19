@@ -34,6 +34,7 @@ public class TeleOp extends autoBaseV2 {
 
                 }
             }
+
             if(gamepad1.dpad_right){
                 chart.TL.setPower((0.3));
                 chart.TR.setPower(-(0.3));
@@ -51,18 +52,6 @@ public class TeleOp extends autoBaseV2 {
                 }
             }
 
-            if(gamepad1.a){
-                speedMultip = 0.25;
-            }
-            if(gamepad1.y){
-                speedMultip = 0.5;
-            }
-            if (gamepad1.x){
-                speedMultip = 0.75;
-            }
-            if(gamepad1.b){
-                speedMultip = 1.0;
-            }
 
             if(chart.grabState){
                 chart.middleGrab.setPosition(0.05);
@@ -71,8 +60,12 @@ public class TeleOp extends autoBaseV2 {
                 chart.middleGrab.setPosition(0.8);
             }
 
-            if(chart.elevMotor.getCurrentPosition() <= 10){
+            if(chart.elevMotor.getCurrentPosition() <= 10 && !gamepad2.y){
                 ZERODOWN = 0;
+                while (gamepad2.y){
+
+                }
+                resetEncoders(chart.elevMotor);
             }
             else if(gamepad1.y){
                 ZERODOWN = 1;

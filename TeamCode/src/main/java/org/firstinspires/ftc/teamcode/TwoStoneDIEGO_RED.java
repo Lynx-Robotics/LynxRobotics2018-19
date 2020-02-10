@@ -18,7 +18,7 @@ public class TwoStoneDIEGO_RED extends autoBaseV3 {
         waitForStart();
         iteration++;
 
-        while (opModeIsActive()) {
+        while (opModeIsActive() && !(iteration == 90)){
             if (iteration == 1) {
                 elevControl(chart.elevMotor, 500, 1.0);
                 goToPositionForward(distance2encoderNew(30), 0.8); //go to blocks
@@ -28,7 +28,7 @@ public class TwoStoneDIEGO_RED extends autoBaseV3 {
 
             if (iteration == 2) {
                 correctionRight(distance2encoderNew(1.95), 0.6);
-                encoderStrafeLeft(distance2encoderNew(5), 0.35);
+                encoderStrafeLeft(distance2encoderNew(9), 0.35);
                 iteration++;
             }
 
@@ -43,11 +43,11 @@ public class TwoStoneDIEGO_RED extends autoBaseV3 {
             }
 
             if (timeUntilDetect < 434.65) {
-                SR_1 = 2.3;
+                SR_1 = 4.3;
             } else if (isInRange(timeUntilDetect, 200, 1348.6765)) {
-                SR_1 = 2.5;
+                SR_1 = 4.3;
             } else {
-                SR_1 = 2.5;
+                SR_1 = 4.3;
             }
 
             if (iteration == 4) {
@@ -82,7 +82,7 @@ public class TwoStoneDIEGO_RED extends autoBaseV3 {
 
             if (iteration == 8) {
                 correctionRight(distance2encoderNew(0.5), 0.6);
-                strafeRight(0.38);
+                strafeRight(0.4);
                 while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor)) {
 
                 }
@@ -95,11 +95,11 @@ public class TwoStoneDIEGO_RED extends autoBaseV3 {
              */
 
             if(iteration == 9){
-                encoderStrafeRight(distance2encoderNew(15), 0.35);
+                encoderStrafeRight(distance2encoderNew(9), 0.35);
                 raiseDL();
                 sleep(250);
                 chart.middleGrab.setPosition(0.55);
-                iteration++;
+                iteration++ ;
             }
 
             if(iteration == 10){
@@ -112,12 +112,12 @@ public class TwoStoneDIEGO_RED extends autoBaseV3 {
             }
 
             if (iteration == 11){
-                correctionRight(distance2encoderNew(2.8), 0.8);
+                correctionRight(distance2encoderNew(4.5), 0.35);
                 iteration++;
             }
 
             if(iteration == 12){
-                encoderStrafeLeft(distance2encoderNew(75), 0.55);
+                encoderStrafeLeft(distance2encoderNew(86), 0.55);
 
                 sleep(200);
 //                correctionRight(distance2encoderNew(5.5), 0.8);
@@ -127,28 +127,30 @@ public class TwoStoneDIEGO_RED extends autoBaseV3 {
             if(iteration == 13){
 //                encoderStrafeRight(distance2encoderNew(44), 0.5);
                 sleep(250);
-                correctionRight(distance2encoderNew(2.5), 0.8);
+//                correctionRight(distance2encoderNew(2.5), 0.8);
                 iteration++;
             }
 
             if (iteration == 14){
                 elevControl(chart.elevMotor,700, 1.0);
                 raiseDL();
-                goForward(0.64);
-                while(opModeIsActive() && ((chart.colorSensorRight.alpha()<850) && (chart.colorSensorLeft.alpha()<850))){
+                goToPositionForward(distance2encoderNew(8.5), 0.5);
+//                goForward(0.5);
+                /*while(opModeIsActive() && ((chart.colorSensorRight.alpha()<900) && (chart.colorSensorLeft.alpha()<900))){
 
                 }
-                rest();
+                rest();*/
                 iteration++;
             }
 
             if(iteration == 15){
-                goToPositionBackward(distance2encoderNew(3), 0.6);
+//                goToPositionBackward(distance2encoderNew(3), 0.6);
+                encoderStrafeRight(distance2encoderNew(3.0), 0.5);
                 chart.globalTime.reset();
-                iteration++;
+                iteration = 17;
             }
 
-            if(iteration == 16){
+            /*if(iteration == 16){
                 strafeRight(0.35);
                 while(opModeIsActive() && !SkyStoneReBornRight(chart.colorSensorRight)){
                     timeUntilDetect = chart.globalTime.milliseconds();
@@ -163,10 +165,10 @@ public class TwoStoneDIEGO_RED extends autoBaseV3 {
                 else if((!SkyStoneReBornRight(chart.colorSensorRight))&& (timeUntilDetect>(1348.6765-200))){
                     iteration=18;
                 }
-            }
+            }*/
 
             if(iteration == 17){
-                encoderStrafeRight(distance2encoderNew(3.85), 0.4);
+//                encoderStrafeRight(distance2encoderNew(1.5), 0.4);
                 elevMotorDown(chart.elevMotor, 5, -1.0);
                 goToPositionForward(distance2encoderNew(3.2), 0.4);
                 dropDL();
@@ -188,23 +190,26 @@ public class TwoStoneDIEGO_RED extends autoBaseV3 {
 
             if(iteration == 19){
                 goToPositionBackward(distance2encoderNew(10), 1.0);
-                correctionLeft(distance2encoderNew(1), 1.0);
+//                correctionLeft(distance2encoderNew(1), 1.0);
+                correctionRight(distance2encoderNew(4.5), 0.4);
                 iteration++;
             }
 
             if(iteration == 20){
-                encoderStrafeRight(distance2encoderNew(50), 1.0);
+                encoderStrafeRight(distance2encoderNew(50), .6);
                 iteration++;
             }
 
             if(iteration == 21){
-                strafeLeft(0.4);
+                strafeRight(0.4);
                 while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor));
                 rest();
+                iteration++;
                 encoderStrafeRight(distance2encoderNew(15), 0.5);
                 rest();
                 raiseDL();
-                elevMotorDown(chart.elevMotor, 450, -1.0);
+//                elevMotorDown(chart.elevMotor, 300, -1.0);
+                sleep(500);
                 chart.middleGrab.setPosition(0.55);
                 strafeLeft(0.4);
                 while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(chart.bottomColorSensor));
