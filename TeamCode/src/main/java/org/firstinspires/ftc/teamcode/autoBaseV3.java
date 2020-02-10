@@ -295,6 +295,12 @@ public abstract class autoBaseV3 extends LinearOpMode {
         rest();
     }
 
+    public void corrRight(double power){
+        chart.BR.setPower(-power);
+        chart.TL.setPower(power);
+
+    }
+
     public void correctionLeft(double position, double power) {
         resetEncoders(chart.TL);
         resetEncoders(chart.BR);
@@ -324,6 +330,11 @@ public abstract class autoBaseV3 extends LinearOpMode {
         rest();
     }
 
+    public void corrLeft(double power){
+        chart.BR.setPower(power);
+        chart.TL.setPower(-power);
+
+    }
     public boolean bottomTapeSensorDetectedBlueReborn(ColorSensor cs){
         String alpha;
         double G = 1049;//constants.tapeGreenBLUE;

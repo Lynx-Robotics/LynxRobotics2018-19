@@ -24,8 +24,6 @@ import static java.lang.Thread.sleep;
 public class TypexChart {
 
     /* Plotting public stars */
-    PController pidRotate, pidDrive;
-    CONSTANTS constants = new CONSTANTS();
 
     boolean grabState = false;
 
@@ -37,6 +35,8 @@ public class TypexChart {
     public DcMotor BL ;
     public DcMotor BR ;
 
+    PController pidRotate, pidDrive;
+    CONSTANTS constants = new CONSTANTS();
 
 
     public DcMotor elevMotor;
@@ -55,7 +55,11 @@ public class TypexChart {
     ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
     DistanceSensor distSensorLeft, distSensorRight;
 
+
     Servo middleGrab, capServo;
+
+    BNO055IMU imu;
+
 
     public double powerUp = 0.5, powerDown = -0.5, power = 0.15;
     public double globalAngle;
@@ -129,6 +133,8 @@ public class TypexChart {
 //        hookLeft.setPosition(1.0);
 //        hookRight.setPosition(1.0);
         capServo.setPosition(.6);
+
+        imu = hwMap.get(BNO055IMU.class, "imu");
 
 /*        pidDrive = new PController(.05, 0, 0);
         pidRotate = new PController(.004, .00004, 0);*/
