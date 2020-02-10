@@ -39,11 +39,16 @@ public class odometryChecker extends autoBaseV4 {
         waitForStart();
         while(opModeIsActive()){
 
+            reportedChangeTL = changePerTime(chart.TL.getCurrentPosition());
+            reportedChangeTR = changePerTime(chart.TR.getCurrentPosition());
+            reportedChangeBL = changePerTime(chart.BL.getCurrentPosition());
+            reportedChangeBR = changePerTime(chart.BR.getCurrentPosition());
+
             telemetry.addData("Power Sent: ", power);
-            telemetry.addData("Reported Change (TL): ", reportedChangeTL);
-            telemetry.addData("Reported Change (TR): ", reportedChangeTR);
-            telemetry.addData("Reported Change (BL): ", reportedChangeBL);
-            telemetry.addData("Reported Change (BR): ", reportedChangeBR);
+            telemetry.addData("Reported Change (TL): ", reportedChangeTL + "enc/ms");
+            telemetry.addData("Reported Change (TR): ", reportedChangeTR + "enc/ms");
+            telemetry.addData("Reported Change (BL): ", reportedChangeBL + "enc/ms");
+            telemetry.addData("Reported Change (BR): ", reportedChangeBR + "enc/ms");
             telemetry.update();
 
         }
@@ -52,24 +57,26 @@ public class odometryChecker extends autoBaseV4 {
     public class odomChecker implements Runnable{
         @Override
         public void run() {
-            if(gamepad1.a) phase++;
-            if(gamepad1.dpad_up){
-                power = power + 0.05;
-                while(gamepad1.dpad_up);
-            }
-            if(gamepad1.dpad_up){
-                power = power - 0.05;
-                while(gamepad1.dpad_up);
-            }
+            while(!isStopRequested()){
+                if(gamepad1.a) phase++;
+                if(gamepad1.dpad_up){
+                    power = power + 0.05;
+                    while(gamepad1.dpad_up);
+                }
+                if(gamepad1.dpad_up){
+                    power = power - 0.05;
+                    while(gamepad1.dpad_up);
+                }
 
-            if(phase%2 == 0){
-                chart.TL.setPower(power);
-                chart.TR.setPower(power);
-                chart.BL.setPower(power);
-                chart.BR.setPower(power);
-            }
-            else{
-                rest();
+                if(phase%2 == 0){
+                    chart.TL.setPower(power);
+                    chart.TR.setPower(power);
+                    chart.BL.setPower(power);
+                    chart.BR.setPower(power);
+                }
+                else{
+                    rest();
+                }
             }
         }
     }
