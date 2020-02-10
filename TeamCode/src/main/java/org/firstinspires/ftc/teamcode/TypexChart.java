@@ -80,7 +80,7 @@ public class TypexChart {
 //        hookLeft = hwMap.get(Servo.class, "hookLeft");
         middleGrab = hwMap.get(Servo.class, "middleGrab");
         capServo = hwMap.get(Servo.class, "capServo");
-
+        imu=hwMap.get(BNO055IMU.class,"imu");
         //Name stars
         //distanceSensor = hwMap.get(DistanceSensor.class, "dist");
         colorSensorLeft = hwMap.get(ColorSensor.class, "csLeft");
