@@ -39,17 +39,6 @@ public class odometryChecker extends autoBaseV4 {
         waitForStart();
         while(opModeIsActive()){
 
-            reportedChangeTL = changePerTime(chart.TL.getCurrentPosition());
-            reportedChangeTR = changePerTime(chart.TR.getCurrentPosition());
-            reportedChangeBL = changePerTime(chart.BL.getCurrentPosition());
-            reportedChangeBR = changePerTime(chart.BR.getCurrentPosition());
-
-            telemetry.addData("Power Sent: ", power);
-            telemetry.addData("Reported Change (TL): ", reportedChangeTL + "enc/ms");
-            telemetry.addData("Reported Change (TR): ", reportedChangeTR + "enc/ms");
-            telemetry.addData("Reported Change (BL): ", reportedChangeBL + "enc/ms");
-            telemetry.addData("Reported Change (BR): ", reportedChangeBR + "enc/ms");
-            telemetry.update();
 
         }
     }
@@ -63,9 +52,9 @@ public class odometryChecker extends autoBaseV4 {
                     power = power + 0.05;
                     while(gamepad1.dpad_up);
                 }
-                if(gamepad1.dpad_up){
+                if(gamepad1.dpad_down){
                     power = power - 0.05;
-                    while(gamepad1.dpad_up);
+                    while(gamepad1.dpad_down);
                 }
 
                 if(phase%2 == 0){
@@ -77,6 +66,13 @@ public class odometryChecker extends autoBaseV4 {
                 else{
                     rest();
                 }
+
+                telemetry.addData("Power Sent: ", power);
+                telemetry.addData("Reported Change (TL): ", reportedChangeTL + "enc/ms");
+                telemetry.addData("Reported Change (TR): ", reportedChangeTR + "enc/ms");
+                telemetry.addData("Reported Change (BL): ", reportedChangeBL + "enc/ms");
+                telemetry.addData("Reported Change (BR): ", reportedChangeBR + "enc/ms");
+                telemetry.update();
             }
         }
     }

@@ -1,11 +1,67 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 public abstract class autoBaseV4 extends LinearOpMode {
     TypexChart chart = new TypexChart();
     CONSTANTS constants = new CONSTANTS();
+
+    public boolean isInRange(double number, double tolerance, double targ) {
+        if (((targ + tolerance) > number) && ((targ - tolerance) < number)) {
+
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean SkyStoneReBornRight(ColorSensor cs){
+        String alpha = "undefined";
+        double G = constants.avgGreenBlackMIDR;
+        double B = constants.avgBlueBlackMIDR;
+        double R = constants.avgRedBlackMIDR;
+
+        boolean GP = false, BP = false, RP = false;
+
+        if(isInRange(cs.alpha(), 50, 810)){ //if it is far
+            alpha = "far";
+        }
+        else if (isInRange(cs.alpha(), 50, 1019)){ //if it is middle
+            alpha = "middle";
+        }
+        else if(isInRange(cs.alpha(), 50, 1200)){ //if it is very close
+            alpha = "close";
+        }
+        else {
+            alpha = "middle";
+        }
+
+        switch (alpha){
+            case "far":
+                G = constants.avgGreenBlackCLOSER;
+                B = constants.avgBlueBlackCLOSER;
+                R = constants.avgRedBlackCLOSER;
+                break;
+            case "middle":
+                G = constants.avgGreenBlackCLOSER;
+                B = constants.avgBlueBlackCLOSER;
+                R = constants.avgRedBlackCLOSER;
+                break;
+            case "close":
+                G = constants.avgGreenBlackCLOSER;
+                B = constants.avgBlueBlackCLOSER;
+                R = constants.avgRedBlackCLOSER;
+                break;
+        }
+
+        GP = isInRange(cs.green(), 70, G);
+        BP = isInRange(cs.blue(), 45, B);
+        RP = isInRange(cs.red(), 45, R);
+
+        return GP && RP && BP;
+    }
 
     public double pChange(double num) {
         double firstRead = num;
@@ -27,18 +83,28 @@ public abstract class autoBaseV4 extends LinearOpMode {
         }
     }
 
+    public void elevControl(DcMotor motor1, double position, double power) {
+        //resetEncoders(motor1);
+        int motorPosition = motor1.getCurrentPosition();
+
+        motor1.setPower(power);
+
+        while ((motorPosition <= position)) {
+            telemetry.addData("Current Position: ", motor1.getCurrentPosition());
+            telemetry.update();
+
+            motorPosition = motor1.getCurrentPosition();
+        }
+        motor1.setPower(0);
+    }
 
     public double changePerTime(double num) {
         double firstRead = num;
-        try {
-            Thread.sleep(20);
-        } catch (InterruptedException e) {
-            telemetry.addData("Thread was Interrupted (change): ", true);
-            telemetry.update();
-            while (opModeIsActive()) {
-                //wait for stop button
-            }
+        chart.globalTime.reset();
+        while(chart.globalTime.milliseconds() < 20){
+
         }
+        chart.globalTime.reset();
         double lastRead = num;
 
         return (lastRead - firstRead) / 20.0; //unit per milliseconds

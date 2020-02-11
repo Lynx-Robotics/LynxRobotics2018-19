@@ -11,7 +11,7 @@ public class acceleration {
             return 0;
         }
         else if(currentPower < targetPower){
-            return Math.abs((pError/10));
+            return Math.abs((pError/20));
         }
         else if (currentPower > targetPower){
             return (Math.abs((pError/20)) * -1.0);

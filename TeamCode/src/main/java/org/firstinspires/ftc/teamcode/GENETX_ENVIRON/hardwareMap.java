@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode;
+package org.firstinspires.ftc.teamcode.GENETX_ENVIRON;
 
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,7 +8,7 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-public class TypexChart {
+public class hardwareMap {
 
     /* Plotting public stars */
 
@@ -24,17 +24,14 @@ public class TypexChart {
 
     public DcMotor elevMotor;
 
-    public ElapsedTime runtime = new ElapsedTime();
-    public ElapsedTime globalTime = new ElapsedTime();
+    ElapsedTime runtime = new ElapsedTime();
+    ElapsedTime globalTime = new ElapsedTime();
 
     //DistanceSensor distanceSensor;
-    ColorSensor colorSensorLeft;
-    public ColorSensor bottomColorSensor;
-    ColorSensor colorSensorRight; //colorSensor will default to the left
+    ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
     DistanceSensor distSensorLeft, distSensorRight;
 
-    public Servo middleGrab;
-    Servo capServo;
+    Servo middleGrab, capServo;
 
     public double powerUp = 0.5, powerDown = -0.5, power = 0.15;
 
@@ -42,7 +39,7 @@ public class TypexChart {
     HardwareMap hwMap = null;
 
     /* Pager */
-    public TypexChart() {
+    public hardwareMap() {
 
     }
 
