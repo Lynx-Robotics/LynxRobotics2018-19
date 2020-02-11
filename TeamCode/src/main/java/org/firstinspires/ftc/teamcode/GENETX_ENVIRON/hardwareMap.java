@@ -22,6 +22,8 @@ public class hardwareMap {
     public DcMotor BR;
 
 
+
+
     public DcMotor elevMotor;
 
     public ElapsedTime runtime = new ElapsedTime();
@@ -101,6 +103,6 @@ public class hardwareMap {
 
 
         middleGrab.setPosition(0.0);
-        capServo.setPosition(.5);
+        capServo.setPosition(0.0);
     }
 }
