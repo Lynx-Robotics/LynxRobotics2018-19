@@ -1,16 +1,12 @@
-package org.firstinspires.ftc.teamcode.GENETX_ENVIRON;
+package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
-import org.firstinspires.ftc.teamcode.CONSTANTS;
-import org.firstinspires.ftc.teamcode.R;
-import org.firstinspires.ftc.teamcode.*;
+import org.firstinspires.ftc.teamcode.GENETX_ENVIRON.hardwareMap;
 
-import java.lang.reflect.Type;
-
-public abstract class autoBaseV5 extends LinearOpMode {
+public abstract class autoBaseV5A extends LinearOpMode {
 
     CONSTANTS constants = new CONSTANTS();
     hardwareMap map = new hardwareMap();
@@ -139,6 +135,35 @@ public abstract class autoBaseV5 extends LinearOpMode {
 
         map.BR.setPower(-power + correctionBR);
         map.TL.setPower(power - correctionTL);
+
+        while (opModeIsActive() && (avgEncoderPosFix < position)) {
+            encoderPositionTL = map.TL.getCurrentPosition();
+            encoderPositionBR = map.BR.getCurrentPosition();
+
+            avgEncoderPos = (double) (Math.abs(encoderPositionTL) + Math.abs(encoderPositionBR)) / 2.0;
+            avgEncoderPosFix = Math.floor(avgEncoderPos);
+
+            telemetry.addData("Average Encoder Positions: ", avgEncoderPosFix);
+            telemetry.update();
+        }
+
+        rest();
+    }
+
+    public void correctionLeft(double position, double power) {
+        resetEncoders(map.TL);
+        resetEncoders(map.BR);
+        resetEncoders(map.TR);
+        resetEncoders(map.BL);
+
+        int encoderPositionTL = map.TL.getCurrentPosition();
+        int encoderPositionBR = map.BR.getCurrentPosition();
+
+        double avgEncoderPos = (double) (Math.abs(encoderPositionTL) + Math.abs(encoderPositionBR)) / 2.0;
+        double avgEncoderPosFix = Math.floor(avgEncoderPos);
+
+        map.BR.setPower(power - correctionBR);
+        map.TL.setPower(-power + correctionTL);
 
         while (opModeIsActive() && (avgEncoderPosFix < position)) {
             encoderPositionTL = map.TL.getCurrentPosition();
@@ -317,6 +342,24 @@ public abstract class autoBaseV5 extends LinearOpMode {
         map.TR.setPower(power - correctionTR);
         map.BL.setPower(power - correctionBL);
         map.BR.setPower(-power + correctionBR);
+    }
+
+    public boolean bottomTapeSensorDetectedBlueReborn1(ColorSensor cs){
+        String alpha;
+        double G = constants.tapeGreenBLUE;
+        double B = constants.tapeBlueBLUE;
+        double R = constants.tapeRedBLUE;
+
+        boolean GP = false, BP = false, RP = false;
+
+
+
+
+        GP = isInRange(cs.green(), 750, G);
+        BP = isInRange(cs.blue(), 750, B);
+        RP = isInRange(cs.red(), 750, R);
+
+        return GP && RP && BP;
     }
 
     public void elevMotorDown(DcMotor motor1, double position, double power) {

@@ -24,14 +24,17 @@ public class hardwareMap {
 
     public DcMotor elevMotor;
 
-    ElapsedTime runtime = new ElapsedTime();
-    ElapsedTime globalTime = new ElapsedTime();
+    public ElapsedTime runtime = new ElapsedTime();
+    public ElapsedTime globalTime = new ElapsedTime();
 
     //DistanceSensor distanceSensor;
-    ColorSensor colorSensorLeft, bottomColorSensor, colorSensorRight; //colorSensor will default to the left
+    ColorSensor colorSensorLeft;
+    public ColorSensor bottomColorSensor;
+    public ColorSensor colorSensorRight; //colorSensor will default to the left
     DistanceSensor distSensorLeft, distSensorRight;
 
-    Servo middleGrab, capServo;
+    public Servo middleGrab;
+    Servo capServo;
 
     public double powerUp = 0.5, powerDown = -0.5, power = 0.15;
 

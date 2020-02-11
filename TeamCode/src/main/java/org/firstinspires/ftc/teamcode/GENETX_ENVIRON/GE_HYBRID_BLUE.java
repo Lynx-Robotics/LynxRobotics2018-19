@@ -25,7 +25,7 @@ public class GE_HYBRID_BLUE extends autoBaseV5 {
         Thread sOSS = new Thread(secondaryOdometrySubSystem);
         Thread eSS = new Thread(elevationSubSystem);
 
-        sSS.start();
+//        sSS.start();
         pOSS.start();
         sOSS.start();
         eSS.start();

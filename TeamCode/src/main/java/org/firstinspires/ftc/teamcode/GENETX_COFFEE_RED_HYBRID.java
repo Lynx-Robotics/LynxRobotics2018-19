@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "GENETX COFFEE BLUE HYBRID")
-public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
+@Autonomous(name = "GENETX COFFEE RED HYBRID")
+public class GENETX_COFFEE_RED_HYBRID extends autoBaseV5A {
 
     int globalPhase = 0;
     double targetVoltage = 1.0, targetVelocity = 9500;
@@ -35,14 +35,14 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 2){
-                correctionRight(distance2encoderNew(1.75), 0.3);
+                correctionLeft(distance2encoderNew(1.55), 0.3);
 
-                encoderStrafeRight(distance2encoderNew(9.6), 0.4);
+                encoderStrafeLeft(distance2encoderNew(13.6), 0.4);
                 globalPhase++;
             }
 
             if(globalPhase == 3){
-                strafeLeft(0.4);
+                strafeRight(0.4);
                 while(opModeIsActive() && !SkyStoneReBornRight(map.colorSensorRight)){
 
                 }
@@ -51,10 +51,10 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 4){
-                encoderStrafeRight(distance2encoderNew(3.5), 0.38);
+                encoderStrafeRight(distance2encoderNew(4.7), 0.38);
                 globalPhase++;
             }
-            
+
             if(globalPhase == 5){
                 try {
                     Thread.sleep(2000);
@@ -77,7 +77,8 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 8){
-                strafeLeft(0.45);
+                correctionRight(distance2encoderNew(1.75), 0.4);
+                strafeRight(0.45);
                 while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor)){
 
                 }
@@ -86,12 +87,12 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 9){
-                correctionLeft(distance2encoderNew(3), 0.5);
+                correctionRight(distance2encoderNew(2.5), 0.5);
                 globalPhase++;
             }
 
             if(globalPhase == 10){
-                encoderStrafeLeft(distance2encoderNew(60), 0.45);
+                encoderStrafeRight(distance2encoderNew(60), 0.45);
                 globalPhase++;
             }
 
@@ -109,14 +110,14 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 13){
-                encoderStrafeRight(distance2encoderNew(28), 0.434);
+                encoderStrafeLeft(distance2encoderNew(28), 0.434);
                 globalPhase++;
             }
 
             if(globalPhase == 14){
                 goToPositionForward(distance2encoderNew(10), 0.45);
-                encoderStrafeLeft(distance2encoderNew(8), 0.45);
-                strafeRight(0.40);
+                encoderStrafeRight(distance2encoderNew(8), 0.45);
+                strafeLeft(0.378);
                 while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor)){
 
                 }
@@ -139,7 +140,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
                 }
                 if(globalPhase == 1 && internalPhase == 1){
                     try {
-                        Thread.sleep(100);
+                        Thread.sleep(200);
                     } catch (InterruptedException e){
                         requestOpModeStop();
                     }
@@ -152,9 +153,6 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
                 }
 
                 if(globalPhase == 7 && internalPhase == 3){
-                    try {
-                        Thread.sleep(170);
-                    } catch (InterruptedException e){}
                     elevControl(map.elevMotor, 480, 1.0);
                     internalPhase++;
                 }
