@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.HardwareMap;
 
 @com.qualcomm.robotcore.eventloop.opmode.TeleOp(name = "Tele")
 public class TeleOp extends autoBaseV4 {

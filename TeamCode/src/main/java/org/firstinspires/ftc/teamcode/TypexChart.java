@@ -101,6 +101,6 @@ public class TypexChart {
 
 
         middleGrab.setPosition(0.0);
-        capServo.setPosition(.5);
+        capServo.setPosition(1.0);
     }
 }

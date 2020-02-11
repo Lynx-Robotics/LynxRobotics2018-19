@@ -11,10 +11,10 @@ public class acceleration {
             return 0;
         }
         else if(currentPower < targetPower){
-            return Math.abs((pError/9));
+            return Math.abs((pError/9.5));
         }
         else if (currentPower > targetPower){
-            return (Math.abs((pError/9)) * -1.0);
+            return (Math.abs((pError/9.5)) * -1.0);
         }
         else {
             return 0;

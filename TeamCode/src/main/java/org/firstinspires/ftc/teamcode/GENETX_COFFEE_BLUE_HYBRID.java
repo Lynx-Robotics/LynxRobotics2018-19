@@ -51,7 +51,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 4){
-                encoderStrafeRight(distance2encoderNew(3.5), 0.38);
+                encoderStrafeRight(distance2encoderNew(2.3), 0.38);
                 globalPhase++;
             }
             
@@ -59,7 +59,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e){}
-                goToPositionForward(distance2encoderNew(4), 0.4);
+                goToPositionForward(distance2encoderNew(5), 0.4);
                 globalPhase++;
             }
 
@@ -72,7 +72,8 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 7){
-                goToPositionBackward(distance2encoderNew(9.0), 0.5);
+//                goToPositionBackward(distance2encoderNew(3), 0.35);
+                goToPositionBackward(distance2encoderNew(10.3), 0.5);
                 globalPhase++;
             }
 
@@ -91,7 +92,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 10){
-                encoderStrafeLeft(distance2encoderNew(60), 0.45);
+                encoderStrafeLeft(distance2encoderNew(63), 0.45);
                 globalPhase++;
             }
 
@@ -104,18 +105,23 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 12){
+                raiseDL();
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {}
+                goToPositionBackward(distance2encoderNew(10), 0.35);
                 goToPositionBackward(distance2encoderNew(50), 0.6);
                 globalPhase++;
             }
 
             if(globalPhase == 13){
-                encoderStrafeRight(distance2encoderNew(28), 0.434);
+                encoderStrafeRight(distance2encoderNew(33), 0.434);
                 globalPhase++;
             }
 
             if(globalPhase == 14){
-                goToPositionForward(distance2encoderNew(10), 0.45);
-                encoderStrafeLeft(distance2encoderNew(8), 0.45);
+                goToPositionForward(distance2encoderNew(15), 0.45);
+                encoderStrafeLeft(distance2encoderNew(15), 0.45);
                 strafeRight(0.40);
                 while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor)){
 
@@ -176,8 +182,8 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
                     try {
                         Thread.sleep(300);
                     } catch (InterruptedException e){}
-                    map.middleGrab.setPosition(0.55);
-                    elevControl(map.elevMotor, 450, 1.0);
+                    raiseDL();
+                    elevControl(map.elevMotor, 400, 1.0);
                     internalPhase++;
                 }
             }
