@@ -46,9 +46,9 @@ public abstract class autoBaseV5A extends LinearOpMode {
 
         boolean GP = false, BP = false, RP = false;
 
-        GP = isInRange(cs.green(), 750, G);
-        BP = isInRange(cs.blue(), 750, B);
-        RP = isInRange(cs.red(), 750, R);
+        GP = isInRange(cs.green(), 1250, G);
+        BP = isInRange(cs.blue(), 1250, B);
+        RP = isInRange(cs.red(), 1250, R);
 
         return GP && RP && BP;
     }
@@ -85,7 +85,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
         }
     }
 
-    public void goToPositionForward(double position, double power) {
+    public double goToPositionForward(double position, double power) {
         double correction = 0.002;
 
         resetEncoders(map.TL);
@@ -119,6 +119,22 @@ public abstract class autoBaseV5A extends LinearOpMode {
             avgEncPosFixed = Math.floor(avgEncPos);
         }
         rest();
+        return avgEncPos;
+    }
+
+    public void turnRight(double power){
+        correctionLeft(distance2encoderNew(17.31), power);
+    }
+
+    public void turnLeft(double power){
+        correctionRight(distance2encoderNew(17.31), power);
+    }
+
+    public void goForward(double power){
+        map.TL.setPower(power + correctionTL);
+        map.TR.setPower(power + correctionTR);
+        map.BL.setPower(power + correctionBL);
+        map.BR.setPower(power + correctionBR);
     }
 
     public void correctionRight(double position, double power) {
@@ -134,7 +150,9 @@ public abstract class autoBaseV5A extends LinearOpMode {
         double avgEncoderPosFix = Math.floor(avgEncoderPos);
 
         map.BR.setPower(-power + correctionBR);
+        map.TR.setPower(-power + correctionTR);
         map.TL.setPower(power - correctionTL);
+        map.BL.setPower(power - correctionBL);
 
         while (opModeIsActive() && (avgEncoderPosFix < position)) {
             encoderPositionTL = map.TL.getCurrentPosition();
@@ -163,7 +181,9 @@ public abstract class autoBaseV5A extends LinearOpMode {
         double avgEncoderPosFix = Math.floor(avgEncoderPos);
 
         map.BR.setPower(power - correctionBR);
+        map.TR.setPower(power - correctionTR);
         map.TL.setPower(-power + correctionTL);
+        map.BL.setPower(-power + correctionBL);
 
         while (opModeIsActive() && (avgEncoderPosFix < position)) {
             encoderPositionTL = map.TL.getCurrentPosition();
@@ -222,7 +242,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
         return GP && RP && BP;
     }
 
-    public void goToPositionBackward(double position, double power) {
+    public double goToPositionBackward(double position, double power) {
         double correction = 0.002;
 
         resetEncoders(map.TL);
@@ -256,6 +276,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
             avgEncPosFixed = Math.floor(avgEncPos);
         }
         rest();
+        return avgEncPos;
     }
 
     public void encoderStrafeRight(double position, double power) {

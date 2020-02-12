@@ -73,7 +73,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
 
             if(globalPhase == 7){
 //                goToPositionBackward(distance2encoderNew(3), 0.35);
-                goToPositionBackward(distance2encoderNew(10.3), 0.5);
+                goToPositionBackward(distance2encoderNew(10.9), 0.5);
                 globalPhase++;
             }
 
@@ -214,7 +214,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
         }
     }
 
-    public void goToPositionForward(double position, double power) {
+    public double goToPositionForward(double position, double power) {
         double correction = 0.002;
 
         resetEncoders(map.TL);
@@ -248,6 +248,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             avgEncPosFixed = Math.floor(avgEncPos);
         }
         rest();
+        return avgEncPos;
     }
 
     public void correctionRight(double position, double power) {

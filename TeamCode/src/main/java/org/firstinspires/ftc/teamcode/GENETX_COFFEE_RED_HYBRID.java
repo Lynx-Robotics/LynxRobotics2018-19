@@ -22,106 +22,121 @@ public class GENETX_COFFEE_RED_HYBRID extends autoBaseV5A {
 //        Thread css = new Thread()
 
         oss.start();
-        ess.start();
+       // ess.start();
 
 
         waitForStart();
 
-        while(opModeIsActive()){
+        while (opModeIsActive()) {
             globalPhase++;
-            if(globalPhase == 1) {
-                goToPositionForward(distance2encoderNew(26), 0.8);
+            if (globalPhase == 1) {
+                goToPositionForward(distance2encoderNew(24), 0.8);
                 globalPhase++;
             }
 
-            if(globalPhase == 2){
-                correctionLeft(distance2encoderNew(1.55), 0.3);
+            if (globalPhase == 2) {
+//                correctionLeft(distance2encoderNew(1.05), 0.3);
+                correctionRight(distance2encoderNew(0.3), 0.35);
 
-                encoderStrafeLeft(distance2encoderNew(13.6), 0.4);
+                encoderStrafeLeft(distance2encoderNew(14.6), 0.4);
                 globalPhase++;
             }
 
-            if(globalPhase == 3){
+            if (globalPhase == 3) {
+//                correctionRight(1.3, 0.35);
                 strafeRight(0.4);
-                while(opModeIsActive() && !SkyStoneReBornRight(map.colorSensorRight)){
+                while (opModeIsActive() && !SkyStoneReBornRight(map.colorSensorRight)) {
 
                 }
                 rest();
                 globalPhase++;
             }
 
-            if(globalPhase == 4){
-                encoderStrafeRight(distance2encoderNew(4.7), 0.38);
+            if (globalPhase == 4) {
+                encoderStrafeRight(distance2encoderNew(4.6), 0.4);
                 globalPhase++;
             }
 
-            if(globalPhase == 5){
+            if (globalPhase == 5) {
                 try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e){}
-                goToPositionForward(distance2encoderNew(4), 0.4);
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                }
+                goToPositionForward(distance2encoderNew(5), 0.4);
                 globalPhase++;
             }
 
-            if (globalPhase == 6){
+            if (globalPhase == 6) {
                 dropDL();
                 try {
                     Thread.sleep(500);
-                } catch (InterruptedException e){}
+                } catch (InterruptedException e) {
+                }
                 globalPhase++;
             }
 
-            if(globalPhase == 7){
-                goToPositionBackward(distance2encoderNew(9.0), 0.5);
+            if (globalPhase == 7) {
+//                goToPositionBackward(distance2encoderNew(3), 0.35);
+                goToPositionBackward(distance2encoderNew(9.7), 0.5);
                 globalPhase++;
             }
 
-            if(globalPhase == 8){
-                correctionRight(distance2encoderNew(1.75), 0.4);
+            if (globalPhase == 8) {
+                /*correctionRight(distance2encoderNew(4.6), 0.45);
                 strafeRight(0.45);
-                while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor)){
+                while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor)){
+
+                }
+                rest();
+                globalPhase++;*/
+
+                turnRight(0.5);
+                goForward(0.5);
+                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor)) {
 
                 }
                 rest();
                 globalPhase++;
             }
+            if (globalPhase == 9) {
 
-            if(globalPhase == 9){
-                correctionRight(distance2encoderNew(2.5), 0.5);
+                sleep(200);
+                goToPositionForward(distance2encoderNew(49), 0.7);
+
+            }
+
+
+            if (globalPhase == 10) {
+                rest();
                 globalPhase++;
             }
 
-            if(globalPhase == 10){
-                encoderStrafeRight(distance2encoderNew(60), 0.45);
-                globalPhase++;
-            }
-
-            if(globalPhase == 11){
-                goToPositionForward(distance2encoderNew(15), 0.6);
+            if (globalPhase == 11) {
+                raiseDL();
                 try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {}
-                globalPhase++;
-            }
-
-            if(globalPhase == 12){
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {
+                }
+                goToPositionBackward(distance2encoderNew(10), 0.35);
                 goToPositionBackward(distance2encoderNew(50), 0.6);
                 globalPhase++;
             }
 
-            if(globalPhase == 13){
-                encoderStrafeLeft(distance2encoderNew(28), 0.434);
+            if (globalPhase == 12) {
+                encoderStrafeLeft(distance2encoderNew(39), 0.434);
                 globalPhase++;
             }
 
-            if(globalPhase == 14){
-                goToPositionForward(distance2encoderNew(10), 0.45);
-                encoderStrafeRight(distance2encoderNew(8), 0.45);
-                strafeLeft(0.378);
-                while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor)){
+            if (globalPhase == 13) {
+                goToPositionForward(distance2encoderNew(17), 0.45);
+                encoderStrafeRight(distance2encoderNew(15), 0.45);
+                strafeLeft(0.40);
+                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor)) {
 
                 }
                 rest();
+                turnLeft(0.6);
+                turnLeft(0.6);
                 globalPhase++;
             }
 
@@ -129,84 +144,88 @@ public class GENETX_COFFEE_RED_HYBRID extends autoBaseV5A {
         }
     }
 
-    public class elevatorChecker implements Runnable{
+    public class elevatorChecker implements Runnable {
         int internalPhase = 0;
 
         @Override
         public void run() {
-            while(!isStopRequested()){
-                if(globalPhase == 0 && internalPhase == 0){
+            while (!isStopRequested()) {
+                if (globalPhase == 0 && internalPhase == 0) {
                     internalPhase++;
                 }
-                if(globalPhase == 1 && internalPhase == 1){
+                if (globalPhase == 1 && internalPhase == 1) {
                     try {
-                        Thread.sleep(200);
-                    } catch (InterruptedException e){
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
                         requestOpModeStop();
                     }
                     elevControl(map.elevMotor, 500, 1.0);
                     internalPhase++;
                 }
-                if (globalPhase == 5 && internalPhase == 2){
+                if (globalPhase == 5 && internalPhase == 2) {
                     elevMotorDown(map.elevMotor, 0, -1.0);
                     internalPhase++;
                 }
 
-                if(globalPhase == 7 && internalPhase == 3){
+                if (globalPhase == 7 && internalPhase == 3) {
+                    try {
+                        Thread.sleep(170);
+                    } catch (InterruptedException e) {
+                    }
                     elevControl(map.elevMotor, 480, 1.0);
                     internalPhase++;
                 }
 
-                if(globalPhase == 8 && internalPhase == 4){
+                if (globalPhase == 8 && internalPhase == 4) {
 //                    correctionLeft(distance2encoderNew(0.5), 0.35);
                     internalPhase++;
                 }
 
-                if(globalPhase == 11 && internalPhase == 5){
+                if (globalPhase == 11 && internalPhase == 5) {
                     try {
                         Thread.sleep(500);
-                    } catch (InterruptedException e){}
+                    } catch (InterruptedException e) {
+                    }
                     elevMotorDown(map.elevMotor, 0, -1.0);
                     internalPhase++;
                 }
 
-                if(globalPhase == 13 && internalPhase == 6){
+                if (globalPhase == 13 && internalPhase == 6) {
                     try {
-                        Thread.sleep(300);
-                    } catch (InterruptedException e){}
-                    map.middleGrab.setPosition(0.55);
-                    elevControl(map.elevMotor, 450, 1.0);
+                        Thread.sleep(250);
+                    } catch (InterruptedException e) {
+                    }
+                    raiseDL();
+                    elevControl(map.elevMotor, 150, 1.0);
                     internalPhase++;
                 }
             }
         }
     }
 
-    public class odomChecker implements Runnable{
+    public class odomChecker implements Runnable {
         @Override
         public void run() {
-            while(!isStopRequested()){
+            while (!isStopRequested()) {
                 double TL_VEL = changePerTime(map.TL.getCurrentPosition());
                 double TR_VEL = changePerTime(map.TL.getCurrentPosition());
                 double BL_VEL = changePerTime(map.TL.getCurrentPosition());
                 double BR_VEL = changePerTime(map.TL.getCurrentPosition());
 
 
-
-                if(((TL_VEL+TR_VEL+BL_VEL+BR_VEL)/4) != targetVelocity){
+                if (((TL_VEL + TR_VEL + BL_VEL + BR_VEL) / 4) != targetVelocity) {
                     correctionTL = acc.acceleratorCorrector(targetVelocity, TL_VEL);
                     correctionTR = acc.acceleratorCorrector(targetVelocity, TR_VEL);
                     correctionBL = acc.acceleratorCorrector(targetVelocity, BL_VEL);
                     correctionBR = acc.acceleratorCorrector(targetVelocity, BR_VEL);
-                }
-                else {
+                } else {
                     correctionTR = correctionTL = correctionBR = correctionBL = 0;
                 }
             }
         }
     }
 
-    public void goToPositionForward(double position, double power) {
+    public double goToPositionForward(double position, double power) {
         double correction = 0.002;
 
         resetEncoders(map.TL);
@@ -240,6 +259,7 @@ public class GENETX_COFFEE_RED_HYBRID extends autoBaseV5A {
             avgEncPosFixed = Math.floor(avgEncPos);
         }
         rest();
+        return avgEncPos;
     }
 
     public void correctionRight(double position, double power) {
@@ -307,14 +327,14 @@ public class GENETX_COFFEE_RED_HYBRID extends autoBaseV5A {
         rest();
     }
 
-    public void strafeRight(double power){
+    public void strafeRight(double power) {
         map.TL.setPower(power - correctionTL);
         map.TR.setPower(-power + correctionTR);
         map.BL.setPower(-power + correctionBL);
         map.BR.setPower(power - correctionBR);
     }
 
-    public void strafeLeft(double power){
+    public void strafeLeft(double power) {
         map.TL.setPower(-power + correctionTL);
         map.TR.setPower(power - correctionTR);
         map.BL.setPower(power - correctionBL);
