@@ -102,7 +102,7 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
             }
 
             if(globalPhase == 10){
-                goToPositionForward(distance2encoderNew(20), 0.5);
+                goToPositionForward(distance2encoderNew(18), 0.5);
 
                 globalPhase++;
             }
@@ -112,32 +112,32 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
                     Thread.sleep(500);
                 } catch (InterruptedException e){}
                 goToPositionBackward(distance2encoderNew(8), 0.35);
-                goToPositionForward(distance2encoderNew(4), 0.35);
+                goToPositionForward(distance2encoderNew(2), 0.30);
                 raiseDL();
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {}
-                encoderStrafeLeft(distance2encoderNew(3), 0.45);
-                goToPositionBackward(distance2encoderNew(7), 0.9);
+                encoderStrafeLeft(distance2encoderNew(1.5), 0.45);
+                goToPositionBackward(distance2encoderNew(7), 0.7);
 //                turnRight(0.40);
-                goToPositionBackward(distance2encoderNew(48), 0.9);
+                goToPositionBackward(distance2encoderNew(48), 0.7);
                 globalPhase++;
             }
 
             if(globalPhase == 12){
-                goToPositionForward(distance2encoderNew(3), 0.45);
+//                goToPositionForward(distance2encoderNew(3), 0.45);
                 encoderStrafeLeft(distance2encoderNew(37), 0.45);
-                goToPositionForward(distance2encoderNew(16), 0.8);
+                goToPositionForward(distance2encoderNew(18), 0.8);
                 encoderStrafeRight(distance2encoderNew(12), 0.45);
                 globalPhase++;
             }
 
             if(globalPhase == 13){
-                goToPositionForward(distance2encoderNew(5), 0.7);
+                goToPositionForward(1, 0.7);
                 strafeLeft(0.5);
                 while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor));
                 rest();
-//                elevMotorDown(map.TAPEMOTOR, 800, -1.0);
+                elevMotorDown(map.TAPEMOTOR, 700, -1.0);
 //                map.TAPEMOTOR.setPower(-1.0);
                 globalPhase++;
             }

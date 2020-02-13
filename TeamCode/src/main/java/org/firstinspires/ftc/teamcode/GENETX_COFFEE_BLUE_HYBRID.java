@@ -35,7 +35,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 2){
-//                correctionRight(distance2encoderNew(1.75), 0.3);
+                correctionRight(distance2encoderNew(1.9), 0.4);
 
                 encoderStrafeRight(distance2encoderNew(9.6), 0.4);
                 globalPhase++;
@@ -120,7 +120,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 14){
-                goToPositionForward(distance2encoderNew(15), 0.45);
+                goToPositionForward(distance2encoderNew(16), 0.45);
                 encoderStrafeLeft(distance2encoderNew(15), 0.45);
                 strafeRight(0.40);
                 while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor)){
@@ -183,7 +183,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
                         Thread.sleep(300);
                     } catch (InterruptedException e){}
                     raiseDL();
-                    elevControl(map.elevMotor, 300, 1.0);
+                    elevControl(map.elevMotor, 140, 1.0);
                     internalPhase++;
                 }
             }

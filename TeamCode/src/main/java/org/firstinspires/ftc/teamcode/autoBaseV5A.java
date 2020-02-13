@@ -549,6 +549,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
                     } catch (InterruptedException e){}
 
                     map.TAPEROT.setPosition(0.65);
+                    internalPhase++;
                 }
                 /*if (globalPhase == 20 && internalPhase == 4) {
                     raiseDL();
