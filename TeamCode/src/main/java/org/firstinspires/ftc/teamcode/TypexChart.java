@@ -1,11 +1,13 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.hardware.rev.RevTouchSensor;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 public class TypexChart {
@@ -28,6 +30,7 @@ public class TypexChart {
     public ElapsedTime globalTime = new ElapsedTime();
 
     //DistanceSensor distanceSensor;
+    RevTouchSensor tapeLimit;
     ColorSensor colorSensorLeft;
     public ColorSensor bottomColorSensor;
     ColorSensor colorSensorRight; //colorSensor will default to the left
@@ -60,6 +63,7 @@ public class TypexChart {
         distSensorLeft = hwMap.get(DistanceSensor.class, "csLeft");
         distSensorRight = hwMap.get(DistanceSensor.class, "csRight");
         bottomColorSensor = hwMap.get(ColorSensor.class, "bcs");
+        tapeLimit = hwMap.get(RevTouchSensor.class, "limitTape");
 
         TL = hwMap.get(DcMotor.class, "TL");
         TR = hwMap.get(DcMotor.class, "TR");

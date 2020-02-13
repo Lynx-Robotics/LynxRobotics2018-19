@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "COFFEE_RED_SYNTH")
-public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
+@Autonomous(name = "COFFEE_BLUE_DOUBLE_SYNTH")
+public class GENETX_COFFEE_BLUE_DUBLE extends autoBaseV5A {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -21,7 +21,7 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
         waitForStart();
 
         globalPhase++;
-        
+
         while(opModeIsActive() && !isStopRequested()){
 
             if(gamepad1.a){
@@ -31,22 +31,22 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
 
             if(globalPhase == 1) {
                 goToPositionForward(distance2encoderNew(27), 0.8);
-                correctionRight(distance2encoderNew(0.55), 0.35);
+//                correctionLeft(distance2encoderNew(0.15), 0.35);
                 globalPhase++;
             }
 
             if(globalPhase == 2){
-                encoderStrafeLeft(distance2encoderNew(12), 0.45);
+                encoderStrafeRight(distance2encoderNew(12), 0.45);
                 globalPhase++;
             }
 
             if(globalPhase == 3){
-                strafeRight(0.45);
+                strafeLeft(0.45);
                 while(opModeIsActive() && !SkyStoneReBornRight(map.colorSensorRight));
                 rest();
-                correctionRight(distance2encoderNew(0.4), 0.35);
-                encoderStrafeRight(distance2encoderNew(6.0), 0.45);
-                correctionRight(distance2encoderNew(0.64), 0.35);
+//                correctionLeft(distance2encoderNew(0.4), 0.35);
+                encoderStrafeRight(distance2encoderNew(2.5), 0.45);
+//                correctionLeft(distance2encoderNew(0.64), 0.35);
 
                 globalPhase++;
             }
@@ -82,13 +82,13 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
                 try {
                     Thread.sleep(400);
                 } catch (InterruptedException e){}
-                turnRight(0.8);
+                turnLeft(0.8);
                 globalPhase++;
             }
 
             if(globalPhase == 8){
                 goForward(0.45);
-                while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor));
+                while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor));
                 rest();
                 globalPhase++;
             }
@@ -96,7 +96,7 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
             if(globalPhase == 9){
                 goToPositionForward(1, .8);
                 goToPositionForward(distance2encoderNew(41), 0.8);
-                turnLeft(0.38);
+                turnRight(0.38);
                 rest();
                 globalPhase++;
             }
@@ -117,7 +117,7 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {}
-                encoderStrafeLeft(distance2encoderNew(3), 0.45);
+                encoderStrafeRight(distance2encoderNew(3), 0.45);
                 goToPositionBackward(distance2encoderNew(7), 0.9);
 //                turnRight(0.40);
                 goToPositionBackward(distance2encoderNew(48), 0.9);
@@ -126,19 +126,20 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
 
             if(globalPhase == 12){
                 goToPositionForward(distance2encoderNew(3), 0.45);
-                encoderStrafeLeft(distance2encoderNew(37), 0.45);
+                encoderStrafeRight(distance2encoderNew(37), 0.45);
                 goToPositionForward(distance2encoderNew(16), 0.8);
-                encoderStrafeRight(distance2encoderNew(12), 0.45);
+                encoderStrafeLeft(distance2encoderNew(12), 0.45);
                 globalPhase++;
             }
 
             if(globalPhase == 13){
                 goToPositionForward(distance2encoderNew(5), 0.7);
-                strafeLeft(0.5);
-                while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor));
+                strafeRight(0.5);
+                while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor));
                 rest();
 //                elevMotorDown(map.TAPEMOTOR, 800, -1.0);
 //                map.TAPEMOTOR.setPower(-1.0);
+
                 globalPhase++;
             }
 

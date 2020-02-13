@@ -46,9 +46,9 @@ public abstract class autoBaseV5A extends LinearOpMode {
 
         boolean GP = false, BP = false, RP = false;
 
-        GP = isInRange(cs.green(), 1250, G);
-        BP = isInRange(cs.blue(), 1250, B);
-        RP = isInRange(cs.red(), 1250, R);
+        GP = isInRange(cs.green(), 1050, G);
+        BP = isInRange(cs.blue(), 1050, B);
+        RP = isInRange(cs.red(), 1050, R);
 
         return GP && RP && BP;
     }
@@ -123,11 +123,11 @@ public abstract class autoBaseV5A extends LinearOpMode {
     }
 
     public void turnRight(double power){
-        correctionLeft(distance2encoderNew(17.31), power);
+        correctionLeft(distance2encoderNew(17.25), power);
     }
 
     public void turnLeft(double power){
-        correctionRight(distance2encoderNew(17.31), power);
+        correctionRight(distance2encoderNew(17.35), power);
     }
 
     public void goForward(double power){
@@ -135,6 +135,13 @@ public abstract class autoBaseV5A extends LinearOpMode {
         map.TR.setPower(power + correctionTR);
         map.BL.setPower(power + correctionBL);
         map.BR.setPower(power + correctionBR);
+    }
+
+    public void goBackwards(double power){
+        map.TL.setPower(-power - correctionTL);
+        map.TR.setPower(-power - correctionTR);
+        map.BL.setPower(-power - correctionBL);
+        map.BR.setPower(-power - correctionBR);
     }
 
     public void correctionRight(double position, double power) {
@@ -176,8 +183,10 @@ public abstract class autoBaseV5A extends LinearOpMode {
 
         int encoderPositionTL = map.TL.getCurrentPosition();
         int encoderPositionBR = map.BR.getCurrentPosition();
+        int encoderPositionTR = map.TR.getCurrentPosition();
+        int encoderPositionBL = map.BL.getCurrentPosition();
 
-        double avgEncoderPos = (double) (Math.abs(encoderPositionTL) + Math.abs(encoderPositionBR)) / 2.0;
+        double avgEncoderPos = (double) (Math.abs(encoderPositionTL) + Math.abs(encoderPositionBR) + Math.abs(encoderPositionTR) + Math.abs(encoderPositionBL)) / 4.0;
         double avgEncoderPosFix = Math.floor(avgEncoderPos);
 
         map.BR.setPower(power - correctionBR);
@@ -188,6 +197,8 @@ public abstract class autoBaseV5A extends LinearOpMode {
         while (opModeIsActive() && (avgEncoderPosFix < position)) {
             encoderPositionTL = map.TL.getCurrentPosition();
             encoderPositionBR = map.BR.getCurrentPosition();
+            encoderPositionTR = map.TR.getCurrentPosition();
+            encoderPositionBL = map.BL.getCurrentPosition();
 
             avgEncoderPos = (double) (Math.abs(encoderPositionTL) + Math.abs(encoderPositionBR)) / 2.0;
             avgEncoderPosFix = Math.floor(avgEncoderPos);
@@ -195,7 +206,6 @@ public abstract class autoBaseV5A extends LinearOpMode {
             telemetry.addData("Average Encoder Positions: ", avgEncoderPosFix);
             telemetry.update();
         }
-
         rest();
     }
 
@@ -490,12 +500,12 @@ public abstract class autoBaseV5A extends LinearOpMode {
     }
 
     public class elevationSS implements Runnable {
-        int internalPhase = 0;
+        int internalPhase = 1;
 
         @Override
         public void run() {
             while (!isStopRequested()) {
-                if (globalPhase == 1) {
+                if (globalPhase == 1 && internalPhase == 1) {
                     try {
                         Thread.sleep(500);
                     } catch (InterruptedException e) {
@@ -504,20 +514,43 @@ public abstract class autoBaseV5A extends LinearOpMode {
                     internalPhase++;
                 }
 
-                if (globalPhase == 4 && internalPhase == 1) {
+                if (globalPhase == 4 && internalPhase == 2) {
                     elevDown = false;
-                    elevMotorDown(map.elevMotor, 5, -1.0);
+                    elevMotorDown(map.elevMotor, 3, -1.0);
                     elevDown = true;
+//                    globalPhase++;
                     internalPhase++;
 
                 }
 
-                if (globalPhase == 5 && internalPhase == 2) {
+                if(globalPhase == 6 && internalPhase == 3) {
                     elevControl(map.elevMotor, 490, 1.0);
                     internalPhase++;
                 }
 
-                if (globalPhase == 7 && internalPhase == 3) {
+                if (globalPhase == 11 && internalPhase == 4) {
+//                    map.TAPEROT.setPosition(0.65);
+                    elevMotorDown(map.elevMotor, 8, -1.0);
+//                    globalPhase++;
+                    internalPhase++;
+                }
+
+                if(globalPhase == 12 && internalPhase == 5){
+                    try {
+                        Thread.sleep(450);
+                    } catch (InterruptedException e){}
+                    elevControl(map.elevMotor, 250, 1.0);
+                    internalPhase++;
+                }
+
+                if(globalPhase == 13 && internalPhase == 6){
+                    try {
+                        Thread.sleep(200);
+                    } catch (InterruptedException e){}
+
+                    map.TAPEROT.setPosition(0.65);
+                }
+                /*if (globalPhase == 20 && internalPhase == 4) {
                     raiseDL();
                     try {
                         Thread.sleep(1500);
@@ -529,7 +562,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
 
                 if (globalPhase == 7 && internalPhase == 4) {
                     map.middleGrab.setPosition(0.55);
-                }
+                }*/
             }
         }
     }

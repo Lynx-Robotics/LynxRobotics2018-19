@@ -35,7 +35,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 2){
-                correctionRight(distance2encoderNew(1.75), 0.3);
+//                correctionRight(distance2encoderNew(1.75), 0.3);
 
                 encoderStrafeRight(distance2encoderNew(9.6), 0.4);
                 globalPhase++;
@@ -87,7 +87,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 9){
-                correctionLeft(distance2encoderNew(3), 0.5);
+//                correctionLeft(distance2encoderNew(3), 0.5);
                 globalPhase++;
             }
 
@@ -183,7 +183,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
                         Thread.sleep(300);
                     } catch (InterruptedException e){}
                     raiseDL();
-                    elevControl(map.elevMotor, 400, 1.0);
+                    elevControl(map.elevMotor, 300, 1.0);
                     internalPhase++;
                 }
             }

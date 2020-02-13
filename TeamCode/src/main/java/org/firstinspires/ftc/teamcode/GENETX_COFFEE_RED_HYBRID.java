@@ -92,16 +92,21 @@ public class GENETX_COFFEE_RED_HYBRID extends autoBaseV5A {
 
                 turnRight(0.5);
                 goForward(0.5);
-                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor)) {
+                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor));
+                try{
+                    Thread.sleep(400);
+                }catch (InterruptedException e){
 
                 }
-                rest();
+                //rest();
                 globalPhase++;
             }
             if (globalPhase == 9) {
 
                 sleep(200);
-                goToPositionForward(distance2encoderNew(49), 0.7);
+                goToPositionForward(distance2encoderNew(5), 0.7);
+                goToPositionForward(distance2encoderNew(60), 0.7);
+                globalPhase++;
 
             }
 
