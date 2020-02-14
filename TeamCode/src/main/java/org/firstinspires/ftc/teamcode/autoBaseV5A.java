@@ -122,22 +122,22 @@ public abstract class autoBaseV5A extends LinearOpMode {
         return avgEncPos;
     }
 
-    public void turnRight(double power){
+    public void turnRight(double power) {
         correctionLeft(distance2encoderNew(17.25), power);
     }
 
-    public void turnLeft(double power){
+    public void turnLeft(double power) {
         correctionRight(distance2encoderNew(17.35), power);
     }
 
-    public void goForward(double power){
+    public void goForward(double power) {
         map.TL.setPower(power + correctionTL);
         map.TR.setPower(power + correctionTR);
         map.BL.setPower(power + correctionBL);
         map.BR.setPower(power + correctionBR);
     }
 
-    public void goBackwards(double power){
+    public void goBackwards(double power) {
         map.TL.setPower(-power - correctionTL);
         map.TR.setPower(-power - correctionTR);
         map.BL.setPower(-power - correctionBL);
@@ -375,15 +375,13 @@ public abstract class autoBaseV5A extends LinearOpMode {
         map.BR.setPower(-power + correctionBR);
     }
 
-    public boolean bottomTapeSensorDetectedBlueReborn1(ColorSensor cs){
+    public boolean bottomTapeSensorDetectedBlueReborn1(ColorSensor cs) {
         String alpha;
         double G = constants.tapeGreenBLUE;
         double B = constants.tapeBlueBLUE;
         double R = constants.tapeRedBLUE;
 
         boolean GP = false, BP = false, RP = false;
-
-
 
 
         GP = isInRange(cs.green(), 750, G);
@@ -523,7 +521,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
 
                 }
 
-                if(globalPhase == 6 && internalPhase == 3) {
+                if (globalPhase == 6 && internalPhase == 3) {
                     elevControl(map.elevMotor, 490, 1.0);
                     internalPhase++;
                 }
@@ -535,18 +533,20 @@ public abstract class autoBaseV5A extends LinearOpMode {
                     internalPhase++;
                 }
 
-                if(globalPhase == 12 && internalPhase == 5){
+                if (globalPhase == 12 && internalPhase == 5) {
                     try {
                         Thread.sleep(450);
-                    } catch (InterruptedException e){}
+                    } catch (InterruptedException e) {
+                    }
                     elevControl(map.elevMotor, 250, 1.0);
                     internalPhase++;
                 }
 
-                if(globalPhase == 13 && internalPhase == 6){
+                if (globalPhase == 13 && internalPhase == 6) {
                     try {
                         Thread.sleep(200);
-                    } catch (InterruptedException e){}
+                    } catch (InterruptedException e) {
+                    }
 
                     map.TAPEROT.setPosition(0.65);
                     internalPhase++;
@@ -576,7 +576,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
 
         @Override
         public void run() {
-            while(!isStopRequested()){
+            while (!isStopRequested()) {
                 if (((TL_VEL + TR_VEL + BL_VEL + BR_VEL) / 4) != targetVelocity) {
                     correctionTL = acc.acceleratorCorrector(targetVelocity, TL_VEL);
                     correctionTR = acc.acceleratorCorrector(targetVelocity, TR_VEL);
@@ -589,36 +589,59 @@ public abstract class autoBaseV5A extends LinearOpMode {
         }
     }
 
-    public class elevatorControlSystemDouble implements Runnable{
+    public class elevatorControlSystemDouble implements Runnable {
+
+        boolean pingOut = false;
+
+        @Override
+        public void run() {
+            while (!isStopRequested()) {
+                if (globalPhase == 1 && !pingOut) {
+                    elevControl(map.elevMotor, 490, 1.0);
+                    pingOut = true;
+                }
+                pingOut = false;
+                if (globalPhase == 4 && !pingOut) {
+                    elevMotorDown(map.elevMotor, 8, -1.0);
+                    pingOut = true;
+                }
+                pingOut = false;
+                if (globalPhase == 6 && !pingOut) {
+                    elevControl(map.elevMotor, 450, 1.0);
+                    pingOut = true;
+                }
+                pingOut = false;
+                if (globalPhase == 9 && !pingOut) {
+                    try {
+                        Thread.sleep(700);
+                    } catch (InterruptedException e){}
+                    raiseDL();
+                    pingOut = true;
+                }
+                pingOut = false;
+                if (globalPhase == 15 && !pingOut) {
+                    elevMotorDown(map.elevMotor, 5, -1.0);
+                    pingOut = true;
+                }
+            }
+        }
+    }
+
+    public class elevationFoundation implements Runnable {
 
         boolean pingOut = false;
 
         @Override
         public void run() {
             while(!isStopRequested()){
-                if(globalPhase == 1 && !pingOut){
-                    elevControl(map.elevMotor, 490, 1.0);
-                    pingOut = true;
-                }
-                pingOut = false;
                 if(globalPhase == 4 && !pingOut){
-                    elevMotorDown(map.elevMotor, 8, -1.0);
-                    pingOut = true;
-                }
-                pingOut = false;
-                if(globalPhase == 6 && !pingOut){
-                    elevControl(map.elevMotor, 450, 1.0);
-                    pingOut = true;
-                }
-                pingOut = false;
-                if(globalPhase == 9 && !pingOut){
-                    raiseDL();
-                    pingOut = true;
-                }
-                pingOut = false;
-                if(globalPhase == 15 && !pingOut){
                     elevMotorDown(map.elevMotor, 5, -1.0);
                     pingOut = true;
+                }
+                pingOut = false;
+
+                if(globalPhase == 5 && !pingOut){
+
                 }
             }
         }
@@ -627,7 +650,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
     public class odometrySecondary implements Runnable {
         @Override
         public void run() {
-            while(!isStopRequested()){
+            while (!isStopRequested()) {
                 if (correctionR) {
                     map.runtime.reset();
                     while (!isStopRequested() && map.runtime.milliseconds() < 450) {

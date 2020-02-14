@@ -13,7 +13,9 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
 
         map.init(hardwareMap);
 
-//        Runnable odometrySubSystem = new
+        Runnable odometryPrim = new odometryPrimary();
+        Thread oss = new Thread(odometryPrim);
+        oss.start();
 
         Runnable elevSubSystem = new elevatorControlSystemDouble();
         Thread ess = new Thread(elevSubSystem);
@@ -31,18 +33,18 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
             }
 
             if (globalPhase == 2) {
-                encoderStrafeLeft(distance2encoderNew(12), 0.45);
+                encoderStrafeRight(distance2encoderNew(6), 0.45);
                 globalPhase++;
             }
 
             if (globalPhase == 3) {
-                correctionRight(distance2encoderNew(0.4), 0.45);
-                strafeRight(0.45);
+//                correctionRight(distance2encoderNew(0.3), 0.45);
+                strafeLeft(0.45);
                 while (opModeIsActive() && !SkyStoneReBornRight(map.colorSensorRight)) ;
                 rest();
-                correctionRight(distance2encoderNew(0.4), 0.35);
+//                correctionRight(distance2encoderNew(0.4), 0.35);
                 encoderStrafeRight(distance2encoderNew(4.0), 0.45);
-                correctionRight(distance2encoderNew(0.54), 0.35);
+//                correctionRight(distance2encoderNew(0.28), 0.35);
 
                 globalPhase++;
             }
@@ -72,7 +74,7 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
                     Thread.sleep(400);
                 } catch (InterruptedException e) {
                 }
-                goToPositionBackward(distance2encoderNew(15.30), 0.45);
+                goToPositionBackward(distance2encoderNew(16.30), 0.45);
                 globalPhase++;
             }
 
@@ -81,7 +83,7 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
                     Thread.sleep(400);
                 } catch (InterruptedException e) {
                 }
-                turnRight(0.8);
+                turnLeft(0.8);
                 globalPhase++;
             }
 
@@ -94,12 +96,13 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
             }
 
             if (globalPhase == 9) {
+                goToPositionForward(1000, 0.9);
                 goToPositionForward(distance2encoderNew(6), 0.5);
                 globalPhase++;
             }
 
             if (globalPhase == 10) {
-                goToPositionBackward(distance2encoderNew(85), 0.8);
+                goToPositionBackward(distance2encoderNew(87), 0.8);
                 globalPhase++;
             }
 
@@ -109,26 +112,26 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
             }
 
             if (globalPhase == 12) {
-                turnLeft(0.45);
-                goToPositionBackward(distance2encoderNew(20), 0.7);
+                turnRight(0.45);
+                goToPositionBackward(distance2encoderNew(30), 0.5);
                 globalPhase++;
             }
 
             if (globalPhase == 13) {
-                encoderStrafeLeft(distance2encoderNew(6), 0.45);
+                encoderStrafeRight(distance2encoderNew(6), 0.45);
                 globalPhase++;
             }
 
             if(globalPhase == 14){
-                goToPositionForward(distance2encoderNew(26.1),0.6);
+                goToPositionForward(distance2encoderNew(25.5),0.6);
                 map.runtime.reset();
 
                 globalPhase++;
             }
 
             if(globalPhase == 15){
-                correctionRight(distance2encoderNew(0.4), 0.45);
-                encoderStrafeRight(distance2encoderNew(4), 0.45);
+//                correctionLeft(distance2encoderNew(0.4), 0.45);
+                encoderStrafeLeft(distance2encoderNew(4), 0.45);
                 goToPositionForward(distance2encoderNew(5), 0.45);
                 dropDL();
                 globalPhase++;
@@ -146,9 +149,9 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
 
                 elevControl(map.elevMotor, 300, 1.0);
 
-                goToPositionBackward(distance2encoderNew(12), 0.8);
-                turnRight(0.5);
-                correctionLeft(distance2encoderNew(3.4), 0.5);
+                goToPositionBackward(distance2encoderNew(18), 0.8);
+                turnLeft(0.5);
+//                correctionLeft(distance2encoderNew(3.3), 0.5);
                 goToPositionForward(distance2encoderNew(80), 0.45);
                 raiseDL();
                 try {

@@ -89,13 +89,15 @@ public class GENETX_COFFEE_RED_2STONE_SOLO extends autoBaseV5A {
 
             if (globalPhase == 8) {
                 goForward(0.45);
-                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor))
-                    ;
+                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor)){
+
+                }
                 rest();
                 globalPhase++;
             }
 
             if (globalPhase == 9) {
+                goToPositionForward(1, 0.1);
                 goToPositionForward(distance2encoderNew(6), 0.5);
                 globalPhase++;
             }
