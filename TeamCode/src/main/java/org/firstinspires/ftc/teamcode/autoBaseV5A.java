@@ -384,9 +384,9 @@ public abstract class autoBaseV5A extends LinearOpMode {
         boolean GP = false, BP = false, RP = false;
 
 
-        GP = isInRange(cs.green(), 750, G);
-        BP = isInRange(cs.blue(), 750, B);
-        RP = isInRange(cs.red(), 750, R);
+        GP = isInRange(cs.green(), 1050, G);
+        BP = isInRange(cs.blue(), 1050, B);
+        RP = isInRange(cs.red(), 1050, R);
 
         return GP && RP && BP;
     }
@@ -457,7 +457,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
     }
 
     public void raiseDL() {
-        map.middleGrab.setPosition(0.05);
+        map.middleGrab.setPosition(0.35);
         /*while(map.middleGrab.getPosition() > 0.1){
         }*/
     }
@@ -613,7 +613,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
                 pingOut = false;
                 if (globalPhase == 9 && !pingOut) {
                     try {
-                        Thread.sleep(700);
+                        Thread.sleep(400);
                     } catch (InterruptedException e){}
                     raiseDL();
                     pingOut = true;

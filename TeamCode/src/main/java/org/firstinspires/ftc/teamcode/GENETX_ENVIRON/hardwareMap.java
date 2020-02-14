@@ -113,7 +113,7 @@ public class hardwareMap {
         TAPEMOTOR.setPower(0);
 
         middleGrab.setPosition(0.2);
-        capServo.setPosition(0.40);
+        capServo.setPosition(0.45);
         TAPEROT.setPosition(0.25);
     }
 }

@@ -89,20 +89,20 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
 
             if (globalPhase == 8) {
                 goForward(0.45);
-                while (opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor))
+                while (opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor))
                     ;
                 rest();
                 globalPhase++;
             }
 
             if (globalPhase == 9) {
-                goToPositionForward(1000, 0.9);
+                goToPositionForward(1, 0.9);
                 goToPositionForward(distance2encoderNew(6), 0.5);
                 globalPhase++;
             }
 
             if (globalPhase == 10) {
-                goToPositionBackward(distance2encoderNew(87), 0.8);
+                goToPositionBackward(distance2encoderNew(90), 0.8);
                 globalPhase++;
             }
 
@@ -151,7 +151,7 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
 
                 goToPositionBackward(distance2encoderNew(18), 0.8);
                 turnLeft(0.5);
-//                correctionLeft(distance2encoderNew(3.3), 0.5);
+                correctionLeft(distance2encoderNew(1.46), 0.5); //might need to be taken out
                 goToPositionForward(distance2encoderNew(80), 0.45);
                 raiseDL();
                 try {
