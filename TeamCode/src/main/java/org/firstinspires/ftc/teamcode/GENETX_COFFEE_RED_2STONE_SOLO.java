@@ -112,12 +112,12 @@ public class GENETX_COFFEE_RED_2STONE_SOLO extends autoBaseV5A {
 
             if (globalPhase == 12) {
                 turnLeft(0.45);
-                goToPositionBackward(distance2encoderNew(15), 0.5);
+                goToPositionBackward(distance2encoderNew(19), 0.5);
                 globalPhase++;
             }
 
             if (globalPhase == 13) {
-                encoderStrafeLeft(distance2encoderNew(6), 0.45);
+                encoderStrafeLeft(distance2encoderNew(7), 0.45);
                 globalPhase++;
             }
 
@@ -150,7 +150,7 @@ public class GENETX_COFFEE_RED_2STONE_SOLO extends autoBaseV5A {
 
                 goToPositionBackward(distance2encoderNew(18), 0.8);
                 turnRight(0.5);
-                correctionLeft(distance2encoderNew(3.0), 0.5);
+                correctionLeft(distance2encoderNew(3.3), 0.5);
                 goToPositionForward(distance2encoderNew(80), 0.45);
                 raiseDL();
                 try {
