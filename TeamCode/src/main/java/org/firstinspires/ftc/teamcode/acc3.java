@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "acc3")
+@Disabled
 public class acc3 extends autoBaseV4 {
 
     double correctionTL, correctionTR, correctionBL, correctionBR;

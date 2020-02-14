@@ -1,12 +1,14 @@
 package org.firstinspires.ftc.teamcode.GENETX_ENVIRON;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 import org.firstinspires.ftc.teamcode.TypexChart;
 
 import java.lang.reflect.Type;
 
 @Autonomous(name = "GE_HYBRID_BLUE")
+@Disabled
 public class GE_HYBRID_BLUE extends autoBaseV5 {
 
     @Override
@@ -70,7 +72,7 @@ public class GE_HYBRID_BLUE extends autoBaseV5 {
 
             if (globalPhase == 4) {
                 callCorrectionRight();
-                encoderStrafeRight(distance2encoderNew(5.5), 0.4);
+                encoderStrafeRight(distance2encoderNew(5.0), 0.4);
 
                 while (!elevDown) {
 

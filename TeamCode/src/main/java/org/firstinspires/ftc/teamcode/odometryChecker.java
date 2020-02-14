@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.util.Range;
 
 @TeleOp(name = "odometryReadOut", group = "test")
-//@Disabled
+@Disabled
 public class odometryChecker extends autoBaseV4 {
 
     acceleration acc = new acceleration();

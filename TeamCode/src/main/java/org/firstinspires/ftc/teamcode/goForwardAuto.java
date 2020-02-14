@@ -4,7 +4,7 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Autonomous(name = "goForwardAuto", group = "test")
-//@Disabled
+@Disabled
 public class goForwardAuto extends autoBaseV4 {
 
     double targetVoltage = 1.0, targetVelocity = 9500;

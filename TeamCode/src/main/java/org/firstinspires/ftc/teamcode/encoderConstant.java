@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "encoderConstant")
+@Disabled
 public class encoderConstant extends autoBaseV5A {
 
     double controlDist = 0;

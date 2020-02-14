@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "COFFEE_RED_SYNTH")
-public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
+@Autonomous(name = "GENETX_COFFEE_RED_HYBRID_V2")
+public class GENETX_COFFEE_RED_HYRBID_V2 extends autoBaseV5A {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -117,7 +117,7 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {}
-                encoderStrafeLeft(distance2encoderNew(1.5), 0.45);
+                encoderStrafeLeft(distance2encoderNew(0.7), 0.45);
                 goToPositionBackward(distance2encoderNew(7), 0.7);
 //                turnRight(0.40);
                 goToPositionBackward(distance2encoderNew(48), 0.7);
@@ -126,7 +126,7 @@ public class GENETX_COFFEE_RED_DUBLE extends autoBaseV5A {
 
             if(globalPhase == 12){
 //                goToPositionForward(distance2encoderNew(3), 0.45);
-                encoderStrafeLeft(distance2encoderNew(37), 0.45);
+                encoderStrafeLeft(distance2encoderNew(40), 0.45);
                 goToPositionForward(distance2encoderNew(18), 0.8);
                 encoderStrafeRight(distance2encoderNew(12), 0.45);
                 globalPhase++;

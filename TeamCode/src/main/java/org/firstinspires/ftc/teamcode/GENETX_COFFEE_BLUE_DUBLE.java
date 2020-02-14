@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 
 @Autonomous(name = "COFFEE_BLUE_DOUBLE_SYNTH")
+@Disabled
 public class GENETX_COFFEE_BLUE_DUBLE extends autoBaseV5A {
 
     @Override

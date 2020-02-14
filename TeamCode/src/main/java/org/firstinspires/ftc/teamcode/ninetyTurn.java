@@ -1,8 +1,10 @@
 package org.firstinspires.ftc.teamcode;
 
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 
 @TeleOp(name = "ninetyTurn")
+@Disabled
 public class ninetyTurn extends autoBaseV5A {
 
     int globalPhase = 0;

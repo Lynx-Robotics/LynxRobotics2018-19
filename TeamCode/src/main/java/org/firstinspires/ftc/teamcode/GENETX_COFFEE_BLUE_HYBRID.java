@@ -2,7 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "GENETX COFFEE BLUE HYBRID")
+@Autonomous(name = "GENETX_COFFEE_BLUE_HYBRID")
 public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
 
     int globalPhase = 0;

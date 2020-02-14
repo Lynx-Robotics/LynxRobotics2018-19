@@ -589,6 +589,41 @@ public abstract class autoBaseV5A extends LinearOpMode {
         }
     }
 
+    public class elevatorControlSystemDouble implements Runnable{
+
+        boolean pingOut = false;
+
+        @Override
+        public void run() {
+            while(!isStopRequested()){
+                if(globalPhase == 1 && !pingOut){
+                    elevControl(map.elevMotor, 490, 1.0);
+                    pingOut = true;
+                }
+                pingOut = false;
+                if(globalPhase == 4 && !pingOut){
+                    elevMotorDown(map.elevMotor, 8, -1.0);
+                    pingOut = true;
+                }
+                pingOut = false;
+                if(globalPhase == 6 && !pingOut){
+                    elevControl(map.elevMotor, 450, 1.0);
+                    pingOut = true;
+                }
+                pingOut = false;
+                if(globalPhase == 9 && !pingOut){
+                    raiseDL();
+                    pingOut = true;
+                }
+                pingOut = false;
+                if(globalPhase == 15 && !pingOut){
+                    elevMotorDown(map.elevMotor, 5, -1.0);
+                    pingOut = true;
+                }
+            }
+        }
+    }
+
     public class odometrySecondary implements Runnable {
         @Override
         public void run() {
