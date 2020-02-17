@@ -5,6 +5,9 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 @Autonomous(name = "GENETX_COFFEE_RED_HYBRID_V2")
 public class GENETX_COFFEE_RED_HYRBID_V2 extends autoBaseV5A {
 
+    boolean STRAFE = false;
+    boolean TAPE = true;
+
     @Override
     public void runOpMode() throws InterruptedException {
 
@@ -31,7 +34,7 @@ public class GENETX_COFFEE_RED_HYRBID_V2 extends autoBaseV5A {
 
             if(globalPhase == 1) {
                 goToPositionForward(distance2encoderNew(27), 0.8);
-                correctionRight(distance2encoderNew(0.55), 0.35);
+                correctionRight(distance2encoderNew(0.65), 0.35);
                 globalPhase++;
             }
 
@@ -44,9 +47,9 @@ public class GENETX_COFFEE_RED_HYRBID_V2 extends autoBaseV5A {
                 strafeRight(0.45);
                 while(opModeIsActive() && !SkyStoneReBornRight(map.colorSensorRight));
                 rest();
-                correctionRight(distance2encoderNew(0.4), 0.35);
-                encoderStrafeRight(distance2encoderNew(6.0), 0.45);
-                correctionRight(distance2encoderNew(0.64), 0.35);
+                correctionRight(distance2encoderNew(1.0), 0.35);
+                encoderStrafeRight(distance2encoderNew(7.3), 0.45);
+                correctionRight(distance2encoderNew(0.8), 0.35);
 
                 globalPhase++;
             }
@@ -74,7 +77,8 @@ public class GENETX_COFFEE_RED_HYRBID_V2 extends autoBaseV5A {
                 try {
                     Thread.sleep(400);
                 } catch (InterruptedException e){}
-                goToPositionBackward(distance2encoderNew(15.30), 0.45);
+                goToPositionBackward(distance2encoderNew(14.30), 0.45);
+                correctionRight(distance2encoderNew(0.5), 0.5);
                 globalPhase++;
             }
 
@@ -95,19 +99,20 @@ public class GENETX_COFFEE_RED_HYRBID_V2 extends autoBaseV5A {
 
             if(globalPhase == 9){
                 goToPositionForward(1, .8);
-                goToPositionForward(distance2encoderNew(41), 0.8);
+                goToPositionForward(distance2encoderNew(40), 0.8);
                 turnLeft(0.38);
                 rest();
                 globalPhase++;
             }
 
             if(globalPhase == 10){
-                goToPositionForward(distance2encoderNew(18), 0.5);
+                goToPositionForward(distance2encoderNew(15), 0.5);
 
                 globalPhase++;
             }
 
             if(globalPhase == 11){
+                raiseDL();
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e){}
@@ -124,16 +129,31 @@ public class GENETX_COFFEE_RED_HYRBID_V2 extends autoBaseV5A {
                 globalPhase++;
             }
 
-            if(globalPhase == 12){
-//                goToPositionForward(distance2encoderNew(3), 0.45);
-                encoderStrafeLeft(distance2encoderNew(40), 0.45);
+            if((globalPhase == 12) && STRAFE){
+                goToPositionForward(distance2encoderNew(3), 0.45);
+                encoderStrafeLeft(distance2encoderNew(43), 0.45);
                 goToPositionForward(distance2encoderNew(18), 0.8);
                 encoderStrafeRight(distance2encoderNew(12), 0.45);
                 globalPhase++;
             }
 
-            if(globalPhase == 13){
+            if((globalPhase == 12) && TAPE){
+                map.TAPEROT.setPosition(0.75);
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException e){}
+                map.TAPEMOTOR.setPower(-1.0);
+                map.runtime.reset();
+                while(opModeIsActive() && map.runtime.seconds() < 1.0){
+
+                }
+                map.TAPEMOTOR.setPower(0);
+                globalPhase++;
+            }
+
+            if((globalPhase == 13) && STRAFE){
                 goToPositionForward(1, 0.7);
+                goToPositionForward(distance2encoderNew(0.5), 0.8);
                 strafeLeft(0.5);
                 while(opModeIsActive() && !bottomTapeSensorDetectedRedReborn1(map.bottomColorSensor));
                 rest();

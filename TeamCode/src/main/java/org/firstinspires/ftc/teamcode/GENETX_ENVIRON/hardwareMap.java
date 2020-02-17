@@ -112,8 +112,8 @@ public class hardwareMap {
         elevMotor.setPower(0);
         TAPEMOTOR.setPower(0);
 
-        middleGrab.setPosition(0.2);
-        capServo.setPosition(0.45);
+        middleGrab.setPosition(0.3);
+        capServo.setPosition(0.48);
         TAPEROT.setPosition(0.25);
     }
 }

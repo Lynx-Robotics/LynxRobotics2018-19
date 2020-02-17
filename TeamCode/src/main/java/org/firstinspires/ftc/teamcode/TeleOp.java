@@ -12,6 +12,8 @@ public class TeleOp extends autoBaseV4 {
      hardwareMap map = new hardwareMap();
     double speedMultip;
 
+    int speedSelector = 0;
+
     int phase = 0;
 
     double ZERODOWN = 1.0, ZEROUP = 1.0;
@@ -25,26 +27,29 @@ public class TeleOp extends autoBaseV4 {
         waitForStart();
         while(opModeIsActive()){
 
+            telemetry.addData("Speed Selector: ", speedSelector);
+            telemetry.update();
+
             map.TL.setPower(-gamepad1.right_stick_y * speedMultip);
             map.BL.setPower(-gamepad1.right_stick_y * speedMultip);
             map.TR.setPower(-gamepad1.left_stick_y * speedMultip);
             map.BR.setPower(-gamepad1.left_stick_y * speedMultip);
 
             if(gamepad1.dpad_left){
-                map.TL.setPower((-0.3));
-                map.TR.setPower((0.3));
-                map.BL.setPower((0.3) - 0.002);
-                map.BR.setPower((-0.3) + 0.002);
+                map.TL.setPower((-0.5));
+                map.TR.setPower((0.5));
+                map.BL.setPower((0.5) - 0.002);
+                map.BR.setPower((-0.5) + 0.002);
                 while(gamepad1.dpad_left){
 
                 }
             }
 
             if(gamepad1.dpad_right){
-                map.TL.setPower((0.3));
-                map.TR.setPower(-(0.3));
-                map.BL.setPower(-(0.3) + 0.002);
-                map.BR.setPower((0.3) - 0.002);
+                map.TL.setPower((0.5));
+                map.TR.setPower(-(0.5));
+                map.BL.setPower(-(0.5) + 0.002);
+                map.BR.setPower((0.5) - 0.002);
                 while(gamepad1.dpad_right){
 
                 }
@@ -59,10 +64,10 @@ public class TeleOp extends autoBaseV4 {
 
 
             if(map.grabState){
-                map.middleGrab.setPosition(0.05);
+                map.middleGrab.setPosition(0.4);
             }
             else {
-                map.middleGrab.setPosition(0.8);
+                map.middleGrab.setPosition(0.97);
             }
 
             if(map.elevMotor.getCurrentPosition() <= 10 && !gamepad2.y){
@@ -82,6 +87,45 @@ public class TeleOp extends autoBaseV4 {
             if(gamepad1.dpad_down && gamepad2.dpad_down){
                 map.capServo.setPosition(0.0);
             }
+            if(gamepad1.dpad_up){
+                map.capServo.setPosition(0.48);
+            }
+
+            if(gamepad1.left_bumper){
+                speedSelector--;
+                if(speedSelector < 0){
+                    speedSelector = 0;
+                }
+                while(gamepad1.left_bumper){
+
+                }
+            }
+            if(gamepad1.right_bumper){
+                speedSelector++;
+                if(speedSelector == 5){
+                    speedSelector = 0;
+                }
+                while(gamepad1.right_bumper){
+
+                }
+            }
+
+            if(speedSelector == 0){
+                speedMultip = 0.25;
+            }
+            else if(speedSelector == 1){
+                speedMultip = 0.40;
+            }
+            else if(speedSelector == 2){
+                speedMultip = 0.60;
+            }
+            else if(speedSelector == 3){
+                speedMultip = 0.80;
+            }
+            else if (speedSelector == 4){
+                speedMultip = 1.0;
+            }
+
 
             if(map.TAPEMOTOR.getCurrentPosition() <= 10 && !gamepad1.y){
                 ZERODOWN = 1;

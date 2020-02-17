@@ -27,13 +27,13 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
         while (opModeIsActive()) {
 
             if (globalPhase == 1) {
-                goToPositionForward(distance2encoderNew(26.8), 0.8);
+                goToPositionForward(distance2encoderNew(26.3), 0.8);
                 correctionRight(distance2encoderNew(0.45), 0.35);
                 globalPhase++;
             }
 
             if (globalPhase == 2) {
-                encoderStrafeRight(distance2encoderNew(6), 0.45);
+                encoderStrafeRight(distance2encoderNew(4), 0.45);
                 globalPhase++;
             }
 
@@ -56,16 +56,15 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
                 }
 
                 goToPositionForward(distance2encoderNew(5.5), 0.3);
+                dropDL();
+                try {
+                    Thread.sleep(400);
+                } catch (InterruptedException e){}
+                goToPositionForward(distance2encoderNew(3.0), 0.3);
                 globalPhase++;
             }
 
             if (globalPhase == 5) {
-                dropDL();
-                try {
-                    Thread.sleep(400);
-                } catch (InterruptedException e) {
-                }
-                rest();
                 globalPhase++;
             }
 
@@ -102,6 +101,9 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
             }
 
             if (globalPhase == 10) {
+                correctionLeft(distance2encoderNew(0.8), 0.45);
+                correctionLeft(distance2encoderNew(0.8), 0.45);
+//                correctionLeft(distance2encoderNew(0.8), 0.45);
                 goToPositionBackward(distance2encoderNew(90), 0.8);
                 globalPhase++;
             }
@@ -113,6 +115,7 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
 
             if (globalPhase == 12) {
                 turnRight(0.45);
+                correctionLeft(distance2encoderNew(1.0), 0.45);
                 goToPositionBackward(distance2encoderNew(30), 0.5);
                 globalPhase++;
             }
@@ -151,7 +154,7 @@ public class GENETX_COFFEE_BLUE_2STONE_SOLO extends autoBaseV5A {
 
                 goToPositionBackward(distance2encoderNew(18), 0.8);
                 turnLeft(0.5);
-                correctionLeft(distance2encoderNew(1.46), 0.5); //might need to be taken out
+                correctionLeft(distance2encoderNew(0.6), 0.5); //might need to be taken out
                 goToPositionForward(distance2encoderNew(80), 0.45);
                 raiseDL();
                 try {

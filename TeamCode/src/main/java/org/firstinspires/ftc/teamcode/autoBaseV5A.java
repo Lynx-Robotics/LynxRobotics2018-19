@@ -538,7 +538,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
                         Thread.sleep(450);
                     } catch (InterruptedException e) {
                     }
-                    elevControl(map.elevMotor, 250, 1.0);
+                    elevControl(map.elevMotor, 350, 1.0);
                     internalPhase++;
                 }
 
@@ -548,7 +548,7 @@ public abstract class autoBaseV5A extends LinearOpMode {
                     } catch (InterruptedException e) {
                     }
 
-                    map.TAPEROT.setPosition(0.65);
+                    map.TAPEROT.setPosition(0.75);
                     internalPhase++;
                 }
                 /*if (globalPhase == 20 && internalPhase == 4) {
@@ -634,15 +634,25 @@ public abstract class autoBaseV5A extends LinearOpMode {
         @Override
         public void run() {
             while(!isStopRequested()){
-                if(globalPhase == 4 && !pingOut){
-                    elevMotorDown(map.elevMotor, 5, -1.0);
+                if(globalPhase == 1 && !pingOut){
+                    elevControl(map.elevMotor, 450, 1.0);
                     pingOut = true;
                 }
                 pingOut = false;
 
-                if(globalPhase == 5 && !pingOut){
-
+                /*if(globalPhase == 4 && !pingOut){
+                    elevMotorDown(map.elevMotor, 5, -1.0);
+                    pingOut = true;
                 }
+                pingOut = false;*/
+
+                /*if(globalPhase == 5 && !pingOut){
+                    elevControl(map.elevMotor, 300, 1.0);
+                    pingOut = true;
+                }*/
+                pingOut = false;
+
+
             }
         }
     }

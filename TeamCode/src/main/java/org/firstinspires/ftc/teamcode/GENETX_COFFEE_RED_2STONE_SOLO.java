@@ -27,7 +27,7 @@ public class GENETX_COFFEE_RED_2STONE_SOLO extends autoBaseV5A {
         while (opModeIsActive()) {
 
             if (globalPhase == 1) {
-                goToPositionForward(distance2encoderNew(26.8), 0.8);
+                goToPositionForward(distance2encoderNew(26.5), 0.8);
                 correctionRight(distance2encoderNew(0.45), 0.35);
                 globalPhase++;
             }
@@ -103,12 +103,13 @@ public class GENETX_COFFEE_RED_2STONE_SOLO extends autoBaseV5A {
             }
 
             if (globalPhase == 10) {
-                goToPositionBackward(distance2encoderNew(87), 0.8);
+//                correctionLeft(distance2encoderNew(0.8), 0.45);
+                goToPositionBackward(distance2encoderNew(90), 0.8);
                 globalPhase++;
             }
 
             if (globalPhase == 11) {
-                goToPositionForward(distance2encoderNew(3), 0.3);
+                goToPositionForward(distance2encoderNew(4), 0.3);
                 globalPhase++;
             }
 
@@ -120,6 +121,8 @@ public class GENETX_COFFEE_RED_2STONE_SOLO extends autoBaseV5A {
 
             if (globalPhase == 13) {
                 encoderStrafeLeft(distance2encoderNew(7), 0.45);
+                encoderStrafeRight(distance2encoderNew(3), 0.45);
+                goToPositionBackward(distance2encoderNew(3), 0.45);
                 globalPhase++;
             }
 
@@ -132,7 +135,7 @@ public class GENETX_COFFEE_RED_2STONE_SOLO extends autoBaseV5A {
 
             if(globalPhase == 15){
                 correctionRight(distance2encoderNew(0.4), 0.45);
-                encoderStrafeRight(distance2encoderNew(4), 0.45);
+                encoderStrafeRight(distance2encoderNew(2.0), 0.45);
                 goToPositionForward(distance2encoderNew(5), 0.45);
                 dropDL();
                 globalPhase++;

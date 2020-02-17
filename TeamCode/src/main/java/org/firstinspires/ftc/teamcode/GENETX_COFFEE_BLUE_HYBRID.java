@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 @Autonomous(name = "GENETX_COFFEE_BLUE_HYBRID")
 public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
 
+    double timeUntilDetect, SD;
+
     int globalPhase = 0;
     double targetVoltage = 1.0, targetVelocity = 9500;
     double correctionTL, correctionTR, correctionBL, correctionBR;
@@ -30,7 +32,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
         while(opModeIsActive()){
             globalPhase++;
             if(globalPhase == 1) {
-                goToPositionForward(distance2encoderNew(26), 0.8);
+                goToPositionForward(distance2encoderNew(25), 0.8);
                 globalPhase++;
             }
 
@@ -42,6 +44,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 3){
+                map.globalTime.reset();
                 strafeLeft(0.4);
                 while(opModeIsActive() && !SkyStoneReBornRight(map.colorSensorRight)){
 
@@ -49,15 +52,27 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
                 rest();
                 globalPhase++;
             }
+            timeUntilDetect = map.globalTime.milliseconds();
 
             if(globalPhase == 4){
-                encoderStrafeRight(distance2encoderNew(2.3), 0.38);
+//                double SD = 2.3;
+                if(timeUntilDetect < 750){
+                    SD = 2.3;
+                }
+                else{
+                    SD = 2.6;
+                }
+                encoderStrafeRight(distance2encoderNew(SD), 0.38);
                 globalPhase++;
             }
             
             if(globalPhase == 5){
                 try {
-                    Thread.sleep(2000);
+                    Thread.sleep(500);
+                } catch (InterruptedException e){}
+                goToPositionForward(distance2encoderNew(5), 0.4);
+                try {
+                    Thread.sleep(500);
                 } catch (InterruptedException e){}
                 goToPositionForward(distance2encoderNew(5), 0.4);
                 globalPhase++;
@@ -73,7 +88,7 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
 
             if(globalPhase == 7){
 //                goToPositionBackward(distance2encoderNew(3), 0.35);
-                goToPositionBackward(distance2encoderNew(10.9), 0.5);
+                goToPositionBackward(distance2encoderNew(13.7), 0.7);
                 globalPhase++;
             }
 
@@ -87,21 +102,27 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
             }
 
             if(globalPhase == 9){
-//                correctionLeft(distance2encoderNew(3), 0.5);
+                correctionLeft(distance2encoderNew(1.0), 0.5);
                 globalPhase++;
             }
 
             if(globalPhase == 10){
-                encoderStrafeLeft(distance2encoderNew(63), 0.45);
+                encoderStrafeLeft(distance2encoderNew(66), 0.45);
                 globalPhase++;
             }
 
             if(globalPhase == 11){
+                correctionLeft(distance2encoderNew(0.9), 0.5);
                 goToPositionForward(distance2encoderNew(15), 0.6);
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException e) {}
+                goToPositionForward(distance2encoderNew(2), 0.6);
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException e) {}
                 globalPhase++;
+
             }
 
             if(globalPhase == 12){
@@ -109,20 +130,21 @@ public class GENETX_COFFEE_BLUE_HYBRID extends autoBaseV5A {
                 try {
                     Thread.sleep(500);
                 } catch (InterruptedException e) {}
-                goToPositionBackward(distance2encoderNew(10), 0.35);
-                goToPositionBackward(distance2encoderNew(50), 0.6);
+                goToPositionBackward(distance2encoderNew(10), 0.4);
+                goToPositionBackward(distance2encoderNew(50), 0.8);
                 globalPhase++;
             }
 
             if(globalPhase == 13){
-                encoderStrafeRight(distance2encoderNew(33), 0.434);
+                goToPositionForward(distance2encoderNew(4), 0.5);
+                encoderStrafeRight(distance2encoderNew(36), 0.55);
                 globalPhase++;
             }
 
             if(globalPhase == 14){
                 goToPositionForward(distance2encoderNew(16), 0.45);
-                encoderStrafeLeft(distance2encoderNew(15), 0.45);
-                strafeRight(0.40);
+                encoderStrafeLeft(distance2encoderNew(20), 0.55);
+                strafeRight(0.50);
                 while(opModeIsActive() && !bottomTapeSensorDetectedBlueReborn1(map.bottomColorSensor)){
 
                 }

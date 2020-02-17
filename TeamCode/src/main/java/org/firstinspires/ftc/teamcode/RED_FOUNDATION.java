@@ -2,8 +2,8 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 
-@Autonomous(name = "Blue Foundation")
-public class BLUE_FOUNDATION extends autoBaseV5A {
+@Autonomous(name = "RED Foundation")
+public class RED_FOUNDATION extends autoBaseV5A {
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -27,8 +27,8 @@ public class BLUE_FOUNDATION extends autoBaseV5A {
             }
 
             if(globalPhase == 2){
-                correctionLeft(distance2encoderNew(0.45), 0.45);
-                encoderStrafeLeft(distance2encoderNew(8), 0.35);
+                correctionRight(distance2encoderNew(0.45), 0.45);
+                encoderStrafeRight(distance2encoderNew(8), 0.35);
                 globalPhase++;
             }
 
@@ -56,7 +56,7 @@ public class BLUE_FOUNDATION extends autoBaseV5A {
                     Thread.sleep(500);
                 } catch (InterruptedException e){}
                 goToPositionForward(distance2encoderNew(3), 0.4);
-                encoderStrafeRight(distance2encoderNew(35), 0.45);
+                encoderStrafeLeft(distance2encoderNew(35), 0.45);
                 globalPhase++;
             }
 
@@ -66,20 +66,17 @@ public class BLUE_FOUNDATION extends autoBaseV5A {
             }
 
             if(globalPhase == 7){
-                encoderStrafeLeft(distance2encoderNew(12), 0.45);
+                encoderStrafeRight(distance2encoderNew(12), 0.45);
                 globalPhase++;
             }
 
             if(globalPhase == 8){
 //                encoderStrafeRight(distance2encoderNew(30), 0.45);
-                turnLeft(0.45);
-                goToPositionForward(distance2encoderNew(5), 0.55);
-                encoderStrafeLeft(distance2encoderNew(20), 0.55);
-                goToPositionBackward(distance2encoderNew(6), 0.6);
+                turnRight(0.45);
                 map.capServo.setPosition(0.0);
                 map.runtime.reset();
                 map.TAPEMOTOR.setPower(-1);
-                while(opModeIsActive() && map.runtime.seconds() < 0.36){
+                while(opModeIsActive() && map.runtime.seconds() < 0.30){
 
                 }
                 map.TAPEMOTOR.setPower(0);
